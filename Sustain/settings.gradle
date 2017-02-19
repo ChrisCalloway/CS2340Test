@@ -1,1 +1,1 @@
-include ':app', ':loginlogout'
+include ':app'

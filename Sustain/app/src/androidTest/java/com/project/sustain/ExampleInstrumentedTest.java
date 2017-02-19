@@ -1,4 +1,4 @@
-package com.dummies.sustain;
+package com.project.sustain;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.dummies.sustain", appContext.getPackageName());
+        assertEquals("com.project.sustain", appContext.getPackageName());
     }
 }

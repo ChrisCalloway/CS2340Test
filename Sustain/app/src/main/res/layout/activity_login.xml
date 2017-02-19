@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="301dp"
+        android:layout_height="177dp"
+        app:srcCompat="@drawable/sustain_svg"
+        android:id="@+id/sustainIcon"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:text="Log In"
+        android:layout_width="86dp"
+        android:layout_height="43dp"
+        android:id="@+id/screenName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginLeft="145dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="0.15" />
+
+    <EditText
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editEmail"
+        android:layout_height="55dp"
+        android:hint="@string/edit_email"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="5dp"
+        android:elevation="8dp"
+        android:layout_width="279dp" />
+
+    <EditText
+        android:layout_height="55dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editPassword"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:hint="@string/edit_password"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.11"
+        android:layout_width="280dp" />
+
+    <Button
+        android:text="Log In"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonLogin"
+        android:layout_marginLeft="100dp"
+        style="@android:style/Widget.Button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+    <Button
+        android:text="Cancel Log In"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonCancelLogin"
+        android:layout_marginLeft="100dp"
+        style="@android:style/Widget.Button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>
