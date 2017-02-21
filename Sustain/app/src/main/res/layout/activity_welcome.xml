@@ -28,8 +28,14 @@
         android:layout_marginTop="25dp"
         android:layout_weight="0.14" />
 
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="100dp"
+        android:id="@+id/buttonGoogleSignIn"/>
+
     <Button
-        android:text="Log In"
+        android:text="Log In with Email"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:id="@+id/buttonWelcomeLogin"
@@ -37,6 +43,8 @@
         style="@android:style/Widget.Button"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:layout_marginTop="50dp" />
+
+
 
     <Button
         android:text="Register "

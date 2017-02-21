@@ -8,5 +8,6 @@
     <string name="empty_password">Please enter a password</string>
     <string name="button_send">Send</string>
     <string name="button_register">Register</string>
+    <string name="loading">Loading...</string>
 </resources>
 
