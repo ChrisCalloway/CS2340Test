@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.Connection;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,6 +36,8 @@ public class WelcomeActivity extends AppCompatActivity implements
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int EMAIL_SIGN_IN = 9002;
+    private static final int RC_SIGN_OUT = 9003;
+    private static final int EMAIL_SIGN_OUT = 9004;
     private static final String WEB_CLIENT_ID = "2016825544-7brg16j9chfn41v40acmpf5vmtopb5j6.apps.googleusercontent.com";
 
     private GoogleApiClient mGoogleApiClient;
@@ -54,20 +58,7 @@ public class WelcomeActivity extends AppCompatActivity implements
         btnRegister.setOnClickListener(this);
         btnGoogleSignIn.setOnClickListener(this);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions
-                .DEFAULT_SIGN_IN).requestIdToken(WEB_CLIENT_ID)
-                .requestEmail().build();
-
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */,
-                this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
+        InitializeGoogleApi();
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -84,7 +75,23 @@ public class WelcomeActivity extends AppCompatActivity implements
             }
         };
     }
-    // [START onActivityResult]
+
+    private void InitializeGoogleApi() {
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions
+                .DEFAULT_SIGN_IN).requestIdToken(WEB_CLIENT_ID)
+                .requestEmail().build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */,
+                this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,17 +105,23 @@ public class WelcomeActivity extends AppCompatActivity implements
             case EMAIL_SIGN_IN:
                 handleEmailSignInResult(resultCode, data);
                 break;
+            case RC_SIGN_OUT:
+                Log.d(TAG, "Received response OK from RC_SIGN_OUT");
+                signOutOfGoogle();
+                break;
+            case EMAIL_SIGN_OUT:
+                signOutOfEmail();
+                break;
         }
     }
-    // [END onActivityResult]
 
-    // [START handleGoogleSignInResult]
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleGoogleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            startActivityForResult(new Intent(WelcomeActivity.this, MainActivity.class),
+                    RC_SIGN_OUT);
 
         } else {
             // Signed out, show unauthenticated UI.
@@ -116,37 +129,44 @@ public class WelcomeActivity extends AppCompatActivity implements
                     Toast.LENGTH_SHORT).show();
         }
     }
-    // [END handleGoogleSignInResult]
 
     private void handleEmailSignInResult(int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            startActivityForResult(new Intent(WelcomeActivity.this, MainActivity.class),
+                    EMAIL_SIGN_OUT);
         } else {
-
+            //login failed message is displayed on email login activity screen.
         }
     }
 
-    // [START signInWithGoogle]
     private void signInWithGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signInWithGoogle]
 
-    // [START signOut]
-    private void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
-                    }
-                });
+    private void signOutOfGoogle() {
+        boolean ready = mGoogleApiClient.isConnected();
+        if (!ready) {
+            }
+            mGoogleApiClient.connect();
+            ready = mGoogleApiClient.isConnected();
+        }
+        if (ready) {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            // [START_EXCLUDE]
+                            Log.d(TAG, "Google signout status: " + status.getStatusMessage());
+                            // [END_EXCLUDE]
+                        }
+                    });
+        }
     }
-    // [END signOut]
 
+    private void signOutOfEmail() {
+        mAuth.signOut();
+    }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -184,9 +204,6 @@ public class WelcomeActivity extends AppCompatActivity implements
                 break;
             case R.id.buttonWelcomeRegister:
                 startActivity(new Intent(WelcomeActivity.this, RegistrationActivity.class));
-                break;
-            case R.id.buttonLogout:
-                signOut();
                 break;
      /*       case R.id.disconnect_button:
                 revokeAccess();
