@@ -1,4 +1,4 @@
-package com.dummies.loginlogout;
+package com.project.sustain;
 
 import org.junit.Test;
 

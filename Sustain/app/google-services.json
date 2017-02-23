@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "683203816474",
-    "firebase_url": "https://sustain-f7311.firebaseio.com",
-    "project_id": "sustain-f7311",
-    "storage_bucket": "sustain-f7311.appspot.com"
+    "project_number": "292299734354",
+    "firebase_url": "https://friendlychat-7ea00.firebaseio.com",
+    "project_id": "friendlychat-7ea00",
+    "storage_bucket": "friendlychat-7ea00.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:683203816474:android:7d72de6e46077851",
+        "mobilesdk_app_id": "1:292299734354:android:64e58dacc0483faa",
         "android_client_info": {
-          "package_name": "com.dummies.sustain"
+          "package_name": "com.google.firebase.udacity.friendlychat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "683203816474-4jmajh6o3ifio2082u0a6c2gmn0kbsr4.apps.googleusercontent.com",
+          "client_id": "292299734354-j9sk4pvc8cfvbcc9cugk7m1i8ivn1u95.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.dummies.sustain",
-            "certificate_hash": "14D353F0052920EC985CB871A083E0EA552F50FC"
+            "package_name": "com.google.firebase.udacity.friendlychat",
+            "certificate_hash": "FE1D57C8806BAE33A96D68E7AD17FA7FE15A8A4F"
           }
         },
         {
-          "client_id": "683203816474-9chth0kse5oqunkkouf5vo3uhtp80nnn.apps.googleusercontent.com",
+          "client_id": "292299734354-1ug54cg19kabu375v45dbcc7s8c145h4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAiLR_ZSfEPPCWNeN5xdiAZDBSAR45rBPs"
+          "current_key": "AIzaSyD9w8OBmqW71yViDhuD7NxeBjFJMI4pa1U"
         }
       ],
       "services": {
@@ -40,10 +40,72 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "683203816474-9chth0kse5oqunkkouf5vo3uhtp80nnn.apps.googleusercontent.com",
+              "client_id": "292299734354-1ug54cg19kabu375v45dbcc7s8c145h4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292299734354:android:f363407d1d70e5c1",
+        "android_client_info": {
+          "package_name": "com.example.myfirstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292299734354-1ug54cg19kabu375v45dbcc7s8c145h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9w8OBmqW71yViDhuD7NxeBjFJMI4pa1U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292299734354:android:b5b8920d0745090f",
+        "android_client_info": {
+          "package_name": "com.project.sustain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292299734354-1ug54cg19kabu375v45dbcc7s8c145h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9w8OBmqW71yViDhuD7NxeBjFJMI4pa1U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
