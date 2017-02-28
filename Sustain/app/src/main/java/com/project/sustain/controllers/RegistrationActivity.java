@@ -1,9 +1,9 @@
-package com.project.sustain;
+package com.project.sustain.controllers;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.project.sustain.R;
 
 public class RegistrationActivity extends AppCompatActivity {
     private EditText enteredEmail, enteredPassword;
@@ -57,6 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 // Create user
+
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -69,9 +70,10 @@ public class RegistrationActivity extends AppCompatActivity {
                                 // user can be handled in the listener.  On success, user is taken to main page
                                 // of application.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(RegistrationActivity.this, "Successfully registered.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this, "Successfully registered and signed in.", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                                     finish();
                                 }

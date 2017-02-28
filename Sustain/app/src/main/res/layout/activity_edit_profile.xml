@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="1"
+    tools:context="com.project.sustain.controllers.EditProfileActivity">
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/display_name"
+            android:gravity="start"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPersonName"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:id="@+id/editText_display_name"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/user_type"
+            android:gravity="start"
+            android:textSize="14sp"/>
+        <Spinner
+            android:id="@+id/spinner_usertype"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/home_address"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/street_address1"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_street1"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/street_address2"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_street2"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/city"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_city"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/state_or_province"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_state"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/country"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_country"
+            android:textSize="14sp"/>
+    </TableRow>
+    <TableRow android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_width="match_parent">
+        <TextView
+            android:text="@string/zipcode"
+            android:gravity="start"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:inputType="textPostalAddress"
+            android:id="@+id/editText_zipcode"
+            android:textSize="14sp"/>
+    </TableRow>
+</TableLayout>
+
