@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_user"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="com.project.sustain.UserActivity">
 
     <ImageView
         android:layout_width="301dp"
@@ -19,35 +20,21 @@
         android:layout_marginTop="25dp" />
 
     <TextView
-        android:text="Register New User"
-        android:layout_width="194dp"
-        android:layout_height="43dp"
-        android:id="@+id/screenName"
+        android:text="Add New User"
+        android:layout_width="154dp"
+        android:layout_height="41dp"
+        android:id="@+id/userTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="10dp" />
-
-    <EditText
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/editUsername"
-        android:layout_height="55dp"
-        android:hint="@string/edit_username"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_marginLeft="40dp"
-        android:layout_weight="0.12"
-        android:layout_width="279dp" />
+        android:layout_marginLeft="110dp" />
 
     <EditText
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editEmail"
+        android:id="@+id/editUsernameOld"
         android:layout_height="55dp"
-        android:hint="@string/edit_email"
+        android:hint="@string/edit_username"
         android:layout_row="1"
         android:layout_column="1"
-        android:layout_marginLeft="40dp"
         android:layout_weight="0.12"
         android:layout_width="279dp" />
 
@@ -55,20 +42,18 @@
         android:layout_height="55dp"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editPassword"
+        android:id="@+id/editUserEmail"
         android:layout_row="3"
         android:layout_column="1"
-        android:hint="@string/edit_password"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="0dp"
+        android:hint="@string/edit_email"
         android:layout_weight="0.12"
         android:layout_width="280dp" />
 
     <Button
-        android:text="Register"
+        android:text="Add User"
         android:layout_width="160dp"
         android:layout_height="40dp"
-        android:id="@+id/buttonRegister"
+        android:id="@+id/buttonAddUser"
         android:layout_marginLeft="100dp"
         style="@android:style/Widget.Button"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
@@ -78,11 +63,11 @@
         android:text="Cancel"
         android:layout_width="160dp"
         android:layout_height="40dp"
-        android:id="@+id/buttonCancelRegistration"
+        android:id="@+id/buttonCancelUser"
         android:layout_marginLeft="100dp"
         style="@android:style/Widget.Button"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp" />
 
 </LinearLayout>

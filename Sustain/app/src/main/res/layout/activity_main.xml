@@ -30,6 +30,16 @@
         android:layout_marginBottom="50dp" />
 
     <Button
+        android:text="Add User"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonUser"
+        android:layout_marginLeft="100dp"
+        style="@android:style/Widget.Button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:layout_marginTop="15dp" />
+
+    <Button
         android:text="Log Out"
         android:layout_width="160dp"
         android:layout_height="40dp"
