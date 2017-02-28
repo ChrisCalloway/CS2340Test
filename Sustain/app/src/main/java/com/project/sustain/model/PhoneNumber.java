@@ -8,41 +8,41 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class PhoneNumber {
-    private int mCountryCode;
-    private int mAreaCode;
-    private int mPrefix;
-    private int mSuffix;
+    private int countryCode;
+    private int areaCode;
+    private int prefix;
+    private int suffix;
 
     public int getCountryCode() {
-        return mCountryCode;
+        return countryCode;
     }
 
     public void setCountryCode(int countryCode) {
-        mCountryCode = countryCode;
+        this.countryCode = countryCode;
     }
 
     public int getAreaCode() {
-        return mAreaCode;
+        return areaCode;
     }
 
     public void setAreaCode(int areaCode) {
-        mAreaCode = areaCode;
+        this.areaCode = areaCode;
     }
 
     public int getPrefix() {
-        return mPrefix;
+        return prefix;
     }
 
     public void setPrefix(int prefix) {
-        mPrefix = prefix;
+        this.prefix = prefix;
     }
 
     public int getSuffix() {
-        return mSuffix;
+        return suffix;
     }
 
     public void setSuffix(int suffix) {
-        mSuffix = suffix;
+        this.suffix = suffix;
     }
 
 

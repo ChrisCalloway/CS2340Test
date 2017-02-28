@@ -8,60 +8,60 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Address {
-    private String mStreetAddress1;
-    private String mStreetAddress2;
-    private String mCity;
-    private String mStateOrProvince;
-    private String mCountry;
-    private String mZipCode;
+    private String streetAddress1;
+    private String streetAddress2;
+    private String city;
+    private String stateOrProvince;
+    private String country;
+    private String zipCode;
 
 
     public String getCountry() {
-        return mCountry;
+        return country;
     }
 
     public void setCountry(String country) {
-        mCountry = country;
+        this.country = country;
     }
 
     public String getCity() {
-        return mCity;
+        return city;
     }
 
     public void setCity(String city) {
-        mCity = city;
+        this.city = city;
     }
 
     public String getStateOrProvince() {
-        return mStateOrProvince;
+        return stateOrProvince;
     }
 
     public void setStateOrProvince(String stateOrProvince) {
-        mStateOrProvince = stateOrProvince;
+        this.stateOrProvince = stateOrProvince;
     }
 
     public String getStreetAddress1() {
-        return mStreetAddress1;
+        return streetAddress1;
     }
 
     public void setStreetAddress1(String streetAddress1) {
-        mStreetAddress1 = streetAddress1;
+        this.streetAddress1 = streetAddress1;
     }
 
     public String getStreetAddress2() {
-        return mStreetAddress2;
+        return streetAddress2;
     }
 
     public void setStreetAddress2(String streetAddress2) {
-        mStreetAddress2 = streetAddress2;
+        this.streetAddress2 = streetAddress2;
     }
 
     public String getZipCode() {
-        return mZipCode;
+        return zipCode;
     }
 
     public void setZipCode(String zipCode) {
-        mZipCode = zipCode;
+        this.zipCode = zipCode;
     }
 
 

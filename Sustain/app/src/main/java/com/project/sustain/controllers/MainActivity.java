@@ -2,6 +2,7 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser mUser;
     private Toolbar mToolbar;
+    public static final int PROFILE_CHANGE_REQ = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +31,19 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         mUser = auth.getCurrentUser();
 
-
         setContentView(R.layout.activity_main);
 
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         this.setSupportActionBar(mToolbar);
-        ActionBar actionBar = this.getSupportActionBar();
 
         if (mUser != null) {
             if (mUser.getDisplayName() != null) {
-                actionBar.setTitle("Welcome " + mUser.getDisplayName());
+                setToolbarTitle(mUser.getDisplayName());
             } else {
-                actionBar.setTitle("Welcome " + mUser.getEmail());
+                setToolbarTitle(mUser.getEmail());
             }
         }
-
 
         btnLogout = (Button) findViewById(R.id.buttonLogout);
 
@@ -58,13 +57,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setToolbarTitle(String name) {
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setTitle(name);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
-                startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
-                return true;
+                startActivityForResult(new Intent(MainActivity.this, EditProfileActivity.class),
+                        PROFILE_CHANGE_REQ);
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -83,5 +88,15 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PROFILE_CHANGE_REQ) {
+            if (resultCode == RESULT_OK) {
+                Log.d("EditResult", "Got result OK");
+                setToolbarTitle(data.getStringExtra("displayName"));
+            }
+        }
     }
 }

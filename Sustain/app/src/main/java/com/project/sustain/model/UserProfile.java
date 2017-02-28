@@ -8,71 +8,60 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class UserProfile {
-
-    private String mUserID;
-    private UserType mUserType;
-    private String mEmailAddress;
-    private Address mHomeAddress;
-    private PhoneNumber mPhoneNumber1;
-    private PhoneNumber mPhoneNumber2;
-    private PhoneNumber mPhoneNumber3;
+    private UserType userType;
+    private String emailAddress;
+    private Address homeAddress;
+    private PhoneNumber phoneNumber1;
+    private PhoneNumber phoneNumber2;
+    private PhoneNumber phoneNumber3;
 
     public UserType getUserType() {
-        return mUserType;
+        return userType;
     }
 
     public void setUserType(UserType userType) {
-        mUserType = userType;
+        this.userType = userType;
     }
 
     public String getEmailAddress() {
-        return mEmailAddress;
+        return emailAddress;
     }
 
     public void setEmailAddress(String emailAddress) {
-        mEmailAddress = emailAddress;
+        this.emailAddress = emailAddress;
     }
 
     public Address getHomeAddress() {
-        return mHomeAddress;
+        return homeAddress;
     }
 
     public void setHomeAddress(Address homeAddress) {
-        mHomeAddress = homeAddress;
+        this.homeAddress = homeAddress;
     }
 
     public PhoneNumber getPhoneNumber1() {
-        return mPhoneNumber1;
+        return phoneNumber1;
     }
 
     public void setPhoneNumber1(PhoneNumber phoneNumber1) {
-        mPhoneNumber1 = phoneNumber1;
+        this.phoneNumber1 = phoneNumber1;
     }
 
     public PhoneNumber getPhoneNumber2() {
-        return mPhoneNumber2;
+        return phoneNumber2;
     }
 
     public void setPhoneNumber2(PhoneNumber phoneNumber2) {
-        mPhoneNumber2 = phoneNumber2;
+        this.phoneNumber2 = phoneNumber2;
     }
 
     public PhoneNumber getPhoneNumber3() {
-        return mPhoneNumber3;
+        return phoneNumber3;
     }
 
     public void setPhoneNumber3(PhoneNumber phoneNumber3) {
-        mPhoneNumber3 = phoneNumber3;
+        this.phoneNumber3 = phoneNumber3;
     }
-
-    public String getUserID() {
-        return mUserID;
-    }
-
-    public void setUserID(String userID) {
-        mUserID = userID;
-    }
-
 
 
 }
