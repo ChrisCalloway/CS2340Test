@@ -39,6 +39,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mProfiles;
     private UserProfile mUserProfile;
+    public static final int PROFILE_CHANGE_REQ = 1000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +114,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                     // Logic to save to database
                                     FirebaseUser mUser = task.getResult().getUser();
                                     mProfiles.child(mUser.getUid()).setValue(profile);
-                                    startActivity(new Intent(RegistrationActivity.this, EditProfileActivity.class));
-                                    finish();
+                                    startActivityForResult(new Intent(RegistrationActivity.this, EditProfileActivity.class), PROFILE_CHANGE_REQ);
+
+
                                 }
                             }
                         });
@@ -133,5 +136,15 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PROFILE_CHANGE_REQ) {
+            Log.d("EditResult", "Got result OK");
+            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+            finish();
+
+        }
     }
 }

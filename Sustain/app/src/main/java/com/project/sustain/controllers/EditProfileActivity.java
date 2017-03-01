@@ -96,6 +96,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveProfileData();
                 finish();
+
             }
         });
 
@@ -141,7 +142,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mProfiles.child(mFirebaseUser.getUid()).setValue(mUserProfile);
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("displayName", currentDisplayName);
+        returnIntent.putExtra("displayName", mUserName.getText().toString());
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
 
