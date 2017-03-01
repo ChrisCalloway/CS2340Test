@@ -108,6 +108,31 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    private boolean userDisplayNameChanged() {
+        if (mFirebaseUser.getDisplayName() == null) {
+            return mUserName.length() > 0;
+        } else {
+            return !(mFirebaseUser.getDisplayName().contentEquals(mUserName.getText()));
+        }
+    }
+
+    private void updateUserDisplayName() {
+        currentDisplayName = mUserName.getText().toString();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(currentDisplayName)
+                .build();
+
+        mFirebaseUser.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User display name updated.");
+                        }
+                    }
+                });
+    }
+
     private void loadProfileData() {
         Log.d("Edit", "LoadProfileData called");
         mUserName.setText(mUserProfile.getUserName());
@@ -140,6 +165,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //Firebase userID is the key for this record.
         mProfiles.child(mFirebaseUser.getUid()).setValue(mUserProfile);
+        if (userDisplayNameChanged()) {
+            updateUserDisplayName();
+        }
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", mUserName.getText().toString());
