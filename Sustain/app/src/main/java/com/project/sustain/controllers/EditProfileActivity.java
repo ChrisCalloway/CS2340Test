@@ -108,6 +108,10 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks to see if the user has changed his/her display name.
+     * @return true if display name has updated, false otherwise
+     */
     private boolean userDisplayNameChanged() {
         if (mFirebaseUser.getDisplayName() == null) {
             return mUserName.length() > 0;
@@ -116,6 +120,9 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates the user's display name in the Firebase auth user store.
+     */
     private void updateUserDisplayName() {
         currentDisplayName = mUserName.getText().toString();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -133,6 +140,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Loads the profile data retrieved from Firebase into the widgets on screen.
+     */
     private void loadProfileData() {
         Log.d("Edit", "LoadProfileData called");
         mUserName.setText(mUserProfile.getUserName());
@@ -147,6 +157,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Saves the user's input profile data to Firebase realtime database
+     * and Firebase's auth user store.
+     * Sends result back to calling Activity.
+     */
     private void saveProfileData() {
         if (mUserProfile == null) {
             mUserProfile = new UserProfile();

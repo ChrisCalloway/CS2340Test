@@ -2,10 +2,10 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +13,6 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.project.sustain.R;
 
 
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         this.setSupportActionBar(mToolbar);
 
         if (mUser != null) {
+
             if (mUser.getDisplayName() != null) {
                 setToolbarTitle(mUser.getDisplayName());
             } else {
@@ -59,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets the text in the toolbar to the text provided.,
+     * @param name The name to put into the toolbar title.
+     */
     private void setToolbarTitle(String name) {
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setTitle(name);
