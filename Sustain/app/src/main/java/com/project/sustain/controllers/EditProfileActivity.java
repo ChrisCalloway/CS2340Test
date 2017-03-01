@@ -30,7 +30,7 @@ import com.project.sustain.model.UserType;
 
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
-    private EditText mDisplayName;
+    private EditText mUserName;
     private Spinner mSpinnerUserType;
     private Button btnSave;
     private Button btnCancel;
@@ -53,7 +53,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         Log.d("OnCreate", "called");
         //get refs to widgets on screen
-        mDisplayName = (EditText) findViewById(R.id.editText_display_name);
+        mUserName = (EditText) findViewById(R.id.editText_userName);
         mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
         mStreet1 = (EditText) findViewById(R.id.editText_street1);
         mStreet2 = (EditText) findViewById(R.id.editText_street2);
@@ -74,12 +74,6 @@ public class EditProfileActivity extends AppCompatActivity {
         //fill drop-down boxes
         mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
-
-        if (mFirebaseUser.getDisplayName() != null) {
-            Log.d("OnCreate", "setting display name");
-            mDisplayName.setText(mFirebaseUser.getDisplayName());
-            currentDisplayName = mDisplayName.getText().toString();
-        }
 
         //get this user's profile data
         mProfiles.child(mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -115,11 +109,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void loadProfileData() {
         Log.d("Edit", "LoadProfileData called");
-        if (currentDisplayName.length() > 0) {
-            mDisplayName.setText(currentDisplayName);
-        } else if (mFirebaseUser.getDisplayName() != null) {
-            mDisplayName.setText(mFirebaseUser.getDisplayName());
-        }
+        mUserName.setText(mUserProfile.getUserName());
         mSpinnerUserType.setSelection(mUserProfile.getUserType().ordinal());
         Address homeAddress = mUserProfile.getHomeAddress();
         mStreet1.setText(homeAddress.getStreetAddress1());
@@ -130,36 +120,14 @@ public class EditProfileActivity extends AppCompatActivity {
         mZip.setText(homeAddress.getZipCode());
 
     }
-    private boolean userDisplayNameChanged() {
-        if (mFirebaseUser.getDisplayName() == null) {
-            return mDisplayName.length() > 0;
-        } else {
-            return !(mFirebaseUser.getDisplayName().contentEquals(mDisplayName.getText()));
-        }
-    }
 
-    private void updateUserDisplayName() {
-        currentDisplayName = mDisplayName.getText().toString();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-         .setDisplayName(currentDisplayName)
-         .build();
-
-        mFirebaseUser.updateProfile(profileUpdates)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-             @Override
-             public void onComplete(@NonNull Task<Void> task) {
-                 if (task.isSuccessful()) {
-                     Log.d(TAG, "User display name updated.");
-                 }
-             }
-        });
-    }
     private void saveProfileData() {
         if (mUserProfile == null) {
             mUserProfile = new UserProfile();
         }
         mUserProfile.setEmailAddress(mFirebaseUser.getEmail());
         mUserProfile.setUserType((UserType) mSpinnerUserType.getSelectedItem());
+        mUserProfile.setUserName(mUserName.getText().toString());
         Address address = new Address();
         address.setStreetAddress1(mStreet1.getText().toString());
         address.setStreetAddress2(mStreet2.getText().toString());
@@ -171,9 +139,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //Firebase userID is the key for this record.
         mProfiles.child(mFirebaseUser.getUid()).setValue(mUserProfile);
-        if (userDisplayNameChanged()) {
-            updateUserDisplayName();
-        }
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", currentDisplayName);

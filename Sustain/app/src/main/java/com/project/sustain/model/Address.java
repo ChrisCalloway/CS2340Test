@@ -15,6 +15,14 @@ public class Address {
     private String country;
     private String zipCode;
 
+    public Address() {
+        streetAddress1 = "";
+        streetAddress2 = "";
+        city = "";
+        stateOrProvince = "";
+        country = "";
+        zipCode = "";
+    }
 
     public String getCountry() {
         return country;

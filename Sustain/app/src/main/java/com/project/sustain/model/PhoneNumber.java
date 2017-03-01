@@ -13,6 +13,12 @@ public class PhoneNumber {
     private int prefix;
     private int suffix;
 
+    public PhoneNumber() {
+        countryCode = 0;
+        areaCode = 0;
+        prefix = 0;
+        suffix = 0;
+    }
     public int getCountryCode() {
         return countryCode;
     }

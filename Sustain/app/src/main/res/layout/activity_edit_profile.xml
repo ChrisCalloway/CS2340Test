@@ -16,14 +16,14 @@
               android:layout_marginRight="10dp"
               android:layout_width="match_parent">
         <TextView
-            android:text="@string/display_name"
+            android:text="@string/username"
             android:gravity="start"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPersonName"
             android:gravity="start"
             android:paddingLeft="10dp"
-            android:id="@+id/editText_display_name"
+            android:id="@+id/editText_userName"
             android:textSize="14sp"/>
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"

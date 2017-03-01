@@ -59,7 +59,14 @@
         android:layout_marginTop="0dp"
         android:layout_weight="0.12"
         android:layout_width="280dp" />
-
+    <Spinner
+        android:id="@+id/spinnerUserType"
+        android:gravity="start"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="45dp"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_width="280dp" />
     <Button
         android:text="Register"
         android:layout_width="160dp"
