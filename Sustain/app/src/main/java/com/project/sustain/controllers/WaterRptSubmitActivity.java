@@ -3,6 +3,7 @@ package com.project.sustain.controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.os.Bundle;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private DatabaseReference mProfiles;
     private UserProfile toUseForName;
     private WaterReport waterReport;
-    private static Calendar currentCalendar = Calendar.getInstance();
+    private static Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("EST"));
     private static int reportNumber = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +145,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     }
 
     private String obtainTime() {
+        currentCalendar.setTimeZone(TimeZone.getTimeZone("EST"));
         int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = currentCalendar.get(Calendar.MINUTE);
         int seconds = currentCalendar.get(Calendar.SECOND);
