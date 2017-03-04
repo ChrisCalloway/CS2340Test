@@ -39,6 +39,12 @@
         android:layout_marginBottom="50dp" />
 
     <Button
+        android:text="Submit Report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subRep" />
+
+    <Button
         android:text="Log Out"
         android:layout_width="160dp"
         android:layout_height="40dp"

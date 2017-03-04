@@ -65,6 +65,7 @@ public class EditProfileActivity extends AppCompatActivity {
         //get refs to Firebase user objects
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+//        System.out.println(mFirebaseUser + "Hello World");
         mDatabase = FirebaseDatabase.getInstance();
         mProfiles = mDatabase.getReference().child("userProfiles");
 

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
+    private Button subWtrRep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 auth.signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
+            }
+        });
+
+        subWtrRep = (Button) findViewById(R.id.subRep);
+
+        subWtrRep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainActivity.this, WaterRptSubmitActivity.class), 5000);
             }
         });
     }
