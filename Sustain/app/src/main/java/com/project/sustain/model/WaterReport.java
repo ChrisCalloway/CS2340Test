@@ -12,6 +12,15 @@ public class WaterReport {
     private Address locationSub;
     private WaterType typeWater;
     private WaterCondition conditionWater;
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public WaterReport() {
         locationSub = new Address();

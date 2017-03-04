@@ -41,7 +41,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private TextView date;
     private TextView time;
     private TextView reportNum;
-    private EditText name;
+    private TextView name;
     private EditText strAddress;
     private EditText city;
     private EditText state;
@@ -59,6 +59,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private UserProfile toUseForName;
     private WaterReport waterReport;
     private static Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("EST"));
+    //private static Calendar currentCalendar = Calendar.getInstance();
     private static int reportNumber = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         date = (TextView) findViewById(R.id.editDate);
         time = (TextView) findViewById(R.id.editTime);
         reportNum = (TextView) findViewById(R.id.editNum);
-        name = (EditText) findViewById(R.id.editName);
+        name = (TextView) findViewById(R.id.editName);
         strAddress = (EditText) findViewById(R.id.editStrAddress);
         city = (EditText) findViewById(R.id.editCity);
         state = (EditText) findViewById(R.id.editState);
@@ -94,6 +95,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         reportNumber++;
         String reportNumberFormatted = "" + reportNumber;
         reportNum.setText(reportNumberFormatted);
+        name.setText((CharSequence) fireBaseUser.getDisplayName());
 
         String timeBeforeSub = obtainTime();
         time.setText(timeBeforeSub);
@@ -170,6 +172,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setTime(timeAgain);
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
+//        waterReport.setName(fireBaseUser.getDisplayName());
+        waterReport.setUid(fireBaseUser.getUid());
         Address toSet = new Address();
         toSet.setStreetAddress1(strAddress.getText().toString());
         toSet.setCity(city.getText().toString());
