@@ -57,7 +57,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private DatabaseReference mProfiles;
     private UserProfile toUseForName;
     private WaterReport waterReport;
-    private static Calendar currentCalendar = Calendar.getInstance();
+    private Calendar currentForApp;
+//    private static Calendar currentCalendar = Calendar.getInstance();
     private static int reportNumber = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +88,15 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterType.setAdapter(new ArrayAdapter<WaterType>(this, R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
         waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this, R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
 
-        String dateBeforeSub = obtainDate();
+        currentForApp = currentCalendar();
+        String dateBeforeSub = obtainDate(currentForApp);
         date.setText(dateBeforeSub);
 
         reportNumber++;
         String reportNumberFormatted = "" + reportNumber;
         reportNum.setText(reportNumberFormatted);
 
-        String timeBeforeSub = obtainTime();
+        String timeBeforeSub = obtainTime(currentForApp);
         time.setText(timeBeforeSub);
 
 //        String nameToPass = fireBaseUser.getDisplayName();
@@ -132,10 +134,15 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         });
     }
 
-    private String obtainDate() {
-        int month = currentCalendar.get(Calendar.MONTH);
-        int day = currentCalendar.get(Calendar.DAY_OF_MONTH);
-        int year = currentCalendar.get(Calendar.YEAR);
+    private Calendar currentCalendar() {
+        Calendar current = Calendar.getInstance();
+        return current;
+    }
+
+    private String obtainDate(Calendar toPass1) {
+        int month = toPass1.get(Calendar.MONTH);
+        int day = toPass1.get(Calendar.DAY_OF_MONTH);
+        int year = toPass1.get(Calendar.YEAR);
         Month[] months = Month.values();
         String monthString = months[month].toString();
         String dayFormatted = (day < 10) ? "0" + day : "" + day;
@@ -143,10 +150,10 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         return completeDate;
     }
 
-    private String obtainTime() {
-        int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
-        int minute = currentCalendar.get(Calendar.MINUTE);
-        int seconds = currentCalendar.get(Calendar.SECOND);
+    private String obtainTime(Calendar toPass2) {
+        int hour = toPass2.get(Calendar.HOUR_OF_DAY);
+        int minute = toPass2.get(Calendar.MINUTE);
+        int seconds = toPass2.get(Calendar.SECOND);
         String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
         String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
         String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
@@ -162,8 +169,9 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         if (waterReport == null) {
             waterReport = new WaterReport();
         }
-        String dateAgain = obtainDate();
-        String timeAgain = obtainTime();
+        Calendar uponSubmission = currentCalendar();
+        String dateAgain = obtainDate(uponSubmission);
+        String timeAgain = obtainTime(uponSubmission);
         waterReport.setDate(dateAgain);
         waterReport.setTime(timeAgain);
         waterReport.setReportNumber(reportNumber);
