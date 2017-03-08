@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     mUserProfile = dataSnapshot.getValue(UserProfile.class);
                     if (mUserProfile != null) {
-                        if (mUserProfile.getUserName() != null) {
+                        if (mUserProfile.getUserName().equals("") == false) {
                             setToolbarTitle(mUserProfile.getUserName());
                         } else {
                             setToolbarTitle(mUser.getEmail());
