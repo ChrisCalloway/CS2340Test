@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.project.sustain">
+    package="com.project.sustain">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,17 +12,17 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".controllers.WelcomeActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.LoginActivity"/>
-        <activity android:name=".controllers.MainActivity"/>
-        <activity android:name=".controllers.RegistrationActivity"/>
-        <activity android:name=".controllers.WaterRptSubmitActivity"/>
-        <activity android:name=".controllers.EditProfileActivity">
-        </activity>
+        <activity android:name=".controllers.LoginActivity" />
+        <activity android:name=".controllers.MainActivity" />
+        <activity android:name=".controllers.RegistrationActivity" />
+        <activity android:name=".controllers.WaterRptSubmitActivity" />
+        <activity android:name=".controllers.EditProfileActivity"></activity>
+        <activity android:name=".controllers.WaterReportList"></activity>
     </application>
 
 </manifest>

@@ -12,19 +12,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="1"
     tools:context="com.project.sustain.controllers.EditProfileActivity">
-    <TableRow android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp"
-              android:layout_width="match_parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
         <TextView
-            android:text="@string/username"
             android:gravity="start"
-            android:textSize="14sp"/>
+            android:text="@string/firstname"
+            android:textSize="14sp" />
+
         <EditText
-            android:inputType="textPersonName"
+            android:id="@+id/editText_firstName"
             android:gravity="start"
+            android:inputType="textPersonName"
             android:paddingLeft="10dp"
-            android:id="@+id/editText_userName"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:gravity="start"
+            android:text="@string/lastname"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_lastName"
+            android:gravity="start"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="14sp" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"

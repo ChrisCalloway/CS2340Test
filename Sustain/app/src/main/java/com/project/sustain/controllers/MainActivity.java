@@ -17,22 +17,27 @@ import com.project.sustain.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout;
+    private Button btnLogout, subWtrRep, btnWtrRptList;
     private FirebaseAuth auth;
     private FirebaseUser mUser;
     private Toolbar mToolbar;
-    public static final int PROFILE_CHANGE_REQ = 1000;
+//    public static final int PROFILE_CHANGE_REQ = 1000;
 
-    private Button subWtrRep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         mUser = auth.getCurrentUser();
 
-        setContentView(R.layout.activity_main);
+        btnLogout = (Button) findViewById(R.id.buttonLogout);
+        subWtrRep = (Button) findViewById(R.id.subRep);
+        btnWtrRptList = (Button) findViewById(R.id.buttonWaterReportList);
+
+
 
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        btnLogout = (Button) findViewById(R.id.buttonLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +62,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        subWtrRep = (Button) findViewById(R.id.subRep);
 
         subWtrRep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, WaterRptSubmitActivity.class), 5000);
+                startActivity(new Intent(MainActivity.this, WaterRptSubmitActivity.class));
+            }
+        });
+
+        btnWtrRptList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, WaterReportList.class));
             }
         });
     }
@@ -83,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
-                startActivityForResult(new Intent(MainActivity.this, EditProfileActivity.class),
-                        PROFILE_CHANGE_REQ);
+                startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -105,13 +114,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PROFILE_CHANGE_REQ) {
-            if (resultCode == RESULT_OK) {
-                Log.d("EditResult", "Got result OK");
-                setToolbarTitle(data.getStringExtra("displayName"));
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == PROFILE_CHANGE_REQ) {
+//            if (resultCode == RESULT_OK) {
+//                Log.d("EditResult", "Got result OK");
+//                setToolbarTitle(data.getStringExtra("displayName"));
+//            }
+//        }
+//    }
 }

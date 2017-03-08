@@ -11,6 +11,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_edit_profile">Edit Profile</string>
     <string name="username">Username</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
     <string name="user_type">Role</string>
     <string name="home_address">Home Address:</string>
     <string name="street_address1">Street Address 1</string>

@@ -9,7 +9,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class UserProfile {
     private UserType userType;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String emailAddress;
     private Address homeAddress;
     private PhoneNumber phoneNumber1;
@@ -18,7 +19,8 @@ public class UserProfile {
 
     public UserProfile() {
         userType = UserType.USER;
-        userName = "";
+        firstName = "";
+        lastName = "";
         emailAddress = "";
         homeAddress = new Address();
         phoneNumber1 = new PhoneNumber();
@@ -74,7 +76,11 @@ public class UserProfile {
         this.phoneNumber3 = phoneNumber3;
     }
 
-    public  String getUserName() { return  userName; }
+    public  String getFirstName() { return  firstName; }
 
-    public void setUserName(String userName) { this.userName = userName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public  String getLastName() { return  lastName; }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
@@ -9,43 +8,53 @@
     android:weightSum="1">
 
     <ImageView
-        android:layout_width="301dp"
-        android:layout_height="177dp"
-        app:srcCompat="@drawable/sustain_svg"
         android:id="@+id/sustainIcon"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="25dp" />
+        android:layout_width="263dp"
+        android:layout_height="219dp"
+        app:layout_constraintBottom_toTopOf="@+id/screenName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39"
+        app:srcCompat="@drawable/sustain_svg"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
-        android:text="Welcome to Sustain"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
         android:id="@+id/screenName"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:text="Welcome to Sustain"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="25dp"
-        android:layout_weight="0.14" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonWelcomeLogin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="36dp" />
 
     <Button
-        android:text="Log In"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
         android:id="@+id/buttonWelcomeLogin"
-        android:layout_marginLeft="100dp"
-        style="@android:style/Widget.Button"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="25dp"
+        android:text="Log In"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:layout_marginTop="50dp" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonWelcomeRegister"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1" />
 
     <Button
-        android:text="Register "
-        android:layout_width="160dp"
-        android:layout_height="40dp"
         android:id="@+id/buttonWelcomeRegister"
-        android:layout_marginLeft="100dp"
-        style="@android:style/Widget.Button"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="51dp"
+        android:text="Register "
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

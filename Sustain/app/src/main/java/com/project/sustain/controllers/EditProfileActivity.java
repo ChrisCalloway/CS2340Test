@@ -30,7 +30,8 @@ import com.project.sustain.model.UserType;
 
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
-    private EditText mUserName;
+    private EditText mFirstName;
+    private EditText mLastName;
     private Spinner mSpinnerUserType;
     private Button btnSave;
     private Button btnCancel;
@@ -52,8 +53,10 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         Log.d("OnCreate", "called");
+
         //get refs to widgets on screen
-        mUserName = (EditText) findViewById(R.id.editText_userName);
+        mFirstName = (EditText) findViewById(R.id.editText_firstName);
+        mLastName = (EditText) findViewById(R.id.editText_lastName);
         mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
         mStreet1 = (EditText) findViewById(R.id.editText_street1);
         mStreet2 = (EditText) findViewById(R.id.editText_street2);
@@ -61,6 +64,8 @@ public class EditProfileActivity extends AppCompatActivity {
         mState = (EditText) findViewById(R.id.editText_state);
         mCountry = (EditText) findViewById(R.id.editText_country);
         mZip    = (EditText) findViewById(R.id.editText_zipcode);
+        btnSave = (Button) findViewById(R.id.buttonSaveProfile);
+        btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //get refs to Firebase user objects
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -69,8 +74,6 @@ public class EditProfileActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mProfiles = mDatabase.getReference().child("userProfiles");
 
-        btnSave = (Button) findViewById(R.id.buttonSaveProfile);
-        btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //fill drop-down boxes
         mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
@@ -81,6 +84,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mUserProfile = dataSnapshot.getValue(UserProfile.class);
+                System.out.println("mUserProfile.getFirstName() is" + mUserProfile.getFirstName() + "\n");
                 if (mUserProfile != null) {
                     loadProfileData();
                 }
@@ -96,8 +100,6 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveProfileData();
-                finish();
-
             }
         });
 
@@ -115,9 +117,9 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     private boolean userDisplayNameChanged() {
         if (mFirebaseUser.getDisplayName() == null) {
-            return mUserName.length() > 0;
+            return mFirstName.length() > 0;
         } else {
-            return !(mFirebaseUser.getDisplayName().contentEquals(mUserName.getText()));
+            return !(mFirebaseUser.getDisplayName().contentEquals(mFirstName.getText()));
         }
     }
 
@@ -125,7 +127,7 @@ public class EditProfileActivity extends AppCompatActivity {
      * Updates the user's display name in the Firebase auth user store.
      */
     private void updateUserDisplayName() {
-        currentDisplayName = mUserName.getText().toString();
+        currentDisplayName = mFirstName.getText().toString();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(currentDisplayName)
                 .build();
@@ -146,7 +148,8 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     private void loadProfileData() {
         Log.d("Edit", "LoadProfileData called");
-        mUserName.setText(mUserProfile.getUserName());
+        mFirstName.setText(mUserProfile.getFirstName());
+        mLastName.setText(mUserProfile.getLastName());
         mSpinnerUserType.setSelection(mUserProfile.getUserType().ordinal());
         Address homeAddress = mUserProfile.getHomeAddress();
         mStreet1.setText(homeAddress.getStreetAddress1());
@@ -169,7 +172,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         mUserProfile.setEmailAddress(mFirebaseUser.getEmail());
         mUserProfile.setUserType((UserType) mSpinnerUserType.getSelectedItem());
-        mUserProfile.setUserName(mUserName.getText().toString());
+        mUserProfile.setFirstName(mFirstName.getText().toString());
+        mUserProfile.setLastName(mLastName.getText().toString());
         Address address = new Address();
         address.setStreetAddress1(mStreet1.getText().toString());
         address.setStreetAddress2(mStreet2.getText().toString());
@@ -185,11 +189,10 @@ public class EditProfileActivity extends AppCompatActivity {
             updateUserDisplayName();
         }
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("displayName", mUserName.getText().toString());
-        setResult(Activity.RESULT_OK,returnIntent);
-        finish();
-
+//        Intent returnIntent = new Intent();
+//        returnIntent.putExtra("displayName", mFirstName.getText().toString());
+//        setResult(Activity.RESULT_OK,returnIntent);
+        startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
     }
 
 
