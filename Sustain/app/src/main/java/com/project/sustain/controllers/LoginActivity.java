@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.project.sustain.R;
 
+import com.project.sustain.model.UserManagementFacade;
+
 
 public class LoginActivity extends AppCompatActivity {
     private EditText enteredUsername, enteredPassword;
@@ -27,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        // In the FirebaseAdapter
+//        auth = FirebaseAuth.getInstance();
 
         // Checks if there is current user already.  Therefore, do not have to log in again.
 //        if (auth.getCurrentUser() != null) {
@@ -57,6 +60,17 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (password.length() < 6) {
+                    enteredPassword.setError("Password too short");
+                }
+                // Take this data and send it to the User Facade, which then goes to User Mgr, Usr, FirebaseAdapter?
+                UserManagementFacade userManagementFacade = UserManagementFacade.getInstance();
+                String loginResult = userManagementFacade.loginUser(username, password);
+                if (loginResult) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+
+                userManagementFacade.getFirebaseAuth().sign;
 
                 // Create user
                 auth.signInWithEmailAndPassword(username, password)
@@ -76,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finish();
                                 }
                             }
                         });
@@ -87,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
-                finish();
             }
         });
     }

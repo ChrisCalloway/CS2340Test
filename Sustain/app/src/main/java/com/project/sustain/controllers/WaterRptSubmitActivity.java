@@ -31,6 +31,7 @@ import com.project.sustain.model.WaterCondition;
 import com.project.sustain.model.WaterReport;
 import com.project.sustain.model.WaterType;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
@@ -81,6 +82,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterType = (Spinner) findViewById(R.id.editType);
         waterCondition = (Spinner) findViewById(R.id.editCondition);
 
+        // TODO: 3/8/17 Put in Firebase Adapter
         fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fireBaseDatabase = FirebaseDatabase.getInstance();
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
@@ -99,6 +101,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         String dateBeforeSub = obtainDate(currentForApp);
         date.setText(dateBeforeSub);
 
+        // TODO: 3/8/17 Add to Firebase Adapter
         waterReportsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -160,6 +163,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         return current;
     }
 
+    // TODO: 3/8/17 Replace with DataFormat way to get time and date.
     private String obtainDate(Calendar toPass1) {
         int month = toPass1.get(Calendar.MONTH);
         int day = toPass1.get(Calendar.DAY_OF_MONTH);
@@ -186,6 +190,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
 //        name.setText(toUseForName.getUserName());
 //    }
 
+    // TODO: 3/8/17 Send this data to the WaterReportManager, which would then send information needed to FirebaseAdapter
     private void saveReport() {
         if (waterReport == null) {
             waterReport = new WaterReport();

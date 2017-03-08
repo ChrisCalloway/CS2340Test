@@ -10,7 +10,7 @@ import android.view.View;
  * Created by georgiainstituteoftechnology on 3/7/17.
  */
 
-
+// TODO: 3/8/17 Ask Anish/Julio about this, why is this used?  Where did this come from?   
 public class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetector gestureDetector;
     private ClickListener clickListener;

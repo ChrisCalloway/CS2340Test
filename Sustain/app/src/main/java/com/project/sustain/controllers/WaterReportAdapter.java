@@ -15,9 +15,11 @@ import java.util.List;
  * Created by georgiainstituteoftechnology on 3/7/17.
  */
 
+// TODO: 3/8/17 Ask Anish/Julio about this, why this is not in ViewReportsActivity 
 public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.WaterViewHolder>{
     private List<WaterReport> wtrReportList;
 
+    // Inner class?
     public class WaterViewHolder extends RecyclerView.ViewHolder {
         public TextView reportNumText;
         public TextView reportDateText;
@@ -29,6 +31,7 @@ public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.
         }
     }
 
+    // Constructor, expects a List of WaterReport objects
     public WaterReportAdapter(List<WaterReport> wtrReportList) {
         this.wtrReportList = wtrReportList;
     }

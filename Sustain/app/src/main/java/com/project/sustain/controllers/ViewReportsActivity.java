@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ import java.util.List;
  */
 
 public class ViewReportsActivity extends AppCompatActivity {
+    // TODO: 3/8/17 Move to FirebaseAdapter 
     private FirebaseUser fireBaseUser;
     private FirebaseDatabase fireBaseDatabase;
     private DatabaseReference waterReportsRef;
@@ -59,23 +61,31 @@ public class ViewReportsActivity extends AppCompatActivity {
             }
         });
 
+        // TODO: 3/8/17 put this code into Firebase Adapter
         fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fireBaseDatabase = FirebaseDatabase.getInstance();
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
 
-//        toCheck = (TextView) findViewById(R.id.databaseTest);
-//        toMess = (ScrollView) findViewById(R.id.masterScroll);
+        // Stay in Activity, note that this is a child class of RecyclerView
+        // TODO: 3/8/17 Ask Anish/Julio about why the WaterReportAdapter is a separate class. 
         wtrRepRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
+        // Stay in Activity, but waterReportList gotten from Model Realm
         wRAdapter = new WaterReportAdapter(waterReportList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         wtrRepRecyclerView.setLayoutManager(mLayoutManager);
         wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
         wtrRepRecyclerView.setAdapter(wRAdapter);
-
+        
+        // Method to retrieve the children of a particular element in the Firebase Database
+        // TODO: 3/8/17  Place in FirebaseAdapter
         waterReportsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // dataSnapshot is the set of child elements.  Iterate through each
+                // element in the set and push each element into the waterReportList Array.
+                // This waterReportList array is then passed into the WaterReport Adapter, which is
+                // then passed into the Recycler View.
                 for (DataSnapshot wtrRepSnapshot: dataSnapshot.getChildren()) {
                     WaterReport toPaste = wtrRepSnapshot.getValue(WaterReport.class);
                     waterReportList.add(toPaste);
@@ -89,6 +99,8 @@ public class ViewReportsActivity extends AppCompatActivity {
             }
         });
 
+        // Stays in activity, enables one to click on a list item and then be taken to new 
+        // activity that show information for that clicked list item
         wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(), wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {

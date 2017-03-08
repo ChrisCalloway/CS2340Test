@@ -1,5 +1,7 @@
 package com.project.sustain.model;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
@@ -13,6 +15,7 @@ public class UserProfile {
     private String emailAddress;
     private Address homeAddress;
     private PhoneNumber phoneNumber1;
+    private FirebaseUser fireBaseUser;
     private PhoneNumber phoneNumber2;
     private PhoneNumber phoneNumber3;
 
@@ -24,6 +27,7 @@ public class UserProfile {
         phoneNumber1 = new PhoneNumber();
         phoneNumber2 = new PhoneNumber();
         phoneNumber3 = new PhoneNumber();
+        fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public UserType getUserType() {
@@ -33,6 +37,8 @@ public class UserProfile {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+    public FirebaseUser getFirebaseUser() { return fireBaseUser; }
 
     public String getEmailAddress() {
         return emailAddress;
