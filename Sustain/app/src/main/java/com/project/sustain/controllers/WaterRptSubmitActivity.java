@@ -2,6 +2,7 @@ package com.project.sustain.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +42,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private TextView time;
     private TextView reportNum;
     private EditText name;
-    private EditText strAddress;
+    private EditText strAddress1;
+    private EditText strAddress2;
     private EditText city;
     private EditText state;
     private EditText country;
@@ -58,9 +60,10 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private UserProfile toUseForName;
     private WaterReport waterReport;
     private Calendar currentForApp;
+    private static int reportNumber;
 //    private static Calendar currentCalendar = Calendar.getInstance();
-    private static int reportNumber = 0;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submitwaterreport);
@@ -69,7 +72,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         time = (TextView) findViewById(R.id.editTime);
         reportNum = (TextView) findViewById(R.id.editNum);
         name = (EditText) findViewById(R.id.editName);
-        strAddress = (EditText) findViewById(R.id.editStrAddress);
+        strAddress1 = (EditText) findViewById(R.id.editStrAddress1);
+        strAddress2 = (EditText) findViewById(R.id.editStrAddress2);
         city = (EditText) findViewById(R.id.editCity);
         state = (EditText) findViewById(R.id.editState);
         country = (EditText) findViewById(R.id.editCountry);
@@ -82,6 +86,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
 //        mProfiles = fireBaseDatabase.getReference().child("userProfiles");
 
+        name.setText(fireBaseUser.getDisplayName());
         submitButton = (Button) findViewById(R.id.subButton);
         cancelButton = (Button) findViewById(R.id.canButton);
 
@@ -92,9 +97,23 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         String dateBeforeSub = obtainDate(currentForApp);
         date.setText(dateBeforeSub);
 
-        reportNumber++;
-        String reportNumberFormatted = "" + reportNumber;
-        reportNum.setText(reportNumberFormatted);
+        waterReportsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                reportNumber = (int) dataSnapshot.getChildrenCount();
+                String longValue = "" + ++reportNumber;
+                reportNum.setText(longValue);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+//        String reportNumberFormatted = "" + reportNumber;
+
 
         String timeBeforeSub = obtainTime(currentForApp);
         time.setText(timeBeforeSub);
@@ -177,12 +196,16 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
         Address toSet = new Address();
-        toSet.setStreetAddress1(strAddress.getText().toString());
+        toSet.setStreetAddress1(strAddress1.getText().toString());
+        toSet.setStreetAddress2(strAddress2.getText().toString());
         toSet.setCity(city.getText().toString());
         toSet.setStateOrProvince(state.getText().toString());
         toSet.setCountry(country.getText().toString());
         toSet.setZipCode(zipCode.getText().toString());
         waterReport.setAddress(toSet);
+        waterReport.setTypeWater((WaterType) waterType.getSelectedItem());
+        waterReport.setConditionWater((WaterCondition) waterCondition.getSelectedItem());
+        waterReport.setUserID(fireBaseUser.getUid());
         waterReportsRef.push().setValue(waterReport);
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
         Intent returnIntent = new Intent();

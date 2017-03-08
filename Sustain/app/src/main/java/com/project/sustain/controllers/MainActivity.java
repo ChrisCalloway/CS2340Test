@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int PROFILE_CHANGE_REQ = 1000;
 
     private Button subWtrRep;
+    private Button viewWtrRep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(MainActivity.this, WaterRptSubmitActivity.class), 5000);
+            }
+        });
+
+        viewWtrRep = (Button) findViewById(R.id.viewReportBut);
+
+        viewWtrRep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
             }
         });
     }
