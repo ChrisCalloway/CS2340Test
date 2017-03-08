@@ -13,14 +13,23 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
+import com.project.sustain.model.UserProfile;
 
 
 public class MainActivity extends AppCompatActivity {
     private Button btnLogout;
     private FirebaseAuth auth;
     private FirebaseUser mUser;
+    private FirebaseDatabase mDatabase;
     private Toolbar mToolbar;
+    private UserProfile mUserProfile;
+    private DatabaseReference mProfiles;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
     private Button subWtrRep;
@@ -40,12 +49,26 @@ public class MainActivity extends AppCompatActivity {
         this.setSupportActionBar(mToolbar);
 
         if (mUser != null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mProfiles = mDatabase.getReference().child("userProfiles");
+            mProfiles.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    mUserProfile = dataSnapshot.getValue(UserProfile.class);
+                    if (mUserProfile != null) {
+                        if (mUserProfile.getUserName() != null) {
+                            setToolbarTitle(mUserProfile.getUserName());
+                        } else {
+                            setToolbarTitle(mUser.getEmail());
+                        }
+                    }
+                }
 
-            if (mUser.getDisplayName() != null) {
-                setToolbarTitle(mUser.getDisplayName());
-            } else {
-                setToolbarTitle(mUser.getEmail());
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
         btnLogout = (Button) findViewById(R.id.buttonLogout);
@@ -64,7 +87,10 @@ public class MainActivity extends AppCompatActivity {
         subWtrRep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, WaterRptSubmitActivity.class), 5000);
+                String toPassIn = getToolbarTitle();
+                Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
+                forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
+                startActivity(forWtrRptSubmit);
             }
         });
 
@@ -86,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setTitle(name);
 
+    }
+
+    private String getToolbarTitle() {
+        ActionBar actionBar = this.getSupportActionBar();
+        return (String) actionBar.getTitle();
     }
 
     @Override

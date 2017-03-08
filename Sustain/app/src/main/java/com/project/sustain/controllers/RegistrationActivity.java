@@ -89,7 +89,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 // Create user
-
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override

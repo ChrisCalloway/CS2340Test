@@ -86,7 +86,9 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
 //        mProfiles = fireBaseDatabase.getReference().child("userProfiles");
 
-        name.setText(fireBaseUser.getDisplayName());
+        Intent retrievedIntent = getIntent();
+        String nameRetrieved = retrievedIntent.getStringExtra("nameRetrieval");
+        name.setText(nameRetrieved);
         submitButton = (Button) findViewById(R.id.subButton);
         cancelButton = (Button) findViewById(R.id.canButton);
 

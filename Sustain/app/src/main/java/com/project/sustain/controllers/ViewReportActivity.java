@@ -57,6 +57,7 @@ public class ViewReportActivity extends AppCompatActivity {
         conditionSet = (TextView) findViewById(R.id.conditionReported);
         backToRepBut = (Button) findViewById(R.id.backButton);
 
+        //gets the package passed in as an intent and initializes the instance data from the package
         final Intent intent = getIntent();
         WaterReport fromPrevActivity = (WaterReport) intent.getParcelableExtra("waterReportIntentData");
         date = fromPrevActivity.getDate();
