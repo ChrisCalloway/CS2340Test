@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.Task;
 public class FirebaseAdapter {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
-    private FirebaseAuth auth;
+    private static FirebaseAuth auth;
     private DatabaseReference firebaseDatabaseSection;
 
     private static FirebaseAdapter firebaseInstance = new FirebaseAdapter();
@@ -50,34 +50,12 @@ public class FirebaseAdapter {
 
     public static FirebaseAdapter getInstance() { return firebaseInstance; }
 
-    public DatabaseReference getFirebaseDatabaseSection() {
+    public static FirebaseAuth getAuthUser() { return auth; }
 
-    }
+//    public DatabaseReference getFirebaseDatabaseSection() {
+//
+//    }
 
-    public String login(String username, String password) {
-        String result;
-        auth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(FirebaseAdapter.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        // Hide progress bar
-                        // If sign in fails, display a toast message to the user.  If the sign in succeeds,
-                        // the auth state listener will be notified and logic to handle the signed in
-                        // user can be handled in the listener.  On success, user is taken to main page
-                        // of application.
-                        if (!task.isSuccessful()) {
-                            if (password.length() < 6) {
-                                return "Password too short";
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            result =  "Good to go";
-                        }
-                    }
-                });
-        return result;
-    }
 
 
 

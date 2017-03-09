@@ -1,4 +1,6 @@
 package com.project.sustain.model;
+import com.project.sustain.model.FirebaseAdapter;
+
 
 /**
  * Created by Chris on 3/8/17.
@@ -32,13 +34,13 @@ public class UserManagementFacade {
      */
     public static UserManagementFacade getInstance() { return instance; }
 
-    public Boolean loginUser(String username, String password) {
-        // Make call to userManager's loginUser
-        return userManager.loginUser(username, password);
-    }
+//    public Boolean loginUser(String username, String password) {
+//        // Make call to userManager's loginUser
+//        return userManager.loginUser(username, password);
+//    }
 
-    public List<Student> getStudentsAsList() {
-        return sm.getStudents();
-    }
+//    public List<Student> getStudentsAsList() {
+//        return sm.getStudents();
+//    }
 
 }
