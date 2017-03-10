@@ -18,15 +18,25 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
+import com.project.sustain.model.WaterReport;
+
 
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback,
             GoogleApiClient.ConnectionCallbacks,
             GoogleApiClient.OnConnectionFailedListener {
+
+    private FirebaseDatabase fireBaseDatabase;
+    private DatabaseReference waterReportsRef;
+
 
     private static final String TAG = MapsMarkerActivity.class.getSimpleName();
 
@@ -101,6 +111,35 @@ public class MapsMarkerActivity extends AppCompatActivity
 //        mMap.addMarker(new MarkerOptions().position(sydney)
 //                .title("This is a Marker for Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+        // Make call to water report manager to get list of water reports.
+        // From this list of water reports, we would get each report's lat/longitude
+        // and create the respective markers to add to the map.
+
+//        fireBaseDatabase = FirebaseDatabase.getInstance();
+//        waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
+//
+//        waterReportsRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot wtrRepSnapshot: dataSnapshot.getChildren()) {
+//                    WaterReport currentWaterReport = wtrRepSnapshot.getValue(WaterReport.class);
+//                    mMap.addMarker(new MarkerOptions().position(new LatLng(
+//                            currentWaterReport.getLocation().getLatitude(),
+//                            currentWaterReport.getLocation().getLongitude()
+//                            )).title(currentWaterReport.getName()));
+////                    waterReportList.add(currentWaterReport);
+//                }
+//            }
+//
+//            // Iterate through waterReportList to get each ones water report list
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+////                toCheck.setText(databaseError.getMessage());
+//            }
+//        });
     }
 
     /**

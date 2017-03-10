@@ -13,6 +13,7 @@ public class WaterReport implements Parcelable {
     private int reportNumber;
     private String name;
     private Location location;
+    private Address address;
     private WaterType typeWater;
     private WaterCondition conditionWater;
     private String userID;
@@ -54,6 +55,10 @@ public class WaterReport implements Parcelable {
     public void setName(String namePassed) {
         name = namePassed;
     }
+
+    public Address getAddress() { return address; }
+
+    public void setAddress(Address addressPassed) { address = addressPassed; }
 
     public Location getLocation() { return location; }
 

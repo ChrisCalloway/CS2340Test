@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.project.sustain.model.Address;
+import com.project.sustain.model.Location;
 import com.project.sustain.model.Month;
 import com.project.sustain.model.UserProfile;
 import com.project.sustain.model.WaterCondition;
@@ -48,6 +49,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private EditText state;
     private EditText country;
     private EditText zipCode;
+    private EditText latitude;
+    private EditText longitude;
     private Spinner waterType;
     private Spinner waterCondition;
     private Button submitButton;
@@ -78,6 +81,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         state = (EditText) findViewById(R.id.editState);
         country = (EditText) findViewById(R.id.editCountry);
         zipCode = (EditText) findViewById(R.id.editZip);
+        latitude = (EditText) findViewById(R.id.editLatitude);
+        longitude = (EditText) findViewById(R.id.editLongitude);
         waterType = (Spinner) findViewById(R.id.editType);
         waterCondition = (Spinner) findViewById(R.id.editCondition);
 
@@ -197,14 +202,18 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setTime(timeAgain);
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
-        Address toSet = new Address();
-        toSet.setStreetAddress1(strAddress1.getText().toString());
-        toSet.setStreetAddress2(strAddress2.getText().toString());
-        toSet.setCity(city.getText().toString());
-        toSet.setStateOrProvince(state.getText().toString());
-        toSet.setCountry(country.getText().toString());
-        toSet.setZipCode(zipCode.getText().toString());
-        waterReport.setAddress(toSet);
+        Address inputAddress = new Address();
+        Location myLocation = new Location(Double.parseDouble(latitude.getText().toString()),
+                Double.parseDouble(longitude.getText().toString()));
+
+        inputAddress.setStreetAddress1(strAddress1.getText().toString());
+        inputAddress.setStreetAddress2(strAddress2.getText().toString());
+        inputAddress.setCity(city.getText().toString());
+        inputAddress.setStateOrProvince(state.getText().toString());
+        inputAddress.setCountry(country.getText().toString());
+        inputAddress.setZipCode(zipCode.getText().toString());
+        waterReport.setLocation(myLocation);
+        waterReport.setAddress(inputAddress);
         waterReport.setTypeWater((WaterType) waterType.getSelectedItem());
         waterReport.setConditionWater((WaterCondition) waterCondition.getSelectedItem());
         waterReport.setUserID(fireBaseUser.getUid());
