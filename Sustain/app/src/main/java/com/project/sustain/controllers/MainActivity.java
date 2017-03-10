@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button subWtrRep;
     private Button viewWtrRep;
+    private Button viewMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +101,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
+            }
+        });
+
+        viewMap = (Button) findViewById(R.id.buttonViewMap);
+
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
             }
         });
     }
