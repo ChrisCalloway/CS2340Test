@@ -5,24 +5,34 @@ import android.os.Parcelable;
 
 /**
  * Created by Chris on 3/10/17.
+ * This is the model class for Location.  Location has a latitude and
+ * longitude value.  In our app, we use the Model as the structuring of
+ * storing the data in our Firebase database.  Location is used for
+ * the abstract Report, which we subclass into WaterSourceReport
+ * and WaterQualityReport
  */
 
-public class Location implements Parcelable {
-    private double _latitude;
-    private double _longitude;
 
-    public Location(double lat, double longit) {
-        _latitude = lat;
-        _longitude = longit;
+public class Location implements Parcelable {
+    private double latitude;
+    private double longitude;
+
+    public Location(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public double getLatitude() { return _latitude; }
-    public double getLongitude() { return _longitude; }
+    public double getLatitude() {
+        return this.latitude;
+    }
+    public double getLongitude() {
+        return this.longitude;
+    }
 
     // Methods to implement for Parcelable
     public Location(Parcel parcel) {
-        _latitude = parcel.readDouble();
-        _longitude = parcel.readDouble();
+        latitude = parcel.readDouble();
+        longitude = parcel.readDouble();
     }
 
     public int describeContents() {
@@ -30,8 +40,8 @@ public class Location implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flag) {
-        dest.writeDouble(_latitude);
-        dest.writeDouble(_longitude);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {

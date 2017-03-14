@@ -15,7 +15,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--             The API key for Google Maps-based APIs. -->
+        <!-- The API key for Google Maps-based APIs. -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -33,7 +33,7 @@
         <activity android:name=".controllers.RegistrationActivity" />
         <activity android:name=".controllers.WaterRptSubmitActivity" />
         <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.EditProfileActivity"></activity>
+        <activity android:name=".controllers.EditProfileActivity" />
         <activity
             android:name=".controllers.ViewReportActivity"
             android:label="ViewingWaterReport">
@@ -43,7 +43,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.MapsMarkerActivity"></activity>
+        <activity android:name=".controllers.MapsMarkerActivity" />
+        <activity android:name=".controllers.SubmitWaterSourceReportActivity"></activity>
     </application>
 
 </manifest>
