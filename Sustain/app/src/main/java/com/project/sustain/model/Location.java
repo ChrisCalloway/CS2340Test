@@ -11,6 +11,10 @@ public class Location implements Parcelable {
     private double _latitude;
     private double _longitude;
 
+    public Location() {
+
+    }
+
     public Location(double lat, double longit) {
         _latitude = lat;
         _longitude = longit;

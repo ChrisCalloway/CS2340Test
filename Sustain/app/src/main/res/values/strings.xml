@@ -22,5 +22,6 @@
     <string name="phones">Phone Numbers</string>
     <string name="home">Home</string>
     <string name="mobile">Mobile</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>
 
