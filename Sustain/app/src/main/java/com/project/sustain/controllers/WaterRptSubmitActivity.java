@@ -228,7 +228,12 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
 
     }
 
-    //this will get the address data based on latitude and longitude of current location.
+    /**
+     * gets the address data based on latitude and longitude of current location.
+     * data returned in callback AddressResultReceiver.onReceiveResult.
+     * @param action FetchAddressIntentService constant indicating the type of data to retrieve
+     *               (Address or LatLong).
+     */
     protected void startIntentService(String action) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.setAction(action);
@@ -240,7 +245,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
     }
 
     /*
-  * Request location permission, so that we can get the location of the device.
+  * Requests location permission, so that we can get the location of the device.
   * The result of the permission request is handled by a callback,
   * onRequestPermissionsResult.
   */
@@ -269,6 +274,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
 
     /*
      * Handles the result of the request for location permissions.
+     *
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -286,6 +292,11 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Attempts to display the lines of the address information received in the
+     * correct spaces on the Submit Report form.
+     * @param addressParts array list of lines of the address.
+     */
     private void displayAddressOutput(ArrayList<String> addressParts) {
         //try to guess where the parts go.
         if (addressParts.size() > 0) {
@@ -297,15 +308,20 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
             this.city.setText(cityStateZip[0]);
             if (cityStateZip.length > 1) {
                 String[] stateZip = cityStateZip[1].split(" ");
-                state.setText(stateZip[0]);
+
                 if (stateZip.length > 1) {
-                    zipCode.setText(stateZip[1]);
+                    state.setText(stateZip[1]);
                 }
             }
             this.country.setText(addressParts.get(2));
 
         }
     }
+
+    /**
+     * Displays error message received as result of address lookup.
+     * @param error string containing error message
+     */
     private void displayAddressError(String error) {
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
@@ -334,19 +350,28 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         }
     }
 
-
-
+    /**
+     * Gets current date as formatted string.
+     * @return string containing date
+     */
     private String obtainDate() {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
         return df.format(new Date());
     }
 
+    /**
+     * Gets current time as formatted string
+     * @return string containing time
+     */
     private String obtainTime() {
         DateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         return df.format(new Date());
     }
 
 
+    /**
+     * Saves WaterReport object to database
+     */
     private void saveReport() {
         if (waterReport == null) {
             waterReport = new WaterReport();
