@@ -64,7 +64,6 @@ public class ViewReportActivity extends AppCompatActivity {
         time = fromPrevActivity.getTime();
         reportNum = fromPrevActivity.getReportNumber();
         name = fromPrevActivity.getName();
-        locationReceived = fromPrevActivity.getAddress();
         typeReceived = fromPrevActivity.getTypeWater();
         conditionReceived = fromPrevActivity.getConditionWater();
         userIDReceived = fromPrevActivity.getUserID();

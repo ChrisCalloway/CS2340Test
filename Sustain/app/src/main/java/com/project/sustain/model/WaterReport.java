@@ -12,8 +12,7 @@ public class WaterReport implements Parcelable {
     private String time;
     private int reportNumber;
     private String name;
-    private Location location;
-    private Address address;
+    private ReportLocation location;
     private WaterType typeWater;
     private WaterCondition conditionWater;
     private String userID;
@@ -21,7 +20,7 @@ public class WaterReport implements Parcelable {
     // Constructor
     public WaterReport() {
         // Would be good to find a way to initialize this with current device's location
-        location = new Location(33.75, -84.39);
+        location = new ReportLocation(33.75, -84.39);
     }
 
     public String getDate() {
@@ -56,13 +55,9 @@ public class WaterReport implements Parcelable {
         name = namePassed;
     }
 
-    public Address getAddress() { return address; }
+    public ReportLocation getLocation() { return location; }
 
-    public void setAddress(Address addressPassed) { address = addressPassed; }
-
-    public Location getLocation() { return location; }
-
-    public void setLocation(Location locationPassed) { location = locationPassed;}
+    public void setLocation(ReportLocation locationPassed) { location = locationPassed;}
 
     public WaterType getTypeWater() {
         return typeWater;
@@ -108,7 +103,7 @@ public class WaterReport implements Parcelable {
         time = parcel.readString();
         reportNumber = parcel.readInt();
         name = parcel.readString();
-        location = parcel.readParcelable(Location.class.getClassLoader());
+        location = parcel.readParcelable(ReportLocation.class.getClassLoader());
         typeWater = parcel.readParcelable(WaterType.class.getClassLoader());
         conditionWater = parcel.readParcelable(WaterCondition.class.getClassLoader());
         userID = parcel.readString();

@@ -41,26 +41,17 @@ import java.util.Date;
 public class WaterRptSubmitActivity extends AppCompatActivity{
     private TextView date;
     private TextView time;
-    private TextView reportNum;
+    private TextView reportNumberField;
     private EditText name;
-    private EditText strAddress1;
-    private EditText strAddress2;
-    private EditText city;
-    private EditText state;
-    private EditText country;
-    private EditText zipCode;
     private EditText latitude;
     private EditText longitude;
     private Spinner waterType;
     private Spinner waterCondition;
     private Button submitButton;
     private Button cancelButton;
-    private FirebaseAuth fireBaseAuthentication;
     private FirebaseUser fireBaseUser;
     private FirebaseDatabase fireBaseDatabase;
     private DatabaseReference waterReportsRef;
-    private DatabaseReference mProfiles;
-    private UserProfile toUseForName;
     private WaterReport waterReport;
     private Calendar currentForApp;
     private static int reportNumber;
@@ -73,14 +64,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
 
         date = (TextView) findViewById(R.id.editDate);
         time = (TextView) findViewById(R.id.editTime);
-        reportNum = (TextView) findViewById(R.id.editNum);
+        reportNumberField = (TextView) findViewById(R.id.editReportNumber);
         name = (EditText) findViewById(R.id.editName);
-        strAddress1 = (EditText) findViewById(R.id.editStrAddress1);
-        strAddress2 = (EditText) findViewById(R.id.editStrAddress2);
-        city = (EditText) findViewById(R.id.editCity);
-        state = (EditText) findViewById(R.id.editState);
-        country = (EditText) findViewById(R.id.editCountry);
-        zipCode = (EditText) findViewById(R.id.editZip);
         latitude = (EditText) findViewById(R.id.editLatitude);
         longitude = (EditText) findViewById(R.id.editLongitude);
         waterType = (Spinner) findViewById(R.id.editType);
@@ -89,7 +74,6 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fireBaseDatabase = FirebaseDatabase.getInstance();
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
-//        mProfiles = fireBaseDatabase.getReference().child("userProfiles");
 
         Intent retrievedIntent = getIntent();
         String nameRetrieved = retrievedIntent.getStringExtra("nameRetrieval");
@@ -109,7 +93,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reportNumber = (int) dataSnapshot.getChildrenCount();
                 String longValue = "" + ++reportNumber;
-                reportNum.setText(longValue);
+                reportNumberField.setText(longValue);
             }
 
             @Override
@@ -119,29 +103,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         });
 
 
-//        String reportNumberFormatted = "" + reportNumber;
-
-
         String timeBeforeSub = obtainTime(currentForApp);
         time.setText(timeBeforeSub);
-
-//        String nameToPass = fireBaseUser.getDisplayName();
-//        name.setText(nameToPass);
-
-//        mProfiles.child(fireBaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                toUseForName = dataSnapshot.getValue(UserProfile.class);
-//                if (toUseForName != null) {
-//                    loadName();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,10 +150,6 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         return completeTime;
     }
 
-//    private void loadName() {
-//        name.setText(toUseForName.getUserName());
-//    }
-
     private void saveReport() {
         if (waterReport == null) {
             waterReport = new WaterReport();
@@ -206,14 +165,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         Location myLocation = new Location(Double.parseDouble(latitude.getText().toString()),
                 Double.parseDouble(longitude.getText().toString()));
 
-        inputAddress.setStreetAddress1(strAddress1.getText().toString());
-        inputAddress.setStreetAddress2(strAddress2.getText().toString());
-        inputAddress.setCity(city.getText().toString());
-        inputAddress.setStateOrProvince(state.getText().toString());
-        inputAddress.setCountry(country.getText().toString());
-        inputAddress.setZipCode(zipCode.getText().toString());
         waterReport.setLocation(myLocation);
-        waterReport.setAddress(inputAddress);
         waterReport.setTypeWater((WaterType) waterType.getSelectedItem());
         waterReport.setConditionWater((WaterCondition) waterCondition.getSelectedItem());
         waterReport.setUserID(fireBaseUser.getUid());
