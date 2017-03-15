@@ -6,7 +6,8 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp" >
 
         <TextView
             android:text="Water Report #"
@@ -21,32 +22,35 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp">
+        android:paddingTop="40dp">
 
         <TextView
-            android:text="Date"
+            android:id="@+id/wtrRepDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/wtrRepDate" />
+            android:paddingLeft="20dp"
+            android:text="Date" />
 
         <TextView
-            android:text="hello date!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/dateReported"
-            android:paddingLeft="20dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="hello date!" />
 
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp" >
 
         <TextView
             android:text="Time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/wtrRepTime" />
+            android:id="@+id/wtrRepTime"
+            android:paddingLeft="20dp" />
 
         <TextView
             android:text="hello Time!"
@@ -58,13 +62,15 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp" >
 
         <TextView
             android:text="Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/wtrRepName" />
+            android:id="@+id/wtrRepName"
+            android:paddingLeft="20dp" />
 
         <TextView
             android:text="hello name!"
@@ -76,120 +82,8 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Street Address 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepStrAdd1" />
-
-        <TextView
-            android:text="hello address 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add1Reported"
-            android:paddingLeft="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Street Address 2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepStrAdd2" />
-
-        <TextView
-            android:text="hello address 2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add2Reported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="City"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepCity"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cityReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="State"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepState"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stateReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepCountry"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/countryReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Zip Code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepZip"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello zip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/zipReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp" >
 
         <TextView
             android:text="Water Type"
@@ -208,7 +102,8 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp" >
 
         <TextView
             android:text="Water Condition"
@@ -226,10 +121,11 @@
     </TableRow>
 
     <Button
-        android:text="Back to Reports"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/backButton"
-        android:layout_gravity="center" />
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="90dp"
+        android:text="Back to Reports" />
 
 </LinearLayout>

@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.project.sustain.model.Address;
-import com.project.sustain.model.Location;
+import com.project.sustain.model.ReportLocation;
 import com.project.sustain.model.Month;
 import com.project.sustain.model.UserProfile;
 import com.project.sustain.model.WaterCondition;
@@ -162,7 +162,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
         Address inputAddress = new Address();
-        Location myLocation = new Location(Double.parseDouble(latitude.getText().toString()),
+        ReportLocation myLocation = new ReportLocation(Double.parseDouble(latitude.getText().toString()),
                 Double.parseDouble(longitude.getText().toString()));
 
         waterReport.setLocation(myLocation);

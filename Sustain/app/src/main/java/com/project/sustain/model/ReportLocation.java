@@ -11,6 +11,8 @@ public class ReportLocation implements Parcelable {
     private double latitude;
     private double longitude;
 
+    public ReportLocation() {}
+
     public ReportLocation(double lat, double longit) {
         latitude = lat;
         longitude = longit;

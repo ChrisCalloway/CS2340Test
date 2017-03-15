@@ -35,9 +35,6 @@
         <activity android:name=".controllers.MapsMarkerActivity" />
         <activity android:name=".controllers.ViewReportActivity" />
         <activity android:name=".controllers.EditProfileActivity" />
-        <service
-            android:name=".location.FetchAddressIntentService"
-            android:exported="false"/>
     </application>
 
 </manifest>
