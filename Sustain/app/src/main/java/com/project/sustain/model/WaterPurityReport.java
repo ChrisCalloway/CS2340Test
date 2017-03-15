@@ -4,18 +4,20 @@ package com.project.sustain.model;
  * Created by Chris on 3/13/17.
  */
 
-public class WaterPurityReport extends Report {
+public class WaterPurityReport extends WaterSourceReport {
     private OverallWaterCondition reportedOverallWaterCondition;
     private double reportedVirusPPM;
     private double reportedContaminantPPM;
 
+    public WaterPurityReport() {}
+
     // Constructor for WaterPurityReport
     public WaterPurityReport(String reporterName, double reportedLatitude, double reportedLongitude,
+                             WaterType reportedWaterType, WaterCondition reportedWaterCondition,
                              OverallWaterCondition reportedOverallWaterCondition,
                              double reportedVirusPPM, double reportedContaminantPPM) {
-        this.reporterName = reporterName;
-        this.reportedLocation = new Location(reportedLatitude, reportedLongitude);
-        this.reportNumber = REPORT_ID++;
+        super(reporterName, reportedLatitude, reportedLongitude, reportedWaterType,
+                reportedWaterCondition);
         this.reportedOverallWaterCondition = reportedOverallWaterCondition;
         this.reportedVirusPPM = reportedVirusPPM;
         this.reportedContaminantPPM = reportedContaminantPPM;
@@ -31,5 +33,12 @@ public class WaterPurityReport extends Report {
 
     public double getReportedContaminantPPM() {
         return this.reportedContaminantPPM;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nOverall: " + this.reportedOverallWaterCondition +
+                "\nVirusPPM: " + this.reportedVirusPPM + "\nContaminantPPM: " +
+                this.reportedContaminantPPM;
     }
 }

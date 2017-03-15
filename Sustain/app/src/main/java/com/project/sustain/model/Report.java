@@ -26,4 +26,10 @@ public abstract class Report {
     public double getLongitude() {
         return reportedLocation.getLongitude();
     }
+
+    @Override
+    public String toString() {
+        return "Reporter: " + reporterName + "\nLatitude: " + this.getLatitude() +
+                "\nLongitude: " + this.getLongitude();
+    }
 }

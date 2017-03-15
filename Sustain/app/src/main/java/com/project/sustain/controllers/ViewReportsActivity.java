@@ -3,18 +3,11 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import com.google.android.gms.vision.text.Text;
-import android.support.v7.recyclerview.*;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +21,8 @@ import com.project.sustain.model.WaterReport;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.google.android.gms.vision.text.Text;
 
 
 /**
@@ -89,7 +84,8 @@ public class ViewReportsActivity extends AppCompatActivity {
             }
         });
 
-        wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(), wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
+        wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(),
+                wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 WaterReport waterReportClicked = waterReportList.get(position);

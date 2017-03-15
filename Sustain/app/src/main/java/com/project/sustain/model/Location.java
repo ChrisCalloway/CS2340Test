@@ -17,7 +17,6 @@ public class Location implements Parcelable {
     private double latitude;
     private double longitude;
 
-<<<<<<< HEAD
     public Location() {
 
     }
@@ -60,4 +59,8 @@ public class Location implements Parcelable {
         }
     };
 
+    @Override
+    public String toString() {
+        return "Latitude: " + latitude + "\nLongitude: " + longitude;
+    }
 }

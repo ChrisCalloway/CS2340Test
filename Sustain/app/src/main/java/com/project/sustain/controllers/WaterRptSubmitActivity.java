@@ -2,19 +2,19 @@ package com.project.sustain.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.icu.util.Calendar;
+import android.content.pm.PackageManager;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
+import android.location.Geocoder;
 import android.os.Bundle;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.project.sustain.R;
-
-import android.provider.ContactsContract;
+import android.os.Handler;
+import android.os.ResultReceiver;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,22 +23,50 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.project.sustain.R;
 import com.project.sustain.model.Address;
 import com.project.sustain.model.Location;
-import com.project.sustain.model.Month;
-import com.project.sustain.model.UserProfile;
 import com.project.sustain.model.WaterCondition;
 import com.project.sustain.model.WaterReport;
 import com.project.sustain.model.WaterType;
+import com.project.sustain.services.FetchAddressConstants;
+import com.project.sustain.services.FetchAddressIntentService;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+
+import static com.project.sustain.services.FetchAddressConstants.LOCATION_RESULT_LATITUDE;
+import static com.project.sustain.services.FetchAddressConstants.LOCATION_RESULT_LONGITUDE;
+import static com.project.sustain.services.FetchAddressConstants.RESULT_DATA_KEY;
 
 /**
  * Created by georgiainstituteoftechnology on 3/2/17.
  */
 
-public class WaterRptSubmitActivity extends AppCompatActivity{
+public class WaterRptSubmitActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+    protected android.location.Location mLastLocation;
+    private AddressResultReceiver mResultReceiver;
+
+
+    private boolean mAddressRequested;
+    private boolean mLocationPermissionGranted;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final String TAG = WaterRptSubmitActivity.class.getSimpleName();
+    private String requestedAction = "";
     private TextView date;
     private TextView time;
     private TextView reportNum;
@@ -55,21 +83,21 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
     private Spinner waterCondition;
     private Button submitButton;
     private Button cancelButton;
-    private FirebaseAuth fireBaseAuthentication;
-    private FirebaseUser fireBaseUser;
-    private FirebaseDatabase fireBaseDatabase;
-    private DatabaseReference waterReportsRef;
-    private DatabaseReference mProfiles;
-    private UserProfile toUseForName;
+    private Button getLocationButton;
     private WaterReport waterReport;
-    private Calendar currentForApp;
     private static int reportNumber;
-//    private static Calendar currentCalendar = Calendar.getInstance();
+    private FirebaseUser fireBaseUser;
+    private DatabaseReference waterReportsRef;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submitwaterreport);
+
+        auth = FirebaseAuth.getInstance();
+        fireBaseUser = auth.getCurrentUser();
+        waterReportsRef = FirebaseDatabase.getInstance().getReference("waterReports");
 
         date = (TextView) findViewById(R.id.editDate);
         time = (TextView) findViewById(R.id.editTime);
@@ -86,23 +114,19 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterType = (Spinner) findViewById(R.id.editType);
         waterCondition = (Spinner) findViewById(R.id.editCondition);
 
-        fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        fireBaseDatabase = FirebaseDatabase.getInstance();
-        waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
-//        mProfiles = fireBaseDatabase.getReference().child("userProfiles");
 
         Intent retrievedIntent = getIntent();
         String nameRetrieved = retrievedIntent.getStringExtra("nameRetrieval");
         name.setText(nameRetrieved);
         submitButton = (Button) findViewById(R.id.subButton);
         cancelButton = (Button) findViewById(R.id.canButton);
+        getLocationButton = (Button) findViewById(R.id.btnGetCurrentLocation);
 
         waterType.setAdapter(new ArrayAdapter<WaterType>(this, R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
         waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this, R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
 
-        currentForApp = currentCalendar();
-        String dateBeforeSub = obtainDate(currentForApp);
-        date.setText(dateBeforeSub);
+        date.setText(obtainDate());
+        time.setText(obtainTime());
 
         waterReportsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,30 +143,6 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         });
 
 
-//        String reportNumberFormatted = "" + reportNumber;
-
-
-        String timeBeforeSub = obtainTime(currentForApp);
-        time.setText(timeBeforeSub);
-
-//        String nameToPass = fireBaseUser.getDisplayName();
-//        name.setText(nameToPass);
-
-//        mProfiles.child(fireBaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                toUseForName = dataSnapshot.getValue(UserProfile.class);
-//                if (toUseForName != null) {
-//                    loadName();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,52 +154,205 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reportNumber--;
+               // reportNumber--;
                 finish();
             }
         });
+
+        View.OnClickListener ButtonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Only start the service to fetch the address if GoogleApiClient is
+                // connected.
+                if (mGoogleApiClient.isConnected() && mLastLocation != null) {
+                    Log.d(TAG, "Starting intent service");
+                    requestedAction = FetchAddressConstants.ACTION_FETCH_ADDRESS;
+                    startIntentService(requestedAction);
+                    latitude.setText(String.format("%f", mLastLocation.getLatitude()));
+                    longitude.setText(String.format("%f", mLastLocation.getLongitude()));
+                }
+                // If GoogleApiClient isn't connected, process the user's request by
+                // setting mAddressRequested to true. Later, when GoogleApiClient connects,
+                // launch the service to fetch the address. As far as the user is
+                // concerned, pressing the Fetch Address button
+                // immediately kicks off the process of getting the address.
+                mAddressRequested = true;
+            }
+        };
+
+        getLocationButton.setOnClickListener(ButtonListener);
+
+        mResultReceiver = new AddressResultReceiver(new Handler());
+
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */,
+                        this /* OnConnectionFailedListener */)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
-    private Calendar currentCalendar() {
-        Calendar current = Calendar.getInstance();
-        return current;
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        // Gets the best and most recent location currently available,
+        // which may be null in rare cases when a location is not available.
+
+        requestPermissionForLocation();
+        if (mLastLocation != null) {
+            // Determine whether a Geocoder is available.
+            if (!Geocoder.isPresent()) {
+                Toast.makeText(this, "No geocoder available",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (mAddressRequested) {
+                startIntentService(requestedAction);
+            }
+        } else {
+            Log.d(TAG, "Unable to get permission and/or last location.");
+        }
     }
 
-    private String obtainDate(Calendar toPass1) {
-        int month = toPass1.get(Calendar.MONTH);
-        int day = toPass1.get(Calendar.DAY_OF_MONTH);
-        int year = toPass1.get(Calendar.YEAR);
-        Month[] months = Month.values();
-        String monthString = months[month].toString();
-        String dayFormatted = (day < 10) ? "0" + day : "" + day;
-        String completeDate = monthString + " " + dayFormatted + ", " + year;
-        return completeDate;
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 
-    private String obtainTime(Calendar toPass2) {
-        int hour = toPass2.get(Calendar.HOUR_OF_DAY);
-        int minute = toPass2.get(Calendar.MINUTE);
-        int seconds = toPass2.get(Calendar.SECOND);
-        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
-        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
-        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
-        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
-        return completeTime;
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
-//    private void loadName() {
-//        name.setText(toUseForName.getUserName());
-//    }
+    //this will get the address data based on latitude and longitude of current location.
+    protected void startIntentService(String action) {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.setAction(action);
+        intent.putExtra(FetchAddressConstants.RECEIVER, mResultReceiver);
+        intent.putExtra(FetchAddressConstants.LOCATION_DATA_EXTRA, mLastLocation);
+        intent.putExtra(FetchAddressConstants.LOCATION_ADDRESS_EXTRA, "");
+        startService(intent);
+
+    }
+
+    /*
+  * Request location permission, so that we can get the location of the device.
+  * The result of the permission request is handled by a callback,
+  * onRequestPermissionsResult.
+  */
+    private void requestPermissionForLocation() {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+        mLocationPermissionGranted = true;
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        if (mLocationPermissionGranted) {
+            mLastLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClient);
+        }
+
+
+    }
+
+    /*
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+    }
+
+    private void displayAddressOutput(ArrayList<String> addressParts) {
+        //try to guess where the parts go.
+        if (addressParts.size() > 0) {
+            this.strAddress1.setText(addressParts.get(0));
+        }
+        if (addressParts.size() > 2) {
+            String[] cityStateZip = addressParts.get(1).split(",");
+
+            this.city.setText(cityStateZip[0]);
+            if (cityStateZip.length > 1) {
+                String[] stateZip = cityStateZip[1].split(" ");
+                state.setText(stateZip[0]);
+                if (stateZip.length > 1) {
+                    zipCode.setText(stateZip[1]);
+                }
+            }
+            this.country.setText(addressParts.get(2));
+
+        }
+    }
+    private void displayAddressError(String error) {
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            if (resultCode == FetchAddressConstants.SUCCESS_RESULT) {
+                // Display the address string
+                // or an error message sent from the intent service.
+                ArrayList<String> address = resultData.
+                        getStringArrayList(FetchAddressConstants.LOCATION_RESULT_ADDRESS_AS_LIST);
+                double latitude = resultData.getDouble(LOCATION_RESULT_LATITUDE);
+                double longitude = resultData.getDouble(LOCATION_RESULT_LONGITUDE);
+
+                displayAddressOutput(address);
+            } else {
+                displayAddressError(resultData.getString(RESULT_DATA_KEY));
+            }
+
+
+        }
+    }
+
+
+
+    private String obtainDate() {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        return df.format(new Date());
+    }
+
+    private String obtainTime() {
+        DateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        return df.format(new Date());
+    }
+
 
     private void saveReport() {
         if (waterReport == null) {
             waterReport = new WaterReport();
         }
-        Calendar uponSubmission = currentCalendar();
-        String dateAgain = obtainDate(uponSubmission);
-        String timeAgain = obtainTime(uponSubmission);
-        waterReport.setDate(dateAgain);
-        waterReport.setTime(timeAgain);
+        waterReport.setDate(obtainDate());
+        waterReport.setTime(obtainTime());
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
         Address inputAddress = new Address();
@@ -218,7 +371,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setConditionWater((WaterCondition) waterCondition.getSelectedItem());
         waterReport.setUserID(fireBaseUser.getUid());
         waterReportsRef.push().setValue(waterReport);
-        Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "Report saved.", Toast.LENGTH_SHORT);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", name.getText().toString());
         setResult(Activity.RESULT_OK,returnIntent);

@@ -125,7 +125,7 @@ public class FetchAddressIntentService extends IntentService {
             deliverErrorToReceiver(FetchAddressConstants.FAILURE_RESULT, errorMessage);
         } else {
             Address address = addresses.get(0);
-            List<String> addressFragments = new ArrayList<String>();
+            List<String> addressFragments = new ArrayList<>();
 
             // Fetch the address lines using getAddressLine,
             // join them, and send them to the thread.
@@ -135,7 +135,8 @@ public class FetchAddressIntentService extends IntentService {
             Log.i(TAG, "Address found.");
             deliverAddressToReceiver(FetchAddressConstants.SUCCESS_RESULT,
                                         TextUtils.join(System.getProperty("line.separator"),
-                                                        addressFragments));
+                                                        addressFragments),
+                                        addressFragments);
         }
     }
     
@@ -146,10 +147,12 @@ public class FetchAddressIntentService extends IntentService {
         mReceiver.send(resultCode, bundle);
     }
 
-    private void deliverAddressToReceiver(int resultCode, String message) {
+    private void deliverAddressToReceiver(int resultCode, String message, List<String> addressFragments) {
         Bundle bundle = new Bundle();
         bundle.putString(FetchAddressConstants.RESULT_DATA_KEY, message);
         bundle.putString(FetchAddressConstants.LOCATION_RESULT_ADDRESS, message);
+        bundle.putStringArrayList(FetchAddressConstants.LOCATION_RESULT_ADDRESS_AS_LIST,
+                (ArrayList<String>) addressFragments);
 
         mReceiver.send(resultCode, bundle);
     }

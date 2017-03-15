@@ -1,7 +1,6 @@
 package com.project.sustain.controllers;
 
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -19,19 +18,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.sustain.R;
+import com.project.sustain.model.ReportListResultListener;
+import com.project.sustain.model.WaterReport;
+import com.project.sustain.model.WaterReportManager;
+import com.project.sustain.model.Location;
+
+import java.util.List;
 
 
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback,
             GoogleApiClient.ConnectionCallbacks,
             GoogleApiClient.OnConnectionFailedListener {
-
-    private FirebaseDatabase fireBaseDatabase;
-    private DatabaseReference waterReportsRef;
-
 
     private static final String TAG = MapsMarkerActivity.class.getSimpleName();
 
@@ -40,6 +40,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
+    private WaterReportManager mWaterReportManager = new WaterReportManager();
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
@@ -50,7 +51,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
-    private Location mLastKnownLocation;
+    private android.location.Location mLastKnownLocation;
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -80,6 +81,39 @@ public class MapsMarkerActivity extends AppCompatActivity
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         mGoogleApiClient.connect();
+        // Make call to water report manager to get list of water reports.
+        // From this list of water reports, we would get each report's lat/longitude
+        // and create the respective markers to add to the map.
+
+        mWaterReportManager.setReportListResultListener(new ReportListResultListener() {
+            @Override
+            public <T> void onComplete(List<T> list) {
+                if (mMap != null) {
+                    if (list != null && !list.isEmpty()) {
+                        Location lastLocation = null;
+                        for (T r : list) {
+                            WaterReport report = (WaterReport) r;
+                            Location loc = report.getLocation();
+                            Log.d(TAG, report.toString());
+                            String reportInfo = report.getTypeWater() + ", " + report.getConditionWater();
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                                    loc.getLongitude())).title("Water Source").snippet(reportInfo));
+                            lastLocation = loc;
+                        }
+                        if (lastLocation != null) {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng
+                                    (new LatLng(lastLocation.getLatitude(),
+                                            lastLocation.getLongitude())));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                Log.d(TAG, "Error getting report list: " + error.getMessage());
+            }
+        });
     }
 
     /**
@@ -97,6 +131,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
+        // get the water reports and display on the map.
+        mWaterReportManager.getWaterReports();
+
         /*
          * This is from the map marker tutorial on Google's developers site.
          * This initializes the map view such that Sydney, Australia has a
@@ -108,33 +145,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
-        // Make call to water report manager to get list of water reports.
-        // From this list of water reports, we would get each report's lat/longitude
-        // and create the respective markers to add to the map.
 
-//        fireBaseDatabase = FirebaseDatabase.getInstance();
-//        waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
-//
-//        waterReportsRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot wtrRepSnapshot: dataSnapshot.getChildren()) {
-//                    WaterReport currentWaterReport = wtrRepSnapshot.getValue(WaterReport.class);
-//                    mMap.addMarker(new MarkerOptions().position(new LatLng(
-//                            currentWaterReport.getLocation().getLatitude(),
-//                            currentWaterReport.getLocation().getLongitude()
-//                            )).title(currentWaterReport.getName()));
-////                    waterReportList.add(currentWaterReport);
-//                }
-//            }
-//
-//            // Iterate through waterReportList to get each ones water report list
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-////                toCheck.setText(databaseError.getMessage());
-//            }
-//        });
     }
 
     /**
@@ -267,5 +278,11 @@ public class MapsMarkerActivity extends AppCompatActivity
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mLastKnownLocation = null;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mWaterReportManager.removeReportListResultListener();
     }
 }

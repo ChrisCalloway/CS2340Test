@@ -1,7 +1,5 @@
 package com.project.sustain.model;
 
-import java.util.List;
-
 /**
  * Created by Chris on 3/13/17.
  */
@@ -35,18 +33,18 @@ public class ReportManagementFacade {
      * Law of Demeter
      * @return list of water source reports
      */
-    public List<Report> getWaterSourceReports() {
-        return waterReportManager.getWaterSourceReports();
-    }
+//    public List<Report> getWaterSourceReports() {
+//        return waterReportManager.getWaterSourceReports();
+//    }
 
     /**
      * Get list of water purity reports
      * Law of Demeter
      * @return list of water source reports
      */
-    public List<Report> getWaterPurityReports() {
-        return waterReportManager.getWaterPurityReports();
-    }
+//    public List<Report> getWaterPurityReports() {
+//        return waterReportManager.getWaterPurityReports();
+//    }
 
     /**
      * Add water source report
@@ -56,14 +54,14 @@ public class ReportManagementFacade {
      * @param reportedLongitude Latitude of the water source report
      * @param reportedWaterType Water type
      * @param reportedWaterCondition Water condition
-     */
-    public void addNewWaterSourceReport(String reporterName, double reportedLatitude,
-                                        double reportedLongitude,
-                                        WaterType reportedWaterType,
-                                        WaterCondition reportedWaterCondition) {
-        waterReportManager.addNewWaterSourceReport(reporterName, reportedLatitude,
-                reportedLongitude, reportedWaterType, reportedWaterCondition);
-    }
+//     */
+//    public void addNewWaterSourceReport(String reporterName, double reportedLatitude,
+//                                        double reportedLongitude,
+//                                        WaterType reportedWaterType,
+//                                        WaterCondition reportedWaterCondition) {
+//        waterReportManager.addNewWaterSourceReport(reporterName, reportedLatitude,
+//                reportedLongitude, reportedWaterType, reportedWaterCondition);
+//    }
 
     /**
      * Add water purity report
@@ -79,8 +77,8 @@ public class ReportManagementFacade {
                                         double reportedLongitude,
                                         OverallWaterCondition reportedOverallWaterCondition,
                                         double reportedVirusPPM, double reportedContaminantPPM) {
-        waterReportManager.addNewWaterPurityReport(reporterName, reportedLatitude,
-                reportedLongitude, reportedOverallWaterCondition, reportedVirusPPM,
-                reportedContaminantPPM);
+//        waterReportManager.addNewWaterPurityReport(reporterName, reportedLatitude,
+//                reportedLongitude, reportedOverallWaterCondition, reportedVirusPPM,
+//                reportedContaminantPPM);
     }
 }

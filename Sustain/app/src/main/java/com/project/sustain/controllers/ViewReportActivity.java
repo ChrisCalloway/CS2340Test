@@ -60,6 +60,7 @@ public class ViewReportActivity extends AppCompatActivity {
         //gets the package passed in as an intent and initializes the instance data from the package
         final Intent intent = getIntent();
         WaterReport fromPrevActivity = (WaterReport) intent.getParcelableExtra("waterReportIntentData");
+
         date = fromPrevActivity.getDate();
         time = fromPrevActivity.getTime();
         reportNum = fromPrevActivity.getReportNumber();
@@ -73,12 +74,14 @@ public class ViewReportActivity extends AppCompatActivity {
         dateSet.setText(date);
         timeSet.setText(time);
         nameSet.setText(name);
-        strAddSet1.setText(locationReceived.getStreetAddress1());
-        strAddSet2.setText(locationReceived.getStreetAddress2());
-        citySet.setText(locationReceived.getCity());
-        stateSet.setText(locationReceived.getStateOrProvince());
-        countrySet.setText(locationReceived.getCountry());
-        zipCodeSet.setText(locationReceived.getZipCode());
+        if (locationReceived != null) {
+            strAddSet1.setText(locationReceived.getStreetAddress1());
+            strAddSet2.setText(locationReceived.getStreetAddress2());
+            citySet.setText(locationReceived.getCity());
+            stateSet.setText(locationReceived.getStateOrProvince());
+            countrySet.setText(locationReceived.getCountry());
+            zipCodeSet.setText(locationReceived.getZipCode());
+        }
         typeSet.setText(typeReceived.toString());
         conditionSet.setText(conditionReceived.toString());
 

@@ -23,5 +23,6 @@
     <string name="home">Home</string>
     <string name="mobile">Mobile</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="get_current_location">Get My Location</string>
 </resources>
 

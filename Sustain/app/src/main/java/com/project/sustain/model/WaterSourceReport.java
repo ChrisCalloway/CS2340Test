@@ -9,6 +9,8 @@ public class WaterSourceReport extends Report{
     private WaterType reportedWaterType;
     private WaterCondition reportedWaterCondition;
 
+    public WaterSourceReport() {}
+
     // Constructor
     public WaterSourceReport(String reporterName, double reportedLatitude, double reportedLongitude,
                              WaterType reportedWaterType, WaterCondition reportedWaterCondition) {
@@ -23,7 +25,13 @@ public class WaterSourceReport extends Report{
         return this.reportedWaterType;
     }
 
-    public WaterCondition getreportedWaterCondition() {
+    public WaterCondition getReportedWaterCondition() {
         return this.reportedWaterCondition;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nWater Type: " + getReportedWaterType() +
+                "\nCondition: " + getReportedWaterCondition();
     }
 }
