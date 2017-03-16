@@ -35,7 +35,7 @@ import java.util.List;
  */
 
 public class ViewReportsActivity extends AppCompatActivity {
-    private FirebaseUser fireBaseUser;
+//    private FirebaseUser fireBaseUser;
     private FirebaseDatabase fireBaseDatabase;
     private DatabaseReference waterReportsRef;
     private DatabaseReference waterReports;
@@ -43,8 +43,7 @@ public class ViewReportsActivity extends AppCompatActivity {
     private RecyclerView wtrRepRecyclerView;
     private WaterReportAdapter wRAdapter;
     private Button backButton;
-//    private TextView toCheck;
-//    private ScrollView toMess;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,16 +58,18 @@ public class ViewReportsActivity extends AppCompatActivity {
             }
         });
 
-        fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //
+//        fireBaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fireBaseDatabase = FirebaseDatabase.getInstance();
         waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
 
-//        toCheck = (TextView) findViewById(R.id.databaseTest);
-//        toMess = (ScrollView) findViewById(R.id.masterScroll);
         wtrRepRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         wRAdapter = new WaterReportAdapter(waterReportList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        RecyclerView.LayoutManager mLayoutManager =
+                new LinearLayoutManager(getApplicationContext());
+
         wtrRepRecyclerView.setLayoutManager(mLayoutManager);
         wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
         wtrRepRecyclerView.setAdapter(wRAdapter);
@@ -89,12 +90,17 @@ public class ViewReportsActivity extends AppCompatActivity {
             }
         });
 
-        wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(), wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
+        wtrRepRecyclerView.addOnItemTouchListener(
+                new WaterReportRecyclerTouchListener(getApplicationContext(),
+                        wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 WaterReport waterReportClicked = waterReportList.get(position);
                 //intent to be created.
                 Intent intent = new Intent(ViewReportsActivity.this, ViewReportActivity.class);
+
+                // Will use the same string as an identifier for the water source report clicked
+                // in this view to show its data in the ViewReportActivity
                 intent.putExtra("waterReportIntentData", waterReportClicked);
                 startActivity(intent);
             }

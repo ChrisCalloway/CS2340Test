@@ -15,9 +15,11 @@ public class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouc
     private GestureDetector gestureDetector;
     private ClickListener clickListener;
 
-    public WaterReportRecyclerTouchListener(Context context, final RecyclerView wtrRepRecyclerView, final ClickListener clickListener) {
+    public WaterReportRecyclerTouchListener(Context context, final RecyclerView wtrRepRecyclerView,
+                                            final ClickListener clickListener) {
         this.clickListener = clickListener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+        gestureDetector = new GestureDetector(context,
+                new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;

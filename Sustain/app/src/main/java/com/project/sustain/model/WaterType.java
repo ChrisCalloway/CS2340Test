@@ -17,7 +17,8 @@ public enum WaterType implements Parcelable{
     SPRING("Spring"),
     OTHER("Other");
 
-    public static final Parcelable.Creator<WaterType> CREATOR = new Parcelable.Creator<WaterType>() {
+    public static final Parcelable.Creator<WaterType> CREATOR =
+            new Parcelable.Creator<WaterType>() {
         public WaterType createFromParcel(Parcel in) {
             return WaterType.values()[in.readInt()];
         }
@@ -43,6 +44,7 @@ public enum WaterType implements Parcelable{
         typeDeclared = typePassed;
     }
 
+    @Override
     public String toString() {
         return typeDeclared;
     }

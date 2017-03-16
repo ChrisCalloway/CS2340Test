@@ -35,7 +35,8 @@ public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.
 
     @Override
     public WaterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View reportView = LayoutInflater.from(parent.getContext()).inflate(R.layout.water_report_list_row, parent, false);
+        View reportView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.water_report_list_row, parent, false);
         return new WaterViewHolder(reportView);
     }
 

@@ -59,7 +59,8 @@ public class RegistrationActivity extends AppCompatActivity {
         mProfiles = mDatabase.getReference().child("userProfiles");
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this,
+                R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -74,15 +75,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 profile.setEmailAddress(email);
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Please enter email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter email address",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter password",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, please enter minimum 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Password too short, please enter minimum 6 characters",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -96,20 +101,26 @@ public class RegistrationActivity extends AppCompatActivity {
                                 // Hide progress bar
                                 progressBar.setVisibility(View.GONE);
 
-                                // If sign in fails, display a toast message to the user.  If the sign in succeeds,
-                                // the auth state listener will be notified and logic to handle the signed in
-                                // user can be handled in the listener.  On success, user is taken to main page
+                                // If sign in fails, display a toast message to the user.
+                                // If the sign in succeeds, the auth state listener will be
+                                // notified and logic to handle the signed in user can be handled
+                                // in the listener.  On success, user is taken to main page
                                 // of application.
                                 if (!task.isSuccessful()) {
 
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException().getMessage(),
+                                    Toast.makeText(RegistrationActivity.this,
+                                            "Authentication failed: " +
+                                                    task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(RegistrationActivity.this, "Successfully registered and signed in.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this,
+                                            "Successfully registered and signed in.",
+                                            Toast.LENGTH_SHORT).show();
                                     // Logic to save to database
                                     FirebaseUser mUser = task.getResult().getUser();
                                     mProfiles.child(mUser.getUid()).setValue(profile);
-                                    startActivityForResult(new Intent(RegistrationActivity.this, EditProfileActivity.class), PROFILE_CHANGE_REQ);
+                                    startActivityForResult(new Intent(RegistrationActivity.this,
+                                            EditProfileActivity.class), PROFILE_CHANGE_REQ);
 
 
                                 }

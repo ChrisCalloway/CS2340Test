@@ -26,7 +26,6 @@ import com.project.sustain.model.WaterCondition;
 
 public class MapsMarkerActivity extends FragmentActivity implements OnMapReadyCallback {
 
-
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
     private GoogleMap mMap;
 
@@ -92,23 +91,15 @@ public class MapsMarkerActivity extends FragmentActivity implements OnMapReadyCa
         // Get marker from Firebase Database and add to map
          addMarkersToMap(mMap);
 
-        // Here is where we populate the map with markers for already created reports
-        // get list of reports
-        // iterate through list of reports where for each report, do mMap.addMarker()
-//        List<Report> reportList = mFacade.getReports();
-//        for (Report r : reportList) {
-        // Will need to get the latitude and longitude from the water report
-//            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-        // Will need to figure how to present the information for the report using just the title
-        // and the snippet?  Will need to show the report number, date, time, reporter's name, water type, water condition
-//            mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-//        }
-
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
     }
 
+    /**
+     * Populates the Google Maps view with pins corresponding to water source reports
+     * @param googleMap intance of a googleMap that will be used to overlay pins corresponding
+     *                  to water source reports
+     */
     private void addMarkersToMap(GoogleMap googleMap) {
         final GoogleMap map = googleMap;
         mChildEventListener = mWaterReportsRef.addChildEventListener(new ChildEventListener() {
@@ -152,8 +143,11 @@ public class MapsMarkerActivity extends FragmentActivity implements OnMapReadyCa
         });
     }
 
-    // This class is only used in this activity
-    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    /**
+     * Class that customizes the information that is displayed when a pin is clicked
+     * in the Google Maps view.
+     */
+    private class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         private final View myContentsView;
 
         // Constructor
@@ -163,17 +157,14 @@ public class MapsMarkerActivity extends FragmentActivity implements OnMapReadyCa
 
         @Override
         public View getInfoContents(Marker marker) {
+
             // Populate the info for the marker
-
-//            .title(Integer.toString(reportNumber) + "\n" + date + "\n" + time)
-//                    .snippet(waterType.toString() + "\n" + waterCondition.toString()));
-            TextView textReportNumber = ((TextView)myContentsView.findViewById(R.id.customMarkerTitle));
+            TextView textReportNumber =
+                    ((TextView)myContentsView.findViewById(R.id.customMarkerTitle));
             textReportNumber.setText(marker.getTitle());
-            TextView textSnippet = ((TextView)myContentsView.findViewById(R.id.customMarkerSnippet));
+            TextView textSnippet =
+                    ((TextView)myContentsView.findViewById(R.id.customMarkerSnippet));
             textSnippet.setText(marker.getSnippet());
-//            textSnippet.setText("This is a test of using values \nacross multiple\n lines");
-
-            // The snippet will
 
             return myContentsView;
         }
@@ -182,6 +173,5 @@ public class MapsMarkerActivity extends FragmentActivity implements OnMapReadyCa
         public View getInfoWindow(Marker marker) {
             return null;
         }
-
     }
 }

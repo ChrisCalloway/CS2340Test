@@ -37,9 +37,11 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-
+        // Instantiating the buttons that map to those in the layout xml
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnCancelLogin = (Button) findViewById(R.id.buttonCancelLogin);
+
+        // Instantiating EditText objects that will hold the values entered by the user
         enteredUsername = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
 
@@ -50,38 +52,45 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = enteredPassword.getText().toString();
 
                 if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter username",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter password",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // Create user
                 auth.signInWithEmailAndPassword(username, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(LoginActivity.this,
+                                new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 // Hide progress bar
-                                // If sign in fails, display a toast message to the user.  If the sign in succeeds,
-                                // the auth state listener will be notified and logic to handle the signed in
-                                // user can be handled in the listener.  On success, user is taken to main page
+                                // If sign in fails, display a toast message to the user.
+                                // If the sign in succeeds, the auth state listener will be
+                                // notified and logic to handle the signed in user can be handled
+                                // in the listener.  On success, user is taken to main page
                                 // of application.
                                 if (!task.isSuccessful()) {
                                     if (password.length() < 6) {
                                         enteredPassword.setError("Password too short");
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "Login failed",
+                                                Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this,
+                                            MainActivity.class));
                                 }
                             }
                         });
             }
         });
 
+        // Providing a function to return to welcome screen when clicking the cancel button
         btnCancelLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

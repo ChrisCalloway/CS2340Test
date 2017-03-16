@@ -81,8 +81,10 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         submitButton = (Button) findViewById(R.id.subButton);
         cancelButton = (Button) findViewById(R.id.canButton);
 
-        waterType.setAdapter(new ArrayAdapter<WaterType>(this, R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
-        waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this, R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
+        waterType.setAdapter(new ArrayAdapter<WaterType>(this,
+                R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
+        waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this
+                , R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
 
         currentForApp = currentCalendar();
         String dateBeforeSub = obtainDate(currentForApp);
@@ -162,7 +164,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity{
         waterReport.setReportNumber(reportNumber);
         waterReport.setName(name.getText().toString());
         Address inputAddress = new Address();
-        ReportLocation myLocation = new ReportLocation(Double.parseDouble(latitude.getText().toString()),
+        ReportLocation myLocation =
+                new ReportLocation(Double.parseDouble(latitude.getText().toString()),
                 Double.parseDouble(longitude.getText().toString()));
 
         waterReport.setLocation(myLocation);

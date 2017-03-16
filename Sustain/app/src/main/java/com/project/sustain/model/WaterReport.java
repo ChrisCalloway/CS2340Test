@@ -109,7 +109,8 @@ public class WaterReport implements Parcelable {
         userID = parcel.readString();
     }
 
-    public static final Parcelable.Creator<WaterReport> CREATOR = new Parcelable.Creator<WaterReport>() {
+    public static final Parcelable.Creator<WaterReport> CREATOR =
+            new Parcelable.Creator<WaterReport>() {
         @Override
         public WaterReport createFromParcel(Parcel parcel) {
             return new WaterReport(parcel);

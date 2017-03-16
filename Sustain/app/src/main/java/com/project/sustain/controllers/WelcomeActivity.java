@@ -16,10 +16,11 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-
+        // Instantiating buttons that map to those in the xml layout
         btnLogin = (Button) findViewById(R.id.buttonWelcomeLogin);
         btnRegister = (Button) findViewById(R.id.buttonWelcomeRegister);
 
+        // Providing a function to invoke when clicking the logout button
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+        // Providing a function to invoke when clicking the register button
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

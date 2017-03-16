@@ -23,7 +23,8 @@ public enum WaterCondition implements Parcelable {
         return conditionDeclared;
     }
 
-    public static final Parcelable.Creator<WaterCondition> CREATOR = new Parcelable.Creator<WaterCondition>() {
+    public static final Parcelable.Creator<WaterCondition> CREATOR =
+            new Parcelable.Creator<WaterCondition>() {
         public WaterCondition createFromParcel(Parcel in) {
             return WaterCondition.values()[in.readInt()];
         }

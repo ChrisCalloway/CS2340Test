@@ -36,7 +36,8 @@ public class ReportLocation implements Parcelable {
         dest.writeDouble(longitude);
     }
 
-    public static final Parcelable.Creator<ReportLocation> CREATOR = new Parcelable.Creator<ReportLocation>() {
+    public static final Parcelable.Creator<ReportLocation> CREATOR =
+            new Parcelable.Creator<ReportLocation>() {
         @Override
         public ReportLocation createFromParcel(Parcel parcel) {
             return new ReportLocation(parcel);
