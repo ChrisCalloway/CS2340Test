@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,6 +91,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
     private FirebaseUser fireBaseUser;
     private DatabaseReference waterReportsRef;
     private FirebaseAuth auth;
+    private static Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("EST"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -364,8 +367,17 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
      * @return string containing time
      */
     private String obtainTime() {
-        DateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        return df.format(new Date());
+//        DateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+//        return df.format(new Date());
+        currentCalendar.setTimeZone(TimeZone.getTimeZone("EST"));
+        int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+        int minute = currentCalendar.get(Calendar.MINUTE);
+        int seconds = currentCalendar.get(Calendar.SECOND);
+        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
+        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
+        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
+        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
+        return completeTime;
     }
 
 
