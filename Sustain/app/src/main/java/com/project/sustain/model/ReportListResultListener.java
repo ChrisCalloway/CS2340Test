@@ -8,6 +8,6 @@ import java.util.List;
  */
 
 public interface ReportListResultListener extends EventListener {
-    public <T> void onComplete(List<T> list);
-    public void onError(Throwable error);
+     <T> void onComplete(List<T> list);
+     void onError(Throwable error);
 }

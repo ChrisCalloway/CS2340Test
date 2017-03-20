@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     mUserProfile = dataSnapshot.getValue(UserProfile.class);
                     if (mUserProfile != null) {
-                        if (mUserProfile.getUserName().equals("") == false) {
+                        if (!mUserProfile.getUserName().equals("")) {
                             setToolbarTitle(mUserProfile.getUserName());
                         } else {
                             setToolbarTitle(mUser.getEmail());
@@ -123,13 +123,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setToolbarTitle(String name) {
         ActionBar actionBar = this.getSupportActionBar();
-        actionBar.setTitle(name);
+        if (actionBar !=null) { actionBar.setTitle(name + ""); }
 
     }
 
     private String getToolbarTitle() {
         ActionBar actionBar = this.getSupportActionBar();
-        return (String) actionBar.getTitle();
+        if (actionBar != null) {
+            return actionBar.getTitle() + "";
+        } else {
+            return "";
+        }
     }
 
     @Override

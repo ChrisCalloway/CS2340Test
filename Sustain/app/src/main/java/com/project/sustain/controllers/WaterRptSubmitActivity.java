@@ -3,10 +3,6 @@ package com.project.sustain.controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
-import android.icu.util.TimeZone;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +43,7 @@ import com.project.sustain.model.WaterType;
 import com.project.sustain.services.FetchAddressConstants;
 import com.project.sustain.services.FetchAddressIntentService;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -58,7 +57,8 @@ import static com.project.sustain.services.FetchAddressConstants.RESULT_DATA_KEY
  */
 
 public class WaterRptSubmitActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
     protected android.location.Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
 
@@ -68,6 +68,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private static final String TAG = WaterRptSubmitActivity.class.getSimpleName();
+    private static final int LOCATION_INTERVAL = 30;
     private String requestedAction = "";
     private TextView date;
     private TextView time;
@@ -91,7 +92,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
     private FirebaseUser fireBaseUser;
     private DatabaseReference waterReportsRef;
     private FirebaseAuth auth;
-    private static Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("EST"));
+    private LocationRequest mLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,11 +126,27 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         cancelButton = (Button) findViewById(R.id.canButton);
         getLocationButton = (Button) findViewById(R.id.btnGetCurrentLocation);
 
-        waterType.setAdapter(new ArrayAdapter<WaterType>(this, R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
-        waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this, R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
+        waterType.setAdapter(new ArrayAdapter<WaterType>(this,
+                R.layout.support_simple_spinner_dropdown_item, WaterType.values()));
+        waterCondition.setAdapter(new ArrayAdapter<WaterCondition>(this,
+                R.layout.support_simple_spinner_dropdown_item, WaterCondition.values()));
 
         date.setText(obtainDate());
         time.setText(obtainTime());
+
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(LOCATION_INTERVAL);
+        mLocationRequest.setFastestInterval(LOCATION_INTERVAL);
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */,
+                        this /* OnConnectionFailedListener */)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .build();
 
         waterReportsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -167,19 +184,25 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 // Only start the service to fetch the address if GoogleApiClient is
                 // connected.
-                if (mGoogleApiClient.isConnected() && mLastLocation != null) {
-                    Log.d(TAG, "Starting intent service");
-                    requestedAction = FetchAddressConstants.ACTION_FETCH_ADDRESS;
-                    startIntentService(requestedAction);
-                    latitude.setText(String.format("%f", mLastLocation.getLatitude()));
-                    longitude.setText(String.format("%f", mLastLocation.getLongitude()));
+                if (mGoogleApiClient.isConnected()) {
+                    if (mLastLocation == null) {
+                        requestPermissionForLocation();
+                    }
+                    if (mLastLocation != null) {
+                        Log.d(TAG, "Starting intent service");
+                        requestedAction = FetchAddressConstants.ACTION_FETCH_ADDRESS;
+                        startIntentService(requestedAction);
+                        latitude.setText(String.format(Locale.US, "%f", mLastLocation.getLatitude()));
+                        longitude.setText(String.format(Locale.US, "%f", mLastLocation.getLongitude()));
+                    }
+                } else {
+                    // If GoogleApiClient isn't connected, process the user's request by
+                    // setting mAddressRequested to true. Later, when GoogleApiClient connects,
+                    // launch the service to fetch the address. As far as the user is
+                    // concerned, pressing the Fetch Address button
+                    // immediately kicks off the process of getting the address.
+                    mAddressRequested = true;
                 }
-                // If GoogleApiClient isn't connected, process the user's request by
-                // setting mAddressRequested to true. Later, when GoogleApiClient connects,
-                // launch the service to fetch the address. As far as the user is
-                // concerned, pressing the Fetch Address button
-                // immediately kicks off the process of getting the address.
-                mAddressRequested = true;
             }
         };
 
@@ -188,15 +211,23 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         mResultReceiver = new AddressResultReceiver(new Handler());
 
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */,
-                        this /* OnConnectionFailedListener */)
-                .addConnectionCallbacks(this)
-                .addApi(LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .build();
-        mGoogleApiClient.connect();
+
+    }
+
+    @Override
+    public void onStart() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
     }
 
     @Override
@@ -217,7 +248,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
                 startIntentService(requestedAction);
             }
         } else {
-            Log.d(TAG, "Unable to get permission and/or last location.");
+            Log.d(TAG, "Unable to get last location.");
         }
     }
 
@@ -231,6 +262,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
 
     }
 
+
     /**
      * gets the address data based on latitude and longitude of current location.
      * data returned in callback AddressResultReceiver.onReceiveResult.
@@ -238,6 +270,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
      *               (Address or LatLong).
      */
     protected void startIntentService(String action) {
+        Log.d(TAG, "Starting address fetching service");
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.setAction(action);
         intent.putExtra(FetchAddressConstants.RECEIVER, mResultReceiver);
@@ -262,7 +295,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
-        mLocationPermissionGranted = true;
+        Log.d(TAG, "Permission granted status: " + mLocationPermissionGranted);
+
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -270,6 +304,8 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         if (mLocationPermissionGranted) {
             mLastLocation = LocationServices.FusedLocationApi
                     .getLastLocation(mGoogleApiClient);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                    mLocationRequest, this);
         }
 
 
@@ -283,6 +319,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult fired");
         mLocationPermissionGranted = false;
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
@@ -329,6 +366,11 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+        mLastLocation = location;
+    }
+
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
             super(handler);
@@ -358,7 +400,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
      * @return string containing date
      */
     private String obtainDate() {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        java.text.DateFormat df = java.text.SimpleDateFormat.getDateInstance();
         return df.format(new Date());
     }
 
@@ -367,17 +409,17 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
      * @return string containing time
      */
     private String obtainTime() {
-//        DateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-//        return df.format(new Date());
-        currentCalendar.setTimeZone(TimeZone.getTimeZone("EST"));
-        int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
-        int minute = currentCalendar.get(Calendar.MINUTE);
-        int seconds = currentCalendar.get(Calendar.SECOND);
-        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
-        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
-        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
-        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
-        return completeTime;
+        java.text.DateFormat df = java.text.SimpleDateFormat.getTimeInstance(DateFormat.LONG);
+        return df.format(new Date());
+//        Calendar currentCalendar = Calendar.getInstance();
+//        int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+//        int minute = currentCalendar.get(Calendar.MINUTE);
+//        int seconds = currentCalendar.get(Calendar.SECOND);
+//        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
+//        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
+//        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
+//        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
+//        return completeTime;
     }
 
 
@@ -408,7 +450,7 @@ public class WaterRptSubmitActivity extends AppCompatActivity implements
         waterReport.setConditionWater((WaterCondition) waterCondition.getSelectedItem());
         waterReport.setUserID(fireBaseUser.getUid());
         waterReportsRef.push().setValue(waterReport);
-        Toast.makeText(this, "Report saved.", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "Report saved.", Toast.LENGTH_SHORT).show();
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", name.getText().toString());
         setResult(Activity.RESULT_OK,returnIntent);

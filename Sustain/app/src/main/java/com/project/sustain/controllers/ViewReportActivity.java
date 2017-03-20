@@ -59,7 +59,7 @@ public class ViewReportActivity extends AppCompatActivity {
 
         //gets the package passed in as an intent and initializes the instance data from the package
         final Intent intent = getIntent();
-        WaterReport fromPrevActivity = (WaterReport) intent.getParcelableExtra("waterReportIntentData");
+        WaterReport fromPrevActivity = intent.getParcelableExtra("waterReportIntentData");
 
         date = fromPrevActivity.getDate();
         time = fromPrevActivity.getTime();

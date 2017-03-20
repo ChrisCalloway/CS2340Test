@@ -33,7 +33,7 @@
         <activity android:name=".controllers.RegistrationActivity" />
         <activity android:name=".controllers.WaterRptSubmitActivity" />
         <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.EditProfileActivity"></activity>
+        <activity android:name=".controllers.EditProfileActivity" />
         <activity
             android:name=".controllers.ViewReportActivity"
             android:label="ViewingWaterReport">
@@ -52,8 +52,6 @@
  
         </activity>
 
-        <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.SubmitWaterSourceReportActivity"></activity>
     </application>
 
 </manifest>

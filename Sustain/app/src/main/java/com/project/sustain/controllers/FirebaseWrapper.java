@@ -88,7 +88,9 @@ public class FirebaseWrapper implements DatabaseWrapper {
                         if (task.isSuccessful()) {
                             if (mRegistrationResultListener != null) {
                                 mRegistrationResultListener.onComplete("Registration successful.");
-                            } else {
+                            }
+                        } else {
+                            if (mRegistrationResultListener != null) {
                                 mRegistrationResultListener.onComplete("Registration failed.");
                             }
                         }

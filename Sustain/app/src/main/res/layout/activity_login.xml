@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,8 +12,6 @@
         android:layout_height="177dp"
         app:srcCompat="@drawable/sustain_svg"
         android:id="@+id/sustainIcon"
-        android:layout_row="0"
-        android:layout_column="1"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="25dp" />
 
@@ -34,8 +31,6 @@
         android:id="@+id/editEmail"
         android:layout_height="55dp"
         android:hint="@string/edit_email"
-        android:layout_row="1"
-        android:layout_column="1"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="5dp"
         android:elevation="8dp"
@@ -46,8 +41,6 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editPassword"
-        android:layout_row="3"
-        android:layout_column="1"
         android:hint="@string/edit_password"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="5dp"

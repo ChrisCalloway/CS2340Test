@@ -184,7 +184,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (userDisplayNameChanged()) {
             updateUserDisplayName();
         }
-        Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT).show();
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", mUserName.getText().toString());
         setResult(Activity.RESULT_OK,returnIntent);

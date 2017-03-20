@@ -263,30 +263,25 @@
     </TableRow>
 
     <TableRow>
-
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:id="@+id/canButton"
+            android:layout_marginLeft="10dp" />
         <Button
             android:text="Submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/subButton"
-            android:layout_column="0"
-            android:layout_marginLeft="10dp" />
-
-        <Button
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_column="1"
-            android:id="@+id/canButton"
             android:layout_marginLeft="10dp" />
-
-
     </TableRow>
     <Button
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="2"
         android:id="@+id/btnGetCurrentLocation"
         android:text="@string/get_current_location"/>
 </TableLayout>

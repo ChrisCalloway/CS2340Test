@@ -5,21 +5,21 @@ package com.project.sustain.controllers;
  */
 
 public interface DatabaseWrapper {
-    public void connect();
+     void connect();
 
-    public void disconnect();
+     void disconnect();
 
-    public void setRegistrationResultListener(RegistrationResultListener listener);
+     void setRegistrationResultListener(RegistrationResultListener listener);
 
-    public void removeRegistrationResultListener();
+     void removeRegistrationResultListener();
 
-    public void createAccount(String email, String password);
+     void createAccount(String email, String password);
 
-    public <T> void queryDatabaseAsync(String query, T modelObject);
+     <T> void queryDatabaseAsync(String query, T modelObject);
 
-    public <T> void saveSingleRecord(String recordLocation, T modelObject);
+     <T> void saveSingleRecord(String recordLocation, T modelObject);
 
-    public void setQueryResultListener(QueryResultListener listener);
+     void setQueryResultListener(QueryResultListener listener);
 
-    public void removeQueryResultListener();
+     void removeQueryResultListener();
 }

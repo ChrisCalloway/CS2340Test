@@ -102,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 // of application.
                                 if (!task.isSuccessful()) {
 
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException().getMessage(),
+                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException().getMessage() + "",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(RegistrationActivity.this, "Successfully registered and signed in.", Toast.LENGTH_SHORT).show();

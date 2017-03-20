@@ -8,6 +8,6 @@ import java.util.List;
  */
 
 public interface QueryResultListener extends EventListener {
-    public <T> void onComplete(List<T> result);
-    public void onError(Throwable error);
+     <T> void onComplete(List<T> result);
+     void onError(Throwable error);
 }
