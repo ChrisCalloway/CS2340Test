@@ -91,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
         subWtrRep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toPassIn = getToolbarTitle();
+                startActivity(new Intent(MainActivity.this, SetAddressActivity.class));
+               /* String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
-                startActivity(forWtrRptSubmit);
+                startActivity(forWtrRptSubmit); */
             }
         });
 
