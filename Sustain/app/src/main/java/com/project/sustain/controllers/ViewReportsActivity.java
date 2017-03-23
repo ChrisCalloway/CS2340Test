@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
-import com.project.sustain.model.WaterReport;
+import com.project.sustain.model.WaterSourceReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class ViewReportsActivity extends AppCompatActivity {
     private FirebaseDatabase fireBaseDatabase;
     private DatabaseReference waterReportsRef;
     private DatabaseReference waterReports;
-    private List<WaterReport> waterReportList = new ArrayList<WaterReport>();
+    private List<WaterSourceReport> mWaterSourceReportList = new ArrayList<WaterSourceReport>();
     private RecyclerView wtrRepRecyclerView;
     private WaterReportAdapter wRAdapter;
     private Button backButton;
@@ -58,7 +58,7 @@ public class ViewReportsActivity extends AppCompatActivity {
 //        toMess = (ScrollView) findViewById(R.id.masterScroll);
         wtrRepRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        wRAdapter = new WaterReportAdapter(waterReportList);
+        wRAdapter = new WaterReportAdapter(mWaterSourceReportList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         wtrRepRecyclerView.setLayoutManager(mLayoutManager);
         wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -68,8 +68,8 @@ public class ViewReportsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot wtrRepSnapshot: dataSnapshot.getChildren()) {
-                    WaterReport toPaste = wtrRepSnapshot.getValue(WaterReport.class);
-                    waterReportList.add(toPaste);
+                    WaterSourceReport toPaste = wtrRepSnapshot.getValue(WaterSourceReport.class);
+                    mWaterSourceReportList.add(toPaste);
                     wRAdapter.notifyDataSetChanged();
                 }
             }
@@ -84,10 +84,10 @@ public class ViewReportsActivity extends AppCompatActivity {
                 wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                WaterReport waterReportClicked = waterReportList.get(position);
+                WaterSourceReport waterSourceReportClicked = mWaterSourceReportList.get(position);
                 //intent to be created.
                 Intent intent = new Intent(ViewReportsActivity.this, ViewReportActivity.class);
-                intent.putExtra("waterReportIntentData", waterReportClicked);
+                intent.putExtra("waterReportIntentData", waterSourceReportClicked);
                 startActivity(intent);
             }
 

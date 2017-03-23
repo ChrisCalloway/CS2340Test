@@ -9,17 +9,37 @@ public interface DatabaseWrapper {
 
      void disconnect();
 
-     void setRegistrationResultListener(RegistrationResultListener listener);
+     String getCurrentUserId();
 
-     void removeRegistrationResultListener();
+     String getCurrentUserDisplayName();
+
+     void updateCurrentUserDisplayName(String newName);
+
+     String getCurrentUserEmail();
+
+     void setAuthResultListener(AuthResultListener listener);
+
+     void removeAuthResultListener();
 
      void createAccount(String email, String password);
 
-     <T> void queryDatabaseAsync(String query, T modelObject);
+     void loginWithEmail(String email, String password);
 
-     <T> void saveSingleRecord(String recordLocation, T modelObject);
+     void logOut();
 
-     void setQueryResultListener(QueryResultListener listener);
+     <T> void queryDatabaseForListAsync(String query, T modelObject);
+
+     <T> void queryDatabaseForSingleAsync(String query, T modelObject);
+
+     <T> void insertSingleRecord(String recordLocation, T modelObject);
+
+     <T> void updateSingleRecord(String recordLocation, T modelObject);
+
+     void setQueryListResultListener(QueryListResultListener listener);
 
      void removeQueryResultListener();
+
+     void setQuerySingleResultListener(QuerySingleResultListener listener);
+
+     void removeQuerySingleResultListener();
 }

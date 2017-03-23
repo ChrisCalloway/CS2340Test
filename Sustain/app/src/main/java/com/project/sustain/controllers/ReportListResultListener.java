@@ -1,4 +1,6 @@
-package com.project.sustain.model;
+package com.project.sustain.controllers;
+
+import com.project.sustain.model.Report;
 
 import java.util.EventListener;
 import java.util.List;
@@ -8,6 +10,6 @@ import java.util.List;
  */
 
 public interface ReportListResultListener extends EventListener {
-     <T> void onComplete(List<T> list);
+     void onComplete(List<Report> list);
      void onError(Throwable error);
 }

@@ -8,19 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.project.sustain.R;
-import com.project.sustain.model.WaterReport;
+import com.project.sustain.model.WaterSourceReport;
 
 /**
  * Created by Marcia on 3/22/2017.
  */
 
 public class SubmitWaterReportFragment extends Fragment {
-    private WaterReport mWaterReport;
+    private WaterSourceReport mWaterSourceReport;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mWaterReport = new WaterReport();
+        mWaterSourceReport = new WaterSourceReport();
         //note: layout is inflated in a separate method, onCreateView.
     }
 

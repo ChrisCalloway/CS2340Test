@@ -2,29 +2,39 @@ package com.project.sustain.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by Marcia on 2/27/2017.
  */
 
 @IgnoreExtraProperties
-public class UserProfile {
+public class User implements Serializable {
     private UserType userType;
     private String userName;
+    private String userId;
     private String emailAddress;
     private Address homeAddress;
-    private PhoneNumber phoneNumber1;
-    private PhoneNumber phoneNumber2;
-    private PhoneNumber phoneNumber3;
 
-    public UserProfile() {
+    public User() {
         userType = UserType.USER;
         userName = "";
         emailAddress = "";
         homeAddress = new Address();
-        phoneNumber1 = new PhoneNumber();
-        phoneNumber2 = new PhoneNumber();
-        phoneNumber3 = new PhoneNumber();
     }
+
+    public User(UserType userType, String userName, String userId,
+                String emailAddress, Address homeAddress) {
+        this.userType = userType;
+        this.userName = userName;
+        this.userId = userId;
+        this.emailAddress = emailAddress;
+        this.homeAddress = homeAddress;
+    }
+
+    public String getUserId() {  return userId;  }
+
+    public void setUserId(String userId) { this.userId = userId;  }
 
     public UserType getUserType() {
         return userType;
@@ -48,30 +58,6 @@ public class UserProfile {
 
     public void setHomeAddress(Address homeAddress) {
         this.homeAddress = homeAddress;
-    }
-
-    public PhoneNumber getPhoneNumber1() {
-        return phoneNumber1;
-    }
-
-    public void setPhoneNumber1(PhoneNumber phoneNumber1) {
-        this.phoneNumber1 = phoneNumber1;
-    }
-
-    public PhoneNumber getPhoneNumber2() {
-        return phoneNumber2;
-    }
-
-    public void setPhoneNumber2(PhoneNumber phoneNumber2) {
-        this.phoneNumber2 = phoneNumber2;
-    }
-
-    public PhoneNumber getPhoneNumber3() {
-        return phoneNumber3;
-    }
-
-    public void setPhoneNumber3(PhoneNumber phoneNumber3) {
-        this.phoneNumber3 = phoneNumber3;
     }
 
     public  String getUserName() { return  userName; }

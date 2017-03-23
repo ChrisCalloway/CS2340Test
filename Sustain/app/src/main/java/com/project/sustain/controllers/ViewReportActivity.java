@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.project.sustain.R;
 import com.project.sustain.model.Address;
 import com.project.sustain.model.WaterCondition;
-import com.project.sustain.model.WaterReport;
+import com.project.sustain.model.WaterSourceReport;
 import com.project.sustain.model.WaterType;
 
 /**
@@ -59,20 +59,20 @@ public class ViewReportActivity extends AppCompatActivity {
 
         //gets the package passed in as an intent and initializes the instance data from the package
         final Intent intent = getIntent();
-        WaterReport fromPrevActivity = intent.getParcelableExtra("waterReportIntentData");
+        WaterSourceReport fromPrevActivity = (WaterSourceReport) intent.getSerializableExtra("WaterSourceReport");
 
-        date = fromPrevActivity.getDate();
-        time = fromPrevActivity.getTime();
+        date = fromPrevActivity.getDateOfReport();
+        time = fromPrevActivity.getTimeOfReport();
         reportNum = fromPrevActivity.getReportNumber();
-        name = fromPrevActivity.getName();
+        name = fromPrevActivity.getReporterName();
         locationReceived = fromPrevActivity.getAddress();
-        typeReceived = fromPrevActivity.getTypeWater();
-        conditionReceived = fromPrevActivity.getConditionWater();
-        userIDReceived = fromPrevActivity.getUserID();
+        typeReceived = fromPrevActivity.getWaterType();
+        conditionReceived = fromPrevActivity.getWaterCondition();
+        userIDReceived = fromPrevActivity.getReporterUserId();
 
         titleSet.setText("Water Report #" + reportNum);
-        dateSet.setText(date);
-        timeSet.setText(time);
+        dateSet.setText(date.toString());
+        timeSet.setText(time.toString());
         nameSet.setText(name);
         if (locationReceived != null) {
             strAddSet1.setText(locationReceived.getStreetAddress1());

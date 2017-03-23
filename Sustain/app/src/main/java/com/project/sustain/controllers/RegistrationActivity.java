@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.sustain.R;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
 import com.project.sustain.model.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mProfiles;
-    private UserProfile mUserProfile;
+    private User mUserProfile;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
 
@@ -68,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 String email = enteredEmail.getText().toString().trim();
                 String password = enteredPassword.getText().toString().trim();
 
-                final UserProfile profile = new UserProfile();
+                final User profile = new User();
                 final UserType userType = (UserType) selectedUserType.getSelectedItem();
                 profile.setUserType(userType);
                 profile.setEmailAddress(email);

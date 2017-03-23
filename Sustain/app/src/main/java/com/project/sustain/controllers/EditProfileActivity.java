@@ -1,9 +1,9 @@
 package com.project.sustain.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,19 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
 import com.project.sustain.model.Address;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 import com.project.sustain.model.UserType;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -40,18 +31,16 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mState;
     private EditText mCountry;
     private EditText mZip;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mProfiles;
-    private UserProfile mUserProfile;
+    private UserManager mUserManager;
+    private User mUserProfile;
     private String currentDisplayName = "";
+    private Context appContext = this.getApplication();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        Log.d("OnCreate", "called");
+
         //get refs to widgets on screen
         mUserName = (EditText) findViewById(R.id.editText_userName);
         mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
@@ -62,35 +51,20 @@ public class EditProfileActivity extends AppCompatActivity {
         mCountry = (EditText) findViewById(R.id.editText_country);
         mZip    = (EditText) findViewById(R.id.editText_zipcode);
 
-        //get refs to Firebase user objects
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-//        System.out.println(mFirebaseUser + "Hello World");
-        mDatabase = FirebaseDatabase.getInstance();
-        mProfiles = mDatabase.getReference().child("userProfiles");
+        //UserManager will handle all database reads/writes for us
+        mUserManager = new UserManager();
 
         btnSave = (Button) findViewById(R.id.buttonSaveProfile);
         btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //fill drop-down boxes
-        mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
+        mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this,
+                R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
-        //get this user's profile data
-        mProfiles.child(mFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mUserProfile = dataSnapshot.getValue(UserProfile.class);
-                if (mUserProfile != null) {
-                    loadProfileData();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //get this user's profile data.
+        //was passed here from MainActivity.
+        mUserProfile = (User) this.getIntent().getSerializableExtra("user");
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,38 +88,29 @@ public class EditProfileActivity extends AppCompatActivity {
      * @return true if display name has updated, false otherwise
      */
     private boolean userDisplayNameChanged() {
-        if (mFirebaseUser.getDisplayName() == null) {
+        String storedName = mUserManager.getCurrentUserDisplayName();
+        if (storedName == null || storedName.length() == 0) {
             return mUserName.length() > 0;
         } else {
-            return !(mFirebaseUser.getDisplayName().contentEquals(mUserName.getText()));
+            return !(storedName.contentEquals(mUserName.getText()));
         }
     }
 
     /**
-     * Updates the user's display name in the Firebase auth user store.
+     * Updates the user's display name in the user store.
      */
     private void updateUserDisplayName() {
         currentDisplayName = mUserName.getText().toString();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(currentDisplayName)
-                .build();
-
-        mFirebaseUser.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User display name updated.");
-                        }
-                    }
-                });
+        if (currentDisplayName.length() > 0) {
+            mUserManager.updateCurrentUserDisplayName(currentDisplayName);
+        }
     }
 
     /**
-     * Loads the profile data retrieved from Firebase into the widgets on screen.
+     * Loads the profile data into the widgets on screen.
      */
     private void loadProfileData() {
-        Log.d("Edit", "LoadProfileData called");
+        Log.d(TAG, "LoadProfileData called");
         mUserName.setText(mUserProfile.getUserName());
         mSpinnerUserType.setSelection(mUserProfile.getUserType().ordinal());
         Address homeAddress = mUserProfile.getHomeAddress();
@@ -159,17 +124,18 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves the user's input profile data to Firebase realtime database
-     * and Firebase's auth user store.
+     * Saves the user's input profile data to database
+     * and auth user store.
      * Sends result back to calling Activity.
      */
     private void saveProfileData() {
         if (mUserProfile == null) {
-            mUserProfile = new UserProfile();
+            mUserProfile = new User();
         }
-        mUserProfile.setEmailAddress(mFirebaseUser.getEmail());
+        mUserProfile.setEmailAddress(mUserManager.getCurrentUserEmail());
         mUserProfile.setUserType((UserType) mSpinnerUserType.getSelectedItem());
         mUserProfile.setUserName(mUserName.getText().toString());
+        mUserProfile.setUserId(mUserManager.getCurrentUserId());
         Address address = new Address();
         address.setStreetAddress1(mStreet1.getText().toString());
         address.setStreetAddress2(mStreet2.getText().toString());
@@ -179,14 +145,16 @@ public class EditProfileActivity extends AppCompatActivity {
         address.setZipCode(mZip.getText().toString());
         mUserProfile.setHomeAddress(address);
 
-        //Firebase userID is the key for this record.
-        mProfiles.child(mFirebaseUser.getUid()).setValue(mUserProfile);
+        //ask UserManager to update the backend DB with our changes
+        mUserManager.updateUser(mUserProfile);
         if (userDisplayNameChanged()) {
             updateUserDisplayName();
         }
         Toast.makeText(this, "Profile saved.", Toast.LENGTH_SHORT).show();
+
+        //pass User changes back to calling Activity
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("displayName", mUserName.getText().toString());
+        returnIntent.putExtra("user", mUserProfile);
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
 

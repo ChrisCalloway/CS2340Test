@@ -1,37 +1,53 @@
 package com.project.sustain.model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.io.Serializable;
+
 /**
- * Created by Chris on 3/13/17.
+ * Created by georgiainstituteoftechnology on 3/2/17.
  */
-
-public class WaterSourceReport extends Report{
-
-    private WaterType reportedWaterType;
-    private WaterCondition reportedWaterCondition;
-
-    public WaterSourceReport() {}
+@IgnoreExtraProperties
+public class WaterSourceReport extends Report implements Serializable {
+    private WaterType mWaterType;
+    private WaterCondition mWaterCondition;
 
     // Constructor
-    public WaterSourceReport(String reporterName, double reportedLatitude, double reportedLongitude,
-                             WaterType reportedWaterType, WaterCondition reportedWaterCondition) {
-        this.reporterName = reporterName;
-        this.reportedLocation = new Location(reportedLatitude, reportedLongitude);
-        this.reportNumber = REPORT_ID++;
-        this.reportedWaterType = reportedWaterType;
-        this.reportedWaterCondition = reportedWaterCondition;
+    public WaterSourceReport() {
     }
 
-    public WaterType getReportedWaterType() {
-        return this.reportedWaterType;
+    public WaterSourceReport(Address address, String reporterName, String reportUserId,
+                             String dateOfReport, String timeOfReport, int reportNumber,
+                             String placeName, WaterType waterType, WaterCondition waterCondition) {
+        super(address, reporterName, reportUserId, dateOfReport, timeOfReport, reportNumber,
+                placeName);
+        this.mWaterType = waterType;
+        this.mWaterCondition = waterCondition;
     }
 
-    public WaterCondition getReportedWaterCondition() {
-        return this.reportedWaterCondition;
+    public WaterSourceReport(Address address) {
+        this.setAddress(address);
+    }
+
+    public WaterType getWaterType() {
+        return mWaterType;
+    }
+
+    public void setWaterType(WaterType typePassed) {
+        mWaterType = typePassed;
+    }
+
+    public WaterCondition getWaterCondition() {
+        return mWaterCondition;
+    }
+
+    public void setWaterCondition(WaterCondition conditionPassed) {
+        mWaterCondition = conditionPassed;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\nWater Type: " + getReportedWaterType() +
-                "\nCondition: " + getReportedWaterCondition();
+        return super.toString() + "\nType: " + mWaterType +
+                "\nCondition: " + mWaterCondition;
     }
 }

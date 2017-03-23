@@ -14,84 +14,87 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout;
-    private FirebaseAuth auth;
-    private FirebaseUser mUser;
-    private FirebaseDatabase mDatabase;
-    private Toolbar mToolbar;
-    private UserProfile mUserProfile;
-    private DatabaseReference mProfiles;
+    private User mUser;
+    private UserManager mUserManager;
+    private UserResultListener mUserResultListener;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
-    private Button subWtrRep;
-    private Button viewWtrRep;
-    private Button viewMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button btnSubmitReport;
+        Button btnViewReport;
+        Button btnViewMap;
+        Button btnLogout;
+        Toolbar toolbar;
 
-        // Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        mUser = auth.getCurrentUser();
+        mUserManager = new UserManager();
+
+        //result of asynchronous call to getCurrentUser()
+        mUserResultListener = new UserResultListener() {
+            @Override
+            public void onComplete(User user) {
+                mUser = user;
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        };
+
+        //get the User object for the current logged-in user
+        //we will pass this on to the next activity
+        mUserManager.setUserResultListener(mUserResultListener);
+        mUserManager.getCurrentUser();
 
         setContentView(R.layout.activity_main);
 
         //add Toolbar as ActionBar with menu
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        this.setSupportActionBar(mToolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        this.setSupportActionBar(toolbar);
 
-        if (mUser != null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mProfiles = mDatabase.getReference().child("userProfiles");
-            mProfiles.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    mUserProfile = dataSnapshot.getValue(UserProfile.class);
-                    if (mUserProfile != null) {
-                        if (!mUserProfile.getUserName().equals("")) {
-                            setToolbarTitle(mUserProfile.getUserName());
-                        } else {
-                            setToolbarTitle(mUser.getEmail());
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+        String userName = mUserManager.getCurrentUserDisplayName();
+        String userEMail = mUserManager.getCurrentUserEmail();
+        if (!userName.equals("")) {
+            setToolbarTitle(userName);
+            mUser.setUserName(userName);
+        } else {
+            setToolbarTitle(userEMail);
         }
+        mUser.setEmailAddress(userEMail);
+
 
         btnLogout = (Button) findViewById(R.id.buttonLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
+                mUserManager.logOutUser();
+                mUser = null;
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         });
 
-        subWtrRep = (Button) findViewById(R.id.subRep);
+        btnSubmitReport = (Button) findViewById(R.id.subRep);
 
-        subWtrRep.setOnClickListener(new View.OnClickListener() {
+        //clicking Submit Report takes user to SetAddressActivity.
+        //from there, user will get to one of the water report submit screens.
+        btnSubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SetAddressActivity.class));
+                Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
+                intent.putExtra("user", mUser);
+                startActivity(intent);
+                finish();
                /* String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
@@ -99,21 +102,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewWtrRep = (Button) findViewById(R.id.viewReportBut);
+        btnViewReport = (Button) findViewById(R.id.viewReportBut);
 
-        viewWtrRep.setOnClickListener(new View.OnClickListener() {
+        btnViewReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
             }
         });
 
-        viewMap = (Button) findViewById(R.id.buttonViewMap);
+        btnViewMap = (Button) findViewById(R.id.buttonViewMap);
 
-        viewMap.setOnClickListener(new View.OnClickListener() {
+        btnViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+                finish();
             }
         });
     }
@@ -142,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
-                startActivityForResult(new Intent(MainActivity.this, EditProfileActivity.class),
-                        PROFILE_CHANGE_REQ);
+                Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                intent.putExtra("user", mUser);
+                startActivityForResult(intent, PROFILE_CHANGE_REQ);
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -169,8 +174,25 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PROFILE_CHANGE_REQ) {
             if (resultCode == RESULT_OK) {
                 Log.d("EditResult", "Got result OK");
-                setToolbarTitle(data.getStringExtra("displayName"));
+                mUser = (User) data.getSerializableExtra("user");
+                setToolbarTitle(mUser.getUserName());
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mUserResultListener != null) {
+            mUserManager.setUserResultListener(mUserResultListener);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mUserResultListener != null) {
+            mUserManager.removeUserResultListener();
         }
     }
 }

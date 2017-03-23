@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.project.sustain.R;
-import com.project.sustain.model.WaterReport;
+import com.project.sustain.model.WaterSourceReport;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.WaterViewHolder>{
-    private List<WaterReport> wtrReportList;
+    private List<WaterSourceReport> wtrReportList;
 
     public class WaterViewHolder extends RecyclerView.ViewHolder {
         public TextView reportNumText;
@@ -29,7 +29,7 @@ public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.
         }
     }
 
-    public WaterReportAdapter(List<WaterReport> wtrReportList) {
+    public WaterReportAdapter(List<WaterSourceReport> wtrReportList) {
         this.wtrReportList = wtrReportList;
     }
 
@@ -41,9 +41,9 @@ public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.
 
     @Override
     public void onBindViewHolder(WaterViewHolder holder, int position) {
-        WaterReport waterReport = wtrReportList.get(position);
-        holder.reportNumText.setText("Water Report #" + waterReport.getReportNumber());
-        holder.reportDateText.setText(waterReport.getDate());
+        WaterSourceReport waterSourceReport = wtrReportList.get(position);
+        holder.reportNumText.setText("Water Report #" + waterSourceReport.getReportNumber());
+        holder.reportDateText.setText(waterSourceReport.getDateOfReport().toString());
     }
 
     @Override
