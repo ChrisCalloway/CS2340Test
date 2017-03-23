@@ -40,7 +40,15 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        //get this user's profile data.
+        //was passed here from calling Activity.
+        mUserProfile = (User) this.getIntent().getSerializableExtra("user");
 
+        if (mUserProfile == null) {
+            //user has no profile.  Create new one
+            Log.d(TAG, "User profile is null");
+            mUserProfile = new User();
+        }
         //get refs to widgets on screen
         mUserName = (EditText) findViewById(R.id.editText_userName);
         mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
@@ -62,15 +70,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
-        //get this user's profile data.
-        //was passed here from MainActivity.
-        mUserProfile = (User) this.getIntent().getSerializableExtra("user");
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveProfileData();
-                finish();
 
             }
         });
@@ -81,6 +86,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        loadProfileData();
     }
 
     /**

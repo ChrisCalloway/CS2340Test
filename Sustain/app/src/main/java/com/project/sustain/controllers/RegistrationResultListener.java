@@ -7,7 +7,7 @@ import java.util.EventListener;
  */
 
 public interface RegistrationResultListener extends EventListener {
-    void onComplete(boolean success);
+    void onComplete(boolean success, String result);
     void onError(Throwable error);
 
 }

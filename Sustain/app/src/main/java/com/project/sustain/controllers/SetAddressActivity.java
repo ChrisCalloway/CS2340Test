@@ -77,7 +77,13 @@ public class SetAddressActivity extends AppCompatActivity implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUser = (User) getIntent().getSerializableExtra("user");
-
+        if (mUser == null || mUser.getUserId().equals("")) {
+            Toast.makeText(getApplicationContext(), "User profile not found.\n" +
+            "Please complete your profile before reporting.", Toast.LENGTH_LONG).show();
+            //go back to MainActivity
+            startActivity(new Intent(SetAddressActivity.this, MainActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_get_address);
 
         //make different report type options visible only if user is not "USER" type.

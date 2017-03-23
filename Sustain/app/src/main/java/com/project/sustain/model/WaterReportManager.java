@@ -21,16 +21,22 @@ public class WaterReportManager {
      */
     public WaterReportManager() {
 
+        //this listener passes the query results back
+        //to the caller when the asynchronous query finishes.
         qrListener = new QueryListResultListener() {
             @Override
             public <T> void onComplete(List<T> list) {
                 mReports = (List<Report>) list;
-                mListResultListener.onComplete(mReports);
+                if (mListResultListener != null) {
+                    mListResultListener.onComplete(mReports);
+                }
             }
 
             @Override
             public void onError(Throwable error) {
-
+                if (mListResultListener != null) {
+                    mListResultListener.onError(error);
+                }
             }
         };
     }

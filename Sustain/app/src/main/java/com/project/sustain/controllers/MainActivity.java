@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(User user) {
                 Log.d(TAG, "UserResultListener onComplete");
                 mUser = user;
+                if (mUser == null) {
+                    //user does not have a profile saved yet. Create one
+                    mUser = new User();
+
+                }
             }
 
             @Override
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         String userName = mUserManager.getCurrentUserDisplayName();
         String userEMail = mUserManager.getCurrentUserEmail();
-        if (!userName.equals("")) {
+        if (!userName.equals("") && !userName.equals("null")) {
             setToolbarTitle(userName);
         } else {
             setToolbarTitle(userEMail);
@@ -197,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (mUserResultListener != null) {
-            mUserManager.removeUserResultListener();
+            mUserManager.removeAllListeners();
         }
     }
 }

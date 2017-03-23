@@ -37,7 +37,7 @@ public interface DatabaseWrapper {
 
      void setQueryListResultListener(QueryListResultListener listener);
 
-     void removeQueryResultListener();
+     void removeQueryListResultListener();
 
      void setQuerySingleResultListener(QuerySingleResultListener listener);
 

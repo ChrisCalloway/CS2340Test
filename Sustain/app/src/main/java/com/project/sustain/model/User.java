@@ -17,10 +17,7 @@ public class User implements Serializable {
     private Address homeAddress;
 
     public User() {
-        userType = UserType.USER;
-        userName = "";
-        emailAddress = "";
-        homeAddress = new Address();
+        this(UserType.USER, "", "", "", new Address());
     }
 
     public User(UserType userType, String userName, String userId,

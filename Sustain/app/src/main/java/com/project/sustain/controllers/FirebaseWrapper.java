@@ -54,7 +54,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 Log.d(TAG, "Auth state changed");
-                // getCurrentUser();
+                getCurrentUser();
             }
         };
         mFirebaseAuth.addAuthStateListener(mAuthListener);
@@ -64,9 +64,9 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mUser = mFirebaseAuth.getCurrentUser();
         if (mUser != null) {
             isLoggedIn = true;
-            userDisplayName = mUser.getDisplayName();
-            userId = mUser.getUid();
-            userEmail = mUser.getEmail();
+            userDisplayName = mUser.getDisplayName() + "";
+            userId = mUser.getUid() + "";
+            userEmail = mUser.getEmail() + "";
 
 
         } else {
@@ -145,19 +145,19 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+   //                     AuthResult result = task.getResult();
                         if (task.isSuccessful()) {
-//                            AuthResult result = task.getResult();
 //                            mUser = result.getUser();
 //                            userId = mUser.getUid();
 //                            userEmail = mUser.getEmail();
 //                            userDisplayName = mUser.getDisplayName();
 //                            isLoggedIn = true;
                             if (mRegistrationResultListener != null) {
-                                mRegistrationResultListener.onComplete(true);
+                                mRegistrationResultListener.onComplete(true, userId);
                             }
                         } else {
                             if (mRegistrationResultListener != null) {
-                                mRegistrationResultListener.onComplete(false);
+                                mRegistrationResultListener.onComplete(false, "");
                             }
                         }
                     }
@@ -194,26 +194,33 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mModelObject = modelObject;
         final List<T> resultList = new ArrayList<T>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(query);
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    Object result = snapshot.getValue(mModelObject.getClass());
-                    resultList.add((T) result);
+        if (mDatabaseReference != null) {
+            mDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Object result = snapshot.getValue(mModelObject.getClass());
+                        resultList.add((T) result);
+                    }
+                    if (mQueryListResultListener != null) {
+                        mQueryListResultListener.onComplete(resultList);
+                    }
                 }
-                mQueryListResultListener.onComplete(resultList);
-            }
 
-            // Iterate through waterReportList to get each ones water report list
+                // Iterate through waterReportList to get each ones water report list
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Throwable error = new Throwable(databaseError.getMessage(),
-                        databaseError.toException());
-                mQueryListResultListener.onError(error);
-
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    if (databaseError != null) {
+                        Throwable error = new Throwable(databaseError.getMessage(),
+                                databaseError.toException());
+                        if (mQueryListResultListener != null) {
+                            mQueryListResultListener.onError(error);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -224,15 +231,20 @@ public class FirebaseWrapper implements DatabaseWrapper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     singleResult = dataSnapshot.getValue(mModelObject.getClass());
+                if(mQuerySingleResultListener != null) {
                     mQuerySingleResultListener.onComplete((T) singleResult);
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Throwable error = new Throwable(databaseError.getMessage(),
-                        databaseError.toException());
-                mQuerySingleResultListener.onError(error);
-
+                if (databaseError != null) {
+                    Throwable error = new Throwable(databaseError.getMessage(),
+                            databaseError.toException());
+                    if (mQuerySingleResultListener != null) {
+                        mQuerySingleResultListener.onError(error);
+                    }
+                }
             }
         });
     }
@@ -240,13 +252,20 @@ public class FirebaseWrapper implements DatabaseWrapper {
     @Override
     public <T> void insertSingleRecord(String recordLocation, T modelObject) {
         mDatabaseReference = mFirebaseDatabase.getReference().child(recordLocation);
-        mDatabaseReference.push().setValue(modelObject);
+        if (mDatabaseReference != null) {
+            mDatabaseReference.push().setValue(modelObject);
+        }
     }
 
     @Override
     public <T> void updateSingleRecord(String recordLocation, T modelObject) {
         mDatabaseReference = mFirebaseDatabase.getReference().child(recordLocation);
-        mDatabaseReference.setValue(modelObject);
+        if (mDatabaseReference != null) {
+            Log.d(TAG, "Setting value of user profile");
+            mDatabaseReference.setValue(modelObject);
+        } else {
+            Log.d(TAG, "mDatabaseReference is null");
+        }
     }
 
     public void setQueryListResultListener(QueryListResultListener listener) {
@@ -254,7 +273,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     }
 
     @Override
-    public void removeQueryResultListener() {
+    public void removeQueryListResultListener() {
         this.mQueryListResultListener = null;
     }
 

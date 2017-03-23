@@ -51,7 +51,9 @@ public class UserManager {
                 @Override
                 public <T> void onComplete(T result) {
                     Log.d(TAG, "onComplete on getCurrentUser");
-                    currentUser = (User) result;
+                    if (result != null) {
+                        currentUser = (User) result;
+                    }
                     if (mUserResultListener != null) {
                         mUserResultListener.onComplete(currentUser);
                     }
@@ -100,9 +102,9 @@ public class UserManager {
     public void registerWithEmailPassword(String email, String password) {
         RegistrationResultListener resultListener = new RegistrationResultListener() {
             @Override
-            public void onComplete(boolean success) {
+            public void onComplete(boolean success, String result) {
                 if (mRegistrationResultListener != null) {
-                    mRegistrationResultListener.onComplete(success);
+                    mRegistrationResultListener.onComplete(success, result);
                 }
             }
 
@@ -142,5 +144,15 @@ public class UserManager {
 
     public void removeRegistrationResultListener() {
         this.mRegistrationResultListener = null;
+    }
+
+    public void removeAllListeners() {
+        mUserResultListener = null;
+        mRegistrationResultListener = null;
+        mAuthResultListener = null;
+        mLoginResultListener = null;
+        DBWrapper.removeRegistrationResultListener();
+        DBWrapper.removeAuthResultListener();
+        DBWrapper.removeQuerySingleResultListener();
     }
 }

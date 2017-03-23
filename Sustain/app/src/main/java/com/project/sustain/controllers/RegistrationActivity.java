@@ -71,23 +71,23 @@ public class RegistrationActivity extends AppCompatActivity {
                 // Create user
                 RegistrationResultListener resultListener = new RegistrationResultListener() {
                     @Override
-                    public void onComplete(boolean success) {
+                    public void onComplete(boolean success, String userId) {
                         progressBar.setVisibility(View.GONE);
                         if (success) {
                             Toast.makeText(RegistrationActivity.this, "Registration successful.",
                                     Toast.LENGTH_SHORT).show();
                             //create User object for this new user
-//                            mUserProfile = new User();
-//                            mUserProfile.setUserId(userId);
-//                            mUserProfile.setEmailAddress(email);
-//                         //   mUserProfile.setUserType((UserType) selectedUserType.getSelectedItem());
-//                           // Log.d(TAG, "adding user profile to database");
-//                           // mUserManager.addUser(mUserProfile);
-//                            //open profile editor
-//                            //EditProfileActivity expects to be passed a User object
-//                            Intent intent = new Intent(RegistrationActivity.this, EditProfileActivity.class);
-//                            intent.putExtra("user", mUserProfile);
-//                            startActivityForResult(intent, PROFILE_CHANGE_REQ);
+                            mUserProfile = new User();
+                            mUserProfile.setUserId(userId);
+                            mUserProfile.setEmailAddress(email);
+                            mUserProfile.setUserType((UserType) selectedUserType.getSelectedItem());
+                            Log.d(TAG, "adding user profile to database");
+                            mUserManager.addUser(mUserProfile);
+                            //open profile editor
+                            //EditProfileActivity expects to be passed a User object
+                            Intent intent = new Intent(RegistrationActivity.this, EditProfileActivity.class);
+                            intent.putExtra("user", mUserProfile);
+                            startActivityForResult(intent, PROFILE_CHANGE_REQ);
                         } else {
                             //userId may or may not contain an error message.
                             Toast.makeText(RegistrationActivity.this, "Registration failed",
@@ -128,7 +128,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         if (mUserManager != null) {
-            mUserManager.removeRegistrationResultListener();
+            mUserManager.removeAllListeners();
         }
         super.onStop();
     }
