@@ -48,10 +48,6 @@
             android:name=".services.FetchAddressIntentService"
             android:exported="false"/>
 
-        <activity android:name=".controllers.TestActivity">
- 
-        </activity>
-
     </application>
 
 </manifest>

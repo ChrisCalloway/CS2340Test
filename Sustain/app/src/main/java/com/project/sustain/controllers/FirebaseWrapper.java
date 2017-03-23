@@ -52,31 +52,43 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mUser = mFirebaseAuth.getCurrentUser();
-                if (mUser != null) {
-                    isLoggedIn = true;
-                    userDisplayName = mUser.getDisplayName();
-                    userId = mUser.getUid();
-                    userEmail = mUser.getEmail();
-
-
-                } else {
-                    isLoggedIn = false;
-                    userDisplayName = "";
-                    userId = "";
-                    userEmail = "";
-                }
-
+                Log.d(TAG, "Auth state changed");
+                 getCurrentUser();
             }
         };
+        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
 
+    private void getCurrentUser() {
+        mUser = mFirebaseAuth.getCurrentUser();
+        if (mUser != null) {
+            isLoggedIn = true;
+            userDisplayName = mUser.getDisplayName();
+            userId = mUser.getUid();
+            userEmail = mUser.getEmail();
+
+
+        } else {
+            isLoggedIn = false;
+            userDisplayName = "";
+            userId = "";
+            userEmail = "";
+        }
     }
 
     public String getCurrentUserId() {
+        if (mUser == null) {
+            getCurrentUser();
+        }
+
         return userId;
     }
 
     public String getCurrentUserDisplayName() {
+        if (mUser == null) {
+            getCurrentUser();
+        }
+
         return userDisplayName;
     }
 
@@ -89,6 +101,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 .setDisplayName(newName)
                 .build();
 
+        if (mUser == null) { getCurrentUser(); }
         mUser.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -102,10 +115,16 @@ public class FirebaseWrapper implements DatabaseWrapper {
     }
 
     public String getCurrentUserEmail() {
+        if (mUser == null) {
+            getCurrentUser();
+        }
         return userEmail;
     }
 
     public boolean isLoggedIn() {
+        if (mUser == null) {
+            getCurrentUser();
+        }
         return isLoggedIn;
     }
 
@@ -127,11 +146,11 @@ public class FirebaseWrapper implements DatabaseWrapper {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             if (mAuthResultListener != null) {
-                                mAuthResultListener.onComplete("Registration successful.");
+                                mAuthResultListener.onComplete(true);
                             }
                         } else {
                             if (mAuthResultListener != null) {
-                                mAuthResultListener.onComplete("Registration failed.");
+                                mAuthResultListener.onComplete(false);
                             }
                         }
                     }
@@ -144,13 +163,13 @@ public class FirebaseWrapper implements DatabaseWrapper {
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 if (mAuthResultListener != null) {
-                                    mAuthResultListener.onComplete("Login successful.");
+                                    mAuthResultListener.onComplete(true);
                                 }
                             } else {
                                 if (mAuthResultListener != null) {
-                                    mAuthResultListener.onComplete("Login failed.");
+                                    mAuthResultListener.onComplete(false);
                                 }
                             }
                     }

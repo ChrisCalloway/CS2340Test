@@ -1,5 +1,7 @@
 package com.project.sustain.model;
 
+import android.util.Log;
+
 import com.project.sustain.controllers.AuthResultListener;
 import com.project.sustain.controllers.DatabaseWrapper;
 import com.project.sustain.controllers.FirebaseWrapper;
@@ -13,10 +15,16 @@ import com.project.sustain.controllers.UserResultListener;
 
 public class UserManager {
     private User currentUser;
-    private DatabaseWrapper DBWrapper = new FirebaseWrapper();
+    private DatabaseWrapper DBWrapper;
     private UserResultListener mUserResultListener = null;
     private AuthResultListener mAuthResultListener = null;
     private LoginResultListener mLoginResultListener = null;
+    private static String TAG = "UserManager";
+
+    public UserManager() {
+        DBWrapper = new FirebaseWrapper();
+        DBWrapper.connect();
+    }
 
     public String getCurrentUserId() {
         return DBWrapper.getCurrentUserId();
@@ -40,6 +48,7 @@ public class UserManager {
             DBWrapper.setQuerySingleResultListener(new QuerySingleResultListener() {
                 @Override
                 public <T> void onComplete(T result) {
+                    Log.d(TAG, "onComplete on getCurrentUser");
                     currentUser = (User) result;
                     mUserResultListener.onComplete(currentUser);
                 }

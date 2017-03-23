@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private UserManager mUserManager;
     private UserResultListener mUserResultListener;
     public static final int PROFILE_CHANGE_REQ = 1000;
+    public static String TAG = "MainActivity";
 
 
     @Override
@@ -41,17 +42,19 @@ public class MainActivity extends AppCompatActivity {
         mUserResultListener = new UserResultListener() {
             @Override
             public void onComplete(User user) {
+                Log.d(TAG, "UserResultListener onComplete");
                 mUser = user;
             }
 
             @Override
             public void onError(Throwable error) {
-
+                Log.d(TAG, "UserResultListener onError: " + error.getMessage());
             }
         };
 
         //get the User object for the current logged-in user
         //we will pass this on to the next activity
+        //call is asynchronous; result handled by mUserResultListener.onComplete()
         mUserManager.setUserResultListener(mUserResultListener);
         mUserManager.getCurrentUser();
 
@@ -65,11 +68,9 @@ public class MainActivity extends AppCompatActivity {
         String userEMail = mUserManager.getCurrentUserEmail();
         if (!userName.equals("")) {
             setToolbarTitle(userName);
-            mUser.setUserName(userName);
         } else {
             setToolbarTitle(userEMail);
         }
-        mUser.setEmailAddress(userEMail);
 
 
         btnLogout = (Button) findViewById(R.id.buttonLogout);

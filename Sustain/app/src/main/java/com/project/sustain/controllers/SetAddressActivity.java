@@ -100,6 +100,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         btnContinue = (Button) findViewById(R.id.btnContinue);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
+        btnGetLatLong = (Button) findViewById(R.id.btnGetLatLong);
 
 
         mLocationRequest = LocationRequest.create();
@@ -129,6 +130,8 @@ public class SetAddressActivity extends AppCompatActivity implements
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //close and go back to MainActivity.
+                startActivity(new Intent(SetAddressActivity.this, MainActivity.class));
                 finish();
             }
         });
