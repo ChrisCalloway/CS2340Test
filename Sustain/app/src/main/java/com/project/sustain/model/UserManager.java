@@ -7,6 +7,7 @@ import com.project.sustain.controllers.DatabaseWrapper;
 import com.project.sustain.controllers.FirebaseWrapper;
 import com.project.sustain.controllers.LoginResultListener;
 import com.project.sustain.controllers.QuerySingleResultListener;
+import com.project.sustain.controllers.RegistrationResultListener;
 import com.project.sustain.controllers.UserResultListener;
 
 /**
@@ -19,6 +20,7 @@ public class UserManager {
     private UserResultListener mUserResultListener = null;
     private AuthResultListener mAuthResultListener = null;
     private LoginResultListener mLoginResultListener = null;
+    private RegistrationResultListener mRegistrationResultListener = null;
     private static String TAG = "UserManager";
 
     public UserManager() {
@@ -50,12 +52,16 @@ public class UserManager {
                 public <T> void onComplete(T result) {
                     Log.d(TAG, "onComplete on getCurrentUser");
                     currentUser = (User) result;
-                    mUserResultListener.onComplete(currentUser);
+                    if (mUserResultListener != null) {
+                        mUserResultListener.onComplete(currentUser);
+                    }
                 }
 
                 @Override
                 public void onError(Throwable error) {
-                    mUserResultListener.onError(error);
+                    if (mUserResultListener != null) {
+                        mUserResultListener.onError(error);
+                    }
                 }
             });
 
@@ -75,16 +81,40 @@ public class UserManager {
         mAuthResultListener = new AuthResultListener() {
             @Override
             public void onComplete(boolean success) {
-                mLoginResultListener.onComplete(success);
+                if (mLoginResultListener != null) {
+                    mLoginResultListener.onComplete(success);
+                }
             }
 
             @Override
             public void onError(Throwable error) {
-                mLoginResultListener.onError(error);
+                if (mLoginResultListener != null) {
+                    mLoginResultListener.onError(error);
+                }
             }
         };
         DBWrapper.setAuthResultListener(mAuthResultListener);
         DBWrapper.loginWithEmail(email, password);
+    }
+
+    public void registerWithEmailPassword(String email, String password) {
+        RegistrationResultListener resultListener = new RegistrationResultListener() {
+            @Override
+            public void onComplete(boolean success) {
+                if (mRegistrationResultListener != null) {
+                    mRegistrationResultListener.onComplete(success);
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                if (mRegistrationResultListener != null) {
+                    mRegistrationResultListener.onError(error);
+                }
+            }
+        };
+        DBWrapper.setRegistrationResultListener(resultListener);
+        DBWrapper.createAccountWithEmailPassword(email, password);
     }
 
     public void logOutUser() {
@@ -105,4 +135,12 @@ public class UserManager {
     }
 
     public void removeLoginResultListener() { this.mLoginResultListener = null; }
+
+    public void setRegistrationResultListener(RegistrationResultListener listener) {
+        this.mRegistrationResultListener = listener;
+    }
+
+    public void removeRegistrationResultListener() {
+        this.mRegistrationResultListener = null;
+    }
 }

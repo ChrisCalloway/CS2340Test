@@ -21,7 +21,7 @@ public interface DatabaseWrapper {
 
      void removeAuthResultListener();
 
-     void createAccount(String email, String password);
+     void createAccountWithEmailPassword(String email, String password);
 
      void loginWithEmail(String email, String password);
 
@@ -42,4 +42,8 @@ public interface DatabaseWrapper {
      void setQuerySingleResultListener(QuerySingleResultListener listener);
 
      void removeQuerySingleResultListener();
+
+     void setRegistrationResultListener(RegistrationResultListener listener);
+
+     void removeRegistrationResultListener();
 }

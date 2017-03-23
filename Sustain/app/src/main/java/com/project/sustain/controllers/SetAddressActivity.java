@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -92,11 +93,12 @@ public class SetAddressActivity extends AppCompatActivity implements
         editCity = (EditText) findViewById(R.id.editCity);
         editState = (EditText) findViewById(R.id.editState);
         editCountry = (EditText) findViewById(R.id.editCountry);
-        editZipCode = (EditText) findViewById(R.id.editZip);
+        editZipCode = (EditText) findViewById(R.id.editZipCode);
         editLatitude = (EditText) findViewById(R.id.editLatitude);
         editLongitude = (EditText) findViewById(R.id.editLongitude);
 
-        editPlaceName.setText(mUser.getUserName());
+        TextView txtReporterName = (TextView) findViewById(R.id.txtReporterName);
+        txtReporterName.setText(mUser.getUserName());
         btnContinue = (Button) findViewById(R.id.btnContinue);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
@@ -362,7 +364,8 @@ public class SetAddressActivity extends AppCompatActivity implements
     }
 
     private void displayLatLongOutput(double latitude, double longitude) {
-
+        editLatitude.setText(String.valueOf(latitude));
+        editLongitude.setText(String.valueOf(longitude));
     }
 
 

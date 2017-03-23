@@ -7,61 +7,20 @@
               android:layout_margin="16dp">
 
     <TextView
-        android:id="@+id/lblDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:paddingRight="2dp"
-        android:text="Date:"/>
-
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="03/22/2017"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/lblDate"/>
-
-    <TextView
-        android:id="@+id/lblTime"
+        android:id="@+id/lblReporterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/txtDate"
-        android:textSize="12sp"
-        android:text="Time:"/>
+        android:text="Reporter Name:"
+        android:textSize="12sp"/>
 
     <TextView
-        android:id="@+id/txtTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="11:02:00 EDT"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/lblTime"/>
-
-    <TextView
-        android:id="@+id/lblReportId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/txtTime"
-        android:textSize="12sp"
-        android:text="Report #:"/>
-
-    <TextView
-        android:id="@+id/editReportId"
+        android:id="@+id/txtReporterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/lblReportId"
-        android:textSize="12sp"
-        android:text="200"/>
+        android:layout_toEndOf="@+id/lblReporterName"
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/lblName"
@@ -69,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:text="Name:"
-        android:layout_below="@+id/lblDate"
+        android:layout_below="@+id/lblReporterName"
         android:layout_toStartOf="@+id/editName"
         android:layout_marginEnd="7dp"/>
 

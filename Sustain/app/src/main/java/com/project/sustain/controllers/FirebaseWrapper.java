@@ -40,6 +40,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private AuthResultListener mAuthResultListener = null;
     private QueryListResultListener mQueryListResultListener = null;
     private QuerySingleResultListener mQuerySingleResultListener = null;
+    private RegistrationResultListener mRegistrationResultListener = null;
     private Object mModelObject = null;
     private User currentUser = null;
 
@@ -53,7 +54,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 Log.d(TAG, "Auth state changed");
-                 getCurrentUser();
+                // getCurrentUser();
             }
         };
         mFirebaseAuth.addAuthStateListener(mAuthListener);
@@ -138,24 +139,30 @@ public class FirebaseWrapper implements DatabaseWrapper {
         }
     }
 
-    public void createAccount (String email, String password) {
+    public void createAccountWithEmailPassword (String email, String password) {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
+            .addOnCompleteListener(
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            if (mAuthResultListener != null) {
-                                mAuthResultListener.onComplete(true);
+//                            AuthResult result = task.getResult();
+//                            mUser = result.getUser();
+//                            userId = mUser.getUid();
+//                            userEmail = mUser.getEmail();
+//                            userDisplayName = mUser.getDisplayName();
+//                            isLoggedIn = true;
+                            if (mRegistrationResultListener != null) {
+                                mRegistrationResultListener.onComplete(true);
                             }
                         } else {
-                            if (mAuthResultListener != null) {
-                                mAuthResultListener.onComplete(false);
+                            if (mRegistrationResultListener != null) {
+                                mRegistrationResultListener.onComplete(false);
                             }
                         }
                     }
                 });
-    }
+  }
 
     public void loginWithEmail(String email, String password) {
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
@@ -268,6 +275,14 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     public void removeAuthResultListener() {
         this.mAuthResultListener = null;
+    }
+
+    public void setRegistrationResultListener(RegistrationResultListener listener) {
+        this.mRegistrationResultListener = listener;
+    }
+
+    public void removeRegistrationResultListener() {
+        this.mRegistrationResultListener = null;
     }
 
 }

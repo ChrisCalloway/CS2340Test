@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable error) {
-                Log.d(TAG, "UserResultListener onError: " + error.getMessage());
+                if (error != null) {
+                    Log.d(TAG, "UserResultListener onError: " + error.getMessage());
+                }
             }
         };
 
@@ -80,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mUserManager.logOutUser();
                 mUser = null;
+                mUserManager.removeUserResultListener();
+
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
