@@ -34,6 +34,7 @@
         <activity android:name=".controllers.MapsMarkerActivity" />
         <activity android:name=".controllers.EditProfileActivity" />
         <activity android:name=".controllers.SetAddressActivity" />
+        <activity android:name=".controllers.ReportActivity"/>
         <activity
             android:name=".controllers.ViewReportActivity"
             android:label="ViewingWaterReport">

@@ -19,11 +19,10 @@ public class WaterPurityReport extends Report implements Serializable {
 
     public WaterPurityReport(Address address, String reporterName, String reportUserId,
                              String dateOfReport, String timeOfReport, int reportNumber,
-                             String placeName,
                              OverallWaterCondition reportedOverallWaterCondition,
                              double reportedVirusPPM, double reportedContaminantPPM) {
         super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
-                reportNumber, placeName);
+                reportNumber);
         this.reportedOverallWaterCondition = reportedOverallWaterCondition;
         this.reportedVirusPPM = reportedVirusPPM;
         this.reportedContaminantPPM = reportedContaminantPPM;

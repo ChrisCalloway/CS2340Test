@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -29,8 +30,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.project.sustain.R;
 import com.project.sustain.model.Address;
+import com.project.sustain.model.Report;
 import com.project.sustain.model.User;
 import com.project.sustain.model.UserType;
+import com.project.sustain.model.WaterPurityReport;
+import com.project.sustain.model.WaterSourceReport;
 import com.project.sustain.services.FetchAddressConstants;
 import com.project.sustain.services.FetchAddressIntentService;
 
@@ -73,6 +77,7 @@ public class SetAddressActivity extends AppCompatActivity implements
     private ImageButton btnGetMyLocation;
     private Button btnGetLatLong;
     private LocationRequest mLocationRequest;
+    private Report mReport;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +95,19 @@ public class SetAddressActivity extends AppCompatActivity implements
         RadioGroup reportOptions = (RadioGroup) findViewById(R.id.radReportType);
         reportOptions.setVisibility((mUser.getUserType() != UserType.USER ? View.VISIBLE : View.GONE));
         if (reportOptions.getVisibility() == View.VISIBLE) {
+            reportOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                    if (checkedId == R.id.radbtnWaterReport) {
+                        mReport = new WaterSourceReport();
+                    } else {
+                        mReport = new WaterPurityReport();
+                    }
+                }
+            });
             reportOptions.check(R.id.radbtnWaterReport); //set Water Report as default.
+        } else {
+            mReport = new WaterSourceReport();
         }
 
         editPlaceName = (EditText) findViewById(R.id.editName);
@@ -130,7 +147,11 @@ public class SetAddressActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Address address = saveAddress();
-                //TODO: send address to next activity
+                mReport.setAddress(address);
+                //send report to next activity
+                Intent intent = new Intent(SetAddressActivity.this, ReportActivity.class);
+                intent.putExtra("report", mReport);
+                startActivity(intent);
                 finish();
             }
         });

@@ -2,6 +2,8 @@ package com.project.sustain.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by Chris on 3/13/17.
  * This is the abstract Report class.  Have chosen to use this
@@ -9,27 +11,25 @@ import com.google.firebase.database.IgnoreExtraProperties;
  * methods and fields.
  */
 @IgnoreExtraProperties
-public abstract class Report {
+public abstract class Report implements Serializable {
     protected Address mAddress;
     protected String reporterName;
     protected String reporterUserId;
     protected String dateOfReport;
     protected String timeOfReport;
     protected int reportNumber;
-    protected String placeName;
     protected static int REPORT_ID = 0;
 
     public Report() {}
 
     public Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
-                  String timeOfReport, int reportNumber, String placeName) {
+                  String timeOfReport, int reportNumber) {
         this.mAddress = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;
         this.dateOfReport = dateOfReport;
         this.timeOfReport = timeOfReport;
         this.reportNumber = reportNumber;
-        this.placeName = placeName;
     }
 
     public String getReporterUserId() {
@@ -65,14 +65,6 @@ public abstract class Report {
         this.reportNumber = reportNumber;
     }
 
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
-
     public String getReporterName() {
         return reporterName;
     }
@@ -89,7 +81,13 @@ public abstract class Report {
 
     @Override
     public String toString() {
-        return "Place: " + placeName + "\nReporter: " + reporterName + "\nLatitude: " +
+        String place = mAddress.getPlaceName() + "";
+        if (!place.equals("")) {
+            return "Place: " + place + "\nReporter: " + reporterName + "\nLatitude: " +
+                    this.mAddress.getLocation().getLatitude() +
+                    "\nLongitude: " + this.mAddress.getLocation().getLongitude();
+        }
+        return "Reporter: " + reporterName + "\nLatitude: " +
                 this.mAddress.getLocation().getLatitude() +
                 "\nLongitude: " + this.mAddress.getLocation().getLongitude();
     }
