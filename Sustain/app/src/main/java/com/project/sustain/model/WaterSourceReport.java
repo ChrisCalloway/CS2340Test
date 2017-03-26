@@ -18,8 +18,10 @@ public class WaterSourceReport extends Report implements Serializable {
 
     public WaterSourceReport(Address address, String reporterName, String reportUserId,
                              String dateOfReport, String timeOfReport, int reportNumber,
-                             WaterType waterType, WaterCondition waterCondition) {
-        super(address, reporterName, reportUserId, dateOfReport, timeOfReport, reportNumber);
+                             WaterType waterType, WaterCondition waterCondition,
+                             String reportId) {
+        super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
+                reportId);
         this.mWaterType = waterType;
         this.mWaterCondition = waterCondition;
     }
@@ -46,7 +48,8 @@ public class WaterSourceReport extends Report implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "\nType: " + mWaterType +
-                "\nCondition: " + mWaterCondition;
+        return super.toString()
+                + "\nType: " + mWaterType
+                + "\nCondition: " + mWaterCondition;
     }
 }

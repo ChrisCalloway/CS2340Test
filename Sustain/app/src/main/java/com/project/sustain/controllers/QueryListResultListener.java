@@ -1,7 +1,6 @@
 package com.project.sustain.controllers;
 
 import java.util.EventListener;
-import java.util.List;
 
 /**
  * For receiving a list of results (such as WaterSourceReports)
@@ -10,6 +9,6 @@ import java.util.List;
  */
 
 public interface QueryListResultListener extends EventListener {
-     <T> void onComplete(List<T> result);
+     <T, K> void onComplete(T item, K key);
      void onError(Throwable error);
 }

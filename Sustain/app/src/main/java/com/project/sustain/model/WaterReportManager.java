@@ -3,7 +3,6 @@ package com.project.sustain.model;
 import com.project.sustain.controllers.DatabaseWrapper;
 import com.project.sustain.controllers.FirebaseWrapper;
 import com.project.sustain.controllers.QueryListResultListener;
-import com.project.sustain.controllers.ReportListResultListener;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class WaterReportManager {
     private List<Report> mReports;
     private DatabaseWrapper mDBWrapper = new FirebaseWrapper();
-    private ReportListResultListener mListResultListener = null;
+    private QueryListResultListener mListResultListener = null;
     private QueryListResultListener qrListener;
     /**
      * Constructor
@@ -25,10 +24,9 @@ public class WaterReportManager {
         //to the caller when the asynchronous query finishes.
         qrListener = new QueryListResultListener() {
             @Override
-            public <T> void onComplete(List<T> list) {
-                mReports = (List<Report>) list;
+            public <T, K> void onComplete(T item, K key) {
                 if (mListResultListener != null) {
-                    mListResultListener.onComplete(mReports);
+                    mListResultListener.onComplete(item, key);
                 }
             }
 
@@ -59,7 +57,7 @@ public class WaterReportManager {
     }
 
     /**
-     * Saves a single WaterSourceReport to Firebase Realtime Database.
+     * Saves a single WaterSourceReport to database.
      * @param report the WaterSourceReport to save.
      */
     public void saveSourceReport(WaterSourceReport report) {
@@ -67,7 +65,7 @@ public class WaterReportManager {
     }
 
     /**
-     * Saves a single WaterPurityReport to Firebase Realtime Database.
+     * Saves a single WaterPurityReport to database.
      * @param report the WaterPurityReport to save.
      */
     public void savePurityReport(WaterPurityReport report) {
@@ -75,11 +73,11 @@ public class WaterReportManager {
     }
 
 
-    public void setReportListResultListener(ReportListResultListener listener) {
+    public void setQueryListResultListener(QueryListResultListener listener) {
         mListResultListener = listener;
     }
 
-    public void removeReportListResultListener() {
+    public void removeQueryListResultListener() {
         mListResultListener = null;
     }
 }

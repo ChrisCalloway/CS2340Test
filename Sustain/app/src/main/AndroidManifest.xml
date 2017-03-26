@@ -53,6 +53,8 @@
         </activity>
         <activity android:name=".controllers.PurityReportActivity">
         </activity>
+        <activity android:name=".controllers.ChooseReportActivity">
+        </activity>
     </application>
 
 </manifest>

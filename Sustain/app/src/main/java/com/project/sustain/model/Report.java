@@ -17,19 +17,22 @@ public abstract class Report implements Serializable {
     protected String reporterUserId;
     protected String dateOfReport;
     protected String timeOfReport;
-    protected int reportNumber;
-    protected static int REPORT_ID = 0;
+    protected String reportId;
 
-    public Report() {}
+    public Report() {
+        this(null, "","","","", "");
+
+    }
 
     public Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
-                  String timeOfReport, int reportNumber) {
+                  String timeOfReport, String reportId) {
         this.address = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;
         this.dateOfReport = dateOfReport;
         this.timeOfReport = timeOfReport;
-        this.reportNumber = reportNumber;
+        this.reportId = reportId;
+
     }
 
     public String getReporterUserId() {
@@ -40,6 +43,10 @@ public abstract class Report implements Serializable {
         this.reporterUserId = reporterUserId;
     }
 
+    public String getReportId() { return reportId; }
+
+    public void setReportId(String reportId) { this.reportId = reportId; }
+
     public String getDateOfReport() {
         return dateOfReport;
     }
@@ -48,21 +55,12 @@ public abstract class Report implements Serializable {
         this.dateOfReport = dateOfReport;
     }
 
-
     public String getTimeOfReport() {
         return timeOfReport;
     }
 
     public void setTimeOfReport(String timeOfReport) {
         this.timeOfReport = timeOfReport;
-    }
-
-    public int getReportNumber() {
-        return reportNumber;
-    }
-
-    public void setReportNumber(int reportNumber) {
-        this.reportNumber = reportNumber;
     }
 
     public String getReporterName() {
@@ -82,13 +80,17 @@ public abstract class Report implements Serializable {
     @Override
     public String toString() {
         String place = address.getPlaceName() + "";
+        String start = "";
         if (!place.equals("")) {
-            return "Place: " + place + "\nReporter: " + reporterName + "\nLatitude: " +
-                    this.address.getLocation().getLatitude() +
-                    "\nLongitude: " + this.address.getLocation().getLongitude();
+            start = "Place: " + place + "\n";
         }
-        return "Reporter: " + reporterName + "\nLatitude: " +
-                this.address.getLocation().getLatitude() +
-                "\nLongitude: " + this.address.getLocation().getLongitude();
+        return start +
+                "Reporter: " + reporterName
+                + "\nReport ID: " + this.reportId
+                + "\nLatitude: " + this.address.getLocation().getLatitude()
+                + "\nLongitude: " + this.address.getLocation().getLongitude()
+                + "\nAddress:\n" + this.address.toString()
+                + "\nCountry: " + this.address.getCountry();
+
     }
 }

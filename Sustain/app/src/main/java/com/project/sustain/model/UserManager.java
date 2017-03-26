@@ -1,5 +1,6 @@
 package com.project.sustain.model;
 
+import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import com.project.sustain.controllers.AuthResultListener;
@@ -44,7 +45,7 @@ public class UserManager {
         return DBWrapper.getCurrentUserEmail();
     }
 
-    public void getCurrentUser() {
+    public void getCurrentUser() throws UserNotAuthenticatedException {
         String userId = DBWrapper.getCurrentUserId();
         if (userId.length() > 0) {
             DBWrapper.setQuerySingleResultListener(new QuerySingleResultListener() {
@@ -68,6 +69,8 @@ public class UserManager {
             });
 
             DBWrapper.queryDatabaseForSingleAsync("/userProfiles/" + userId, new User());
+        } else {
+            throw new UserNotAuthenticatedException("No user is currently logged in.");
         }
     }
 

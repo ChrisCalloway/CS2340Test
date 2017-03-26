@@ -9,13 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
-import com.project.sustain.model.WaterSourceReport;
+import com.project.sustain.model.Report;
+import com.project.sustain.model.WaterReportManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,72 +24,95 @@ import java.util.List;
  */
 
 public class ViewReportsActivity extends AppCompatActivity {
-    private FirebaseDatabase fireBaseDatabase;
-    private DatabaseReference waterReportsRef;
-    private DatabaseReference waterReports;
-    private List<WaterSourceReport> mWaterSourceReportList = new ArrayList<WaterSourceReport>();
+    private List<Report> mReportList;
     private RecyclerView wtrRepRecyclerView;
     private WaterReportAdapter wRAdapter;
     private Button backButton;
-//    private TextView toCheck;
-//    private ScrollView toMess;
+    private WaterReportManager mReportManager;
+    private QueryListResultListener qrListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewwaterreports);
+
+        String reportTypeToShow = getIntent().getStringExtra("reportType");
 
         backButton = (Button) findViewById(R.id.backButtonWtrRepList);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewReportsActivity.this, MainActivity.class));
+                finish();
+                //MainActivity should still be running
             }
         });
 
-        fireBaseDatabase = FirebaseDatabase.getInstance();
-        waterReportsRef = fireBaseDatabase.getReference().child("waterReports");
+        mReportManager = new WaterReportManager();
+        mReportList = new ArrayList<>();
+        wRAdapter = new WaterReportAdapter(mReportList);
 
-//        toCheck = (TextView) findViewById(R.id.databaseTest);
-//        toMess = (ScrollView) findViewById(R.id.masterScroll);
+        qrListener = new QueryListResultListener() {
+            @Override
+            public <T, K> void onComplete(T item, K key) {
+                ((Report) item).setReportId((String)key);
+                mReportList.add((Report)item);
+                wRAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        };
+        mReportManager.setQueryListResultListener(qrListener);
+
+        if (reportTypeToShow.equals("source")) {
+            mReportManager.getWaterSourceReports();
+        } else if (reportTypeToShow.equals("purity")) {
+            mReportManager.getWaterPurityReports();
+        }
+
         wtrRepRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        wRAdapter = new WaterReportAdapter(mWaterSourceReportList);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         wtrRepRecyclerView.setLayoutManager(mLayoutManager);
         wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
         wtrRepRecyclerView.setAdapter(wRAdapter);
 
-        waterReportsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot wtrRepSnapshot: dataSnapshot.getChildren()) {
-                    WaterSourceReport toPaste = wtrRepSnapshot.getValue(WaterSourceReport.class);
-                    mWaterSourceReportList.add(toPaste);
-                    wRAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-//                toCheck.setText(databaseError.getMessage());
-            }
-        });
 
         wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(),
                 wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                WaterSourceReport waterSourceReportClicked = mWaterSourceReportList.get(position);
+                Report reportClicked = mReportList.get(position);
                 //intent to be created.
                 Intent intent = new Intent(ViewReportsActivity.this, ViewReportActivity.class);
-                intent.putExtra("report", waterSourceReportClicked);
+                intent.putExtra("report", reportClicked);
                 startActivity(intent);
             }
 
             @Override
             public void onLongClick(View view, int position) {}
         }));
+    }
+
+    @Override
+    protected void onStop() {
+        if (mReportManager != null) {
+            mReportManager.removeQueryListResultListener();
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        if (mReportManager != null && qrListener != null) {
+            mReportManager.setQueryListResultListener(qrListener);
+        }
+        super.onResume();
     }
 }
 

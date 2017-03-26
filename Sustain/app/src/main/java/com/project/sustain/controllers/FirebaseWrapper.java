@@ -137,6 +137,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
         if (mAuthListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthListener);
         }
+
     }
 
     public void createAccountWithEmailPassword (String email, String password) {
@@ -190,7 +191,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
 
     @Override
-    public <T> void queryDatabaseForListAsync(String query, T modelObject) {
+    public <T> void queryDatabaseForListAsync(String query, final T modelObject) {
         mModelObject = modelObject;
         final List<T> resultList = new ArrayList<T>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(query);
@@ -200,12 +201,13 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Object result = snapshot.getValue(mModelObject.getClass());
-                        resultList.add((T) result);
-                    }
-                    if (mQueryListResultListener != null) {
-                        mQueryListResultListener.onComplete(resultList);
+                        Object key = snapshot.getKey();
+                        if (mQueryListResultListener != null) {
+                            mQueryListResultListener.onComplete(result, key);
+                        }
                     }
                 }
+
 
                 // Iterate through waterReportList to get each ones water report list
 
@@ -232,6 +234,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
             public void onDataChange(DataSnapshot dataSnapshot) {
                     singleResult = dataSnapshot.getValue(mModelObject.getClass());
                 if(mQuerySingleResultListener != null) {
+
                     mQuerySingleResultListener.onComplete((T) singleResult);
                 }
             }
@@ -254,6 +257,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mDatabaseReference = mFirebaseDatabase.getReference().child(recordLocation);
         if (mDatabaseReference != null) {
             mDatabaseReference.push().setValue(modelObject);
+
         }
     }
 

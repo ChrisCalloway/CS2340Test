@@ -32,14 +32,18 @@ import com.project.sustain.R;
 import com.project.sustain.model.Address;
 import com.project.sustain.model.Report;
 import com.project.sustain.model.User;
-import com.project.sustain.model.UserType;
 import com.project.sustain.model.WaterPurityReport;
 import com.project.sustain.model.WaterSourceReport;
 import com.project.sustain.services.FetchAddressConstants;
 import com.project.sustain.services.FetchAddressIntentService;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static com.project.sustain.services.FetchAddressConstants.LOCATION_RESULT_LATITUDE;
 import static com.project.sustain.services.FetchAddressConstants.LOCATION_RESULT_LONGITUDE;
@@ -79,22 +83,25 @@ public class SetAddressActivity extends AppCompatActivity implements
     private LocationRequest mLocationRequest;
     private Report mReport;
     private boolean puritySelected = false;
+    private Calendar currentCalendar = new GregorianCalendar();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentCalendar.setTimeZone(TimeZone.getTimeZone("EST"));
         mUser = (User) getIntent().getSerializableExtra("user");
         if (mUser == null || mUser.getUserId().equals("")) {
             Toast.makeText(getApplicationContext(), "User profile not found.\n" +
             "Please complete your profile before reporting.", Toast.LENGTH_LONG).show();
             //go back to MainActivity
-            startActivity(new Intent(SetAddressActivity.this, MainActivity.class));
             finish();
         }
         setContentView(R.layout.activity_get_address);
 
         //make different report type options visible only if user is not "USER" type.
         RadioGroup reportOptions = (RadioGroup) findViewById(R.id.radReportType);
-        reportOptions.setVisibility((mUser.getUserType() != UserType.USER ? View.VISIBLE : View.GONE));
+        reportOptions.setVisibility((mUser.getUserPermissions()
+                .isAbleToCreatePurityReports() ? View.VISIBLE : View.GONE));
         if (reportOptions.getVisibility() == View.VISIBLE) {
             reportOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -108,6 +115,7 @@ public class SetAddressActivity extends AppCompatActivity implements
                 }
             });
             reportOptions.check(R.id.radbtnWaterReport); //set Water Report as default.
+            mReport = new WaterSourceReport();
         } else {
             mReport = new WaterSourceReport();
         }
@@ -152,8 +160,17 @@ public class SetAddressActivity extends AppCompatActivity implements
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editPlaceName.getText().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please enter a friendly name " +
+                        "for this place.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Address address = saveAddress();
                 mReport.setAddress(address);
+                mReport.setDateOfReport(obtainDate());
+                mReport.setTimeOfReport(obtainTime());
+                mReport.setReporterName(mUser.getUserName());
+                mReport.setReporterUserId(mUser.getUserId());
                 //send report to next activity
                 Intent intent;
                 if (puritySelected) {
@@ -226,6 +243,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         address.setStreetAddress2(editStreetAddress2.getText().toString());
         address.setCity(editCity.getText().toString());
         address.setStateOrProvince(editState.getText().toString());
+        address.setCountry(editCountry.getText().toString());
         address.setZipCode(editZipCode.getText().toString());
         if (editLatitude.getText().length() > 0 && editLongitude.getText().length() > 0) {
             com.project.sustain.model.Location location = new com.project.sustain.model.Location(
@@ -235,6 +253,24 @@ public class SetAddressActivity extends AppCompatActivity implements
 
         }
         return address;
+    }
+
+    private String obtainDate() {
+        Log.d(TAG, "date: " + DateFormat.getDateInstance().format(new Date()));
+        return DateFormat.getDateInstance().format(new Date());
+
+    }
+
+    private String obtainTime() {
+
+        int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+        int minute = currentCalendar.get(Calendar.MINUTE);
+        int seconds = currentCalendar.get(Calendar.SECOND);
+        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
+        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
+        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
+        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
+        return completeTime;
     }
 
     @Override

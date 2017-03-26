@@ -11,6 +11,7 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class User implements Serializable {
     private UserType userType;
+    private UserPermissions userPermissions;
     private String userName;
     private String userId;
     private String emailAddress;
@@ -39,7 +40,25 @@ public class User implements Serializable {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+        switch (userType) {
+            case USER:
+                this.userPermissions = new UserPermissions();
+                break;
+            case WORKER:
+                this.userPermissions = new WorkerPermissions();
+                break;
+            case MANAGER:
+                this.userPermissions = new ManagerPermissions();
+                break;
+            case ADMIN:
+                this.userPermissions = new AdminPermissions();
+                break;
+            default:
+                this.userPermissions = new UserPermissions();
+        }
     }
+
+    public UserPermissions getUserPermissions() { return this.userPermissions; }
 
     public String getEmailAddress() {
         return emailAddress;

@@ -20,9 +20,10 @@ public class WaterPurityReport extends Report implements Serializable {
     public WaterPurityReport(Address address, String reporterName, String reportUserId,
                              String dateOfReport, String timeOfReport, int reportNumber,
                              OverallWaterCondition reportedOverallWaterCondition,
-                             double reportedVirusPPM, double reportedContaminantPPM) {
+                             double reportedVirusPPM, double reportedContaminantPPM,
+                             String reportId) {
         super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
-                reportNumber);
+                reportId);
         this.reportedOverallWaterCondition = reportedOverallWaterCondition;
         this.reportedVirusPPM = reportedVirusPPM;
         this.reportedContaminantPPM = reportedContaminantPPM;
@@ -53,8 +54,9 @@ public class WaterPurityReport extends Report implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "\nOverall: " + this.reportedOverallWaterCondition +
-                "\nVirusPPM: " + this.reportedVirusPPM + "\nContaminantPPM: " +
-                this.reportedContaminantPPM;
+        return super.toString()
+                + "\nOverall Condition: " + this.reportedOverallWaterCondition
+                + "\nVirus PPM: " + this.reportedVirusPPM
+                + "\nContaminant PPM: " + this.reportedContaminantPPM;
     }
 }

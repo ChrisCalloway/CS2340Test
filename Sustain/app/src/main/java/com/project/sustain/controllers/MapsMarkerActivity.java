@@ -21,11 +21,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.sustain.R;
 import com.project.sustain.model.Location;
-import com.project.sustain.model.Report;
 import com.project.sustain.model.WaterReportManager;
 import com.project.sustain.model.WaterSourceReport;
-
-import java.util.List;
 
 
 public class MapsMarkerActivity extends AppCompatActivity
@@ -85,34 +82,27 @@ public class MapsMarkerActivity extends AppCompatActivity
         // From this list of water reports, we would get each report's lat/longitude
         // and create the respective markers to add to the map.
 
-        mWaterReportManager.setReportListResultListener(new ReportListResultListener() {
+        mWaterReportManager.setQueryListResultListener(new QueryListResultListener() {
             @Override
-            public void onComplete(List<Report> list) {
+            public <T, K> void onComplete(T item, K key) {
                 if (mMap != null) {
-                    if (list != null && !list.isEmpty()) {
-                        Location lastReportLocation = null;
-                        for (Report r : list) {
-                            WaterSourceReport report = (WaterSourceReport) r;
-                            Location loc = report.getAddress().getLocation();
-                            Log.d(TAG, report.toString());
-                            String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
+                    if (item != null) {
+                        WaterSourceReport report = (WaterSourceReport) item;
+                        String place = report.getAddress().getPlaceName();
+                        Location loc = report.getAddress().getLocation();
+                        Log.d(TAG, report.toString());
+                        String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
+                        if (!place.equals("")) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                                    loc.getLongitude())).title(place).snippet(reportInfo));
+                        } else {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title("Water Source").snippet(reportInfo));
-                            lastReportLocation = loc;
-                        }
-                        if (mLastKnownLocation != null) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng
-                                    (new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude())));
-                        } else {
-                            if (lastReportLocation != null) {
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng
-                                        (new LatLng(lastReportLocation.getLatitude(),
-                                                lastReportLocation.getLongitude())));
-                            }
                         }
                     }
+
                 }
+
             }
 
             @Override
@@ -149,9 +139,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 //        mMap.addMarker(new MarkerOptions().position(sydney)
 //                .title("This is a Marker for Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-
     }
 
     /**
@@ -289,6 +276,6 @@ public class MapsMarkerActivity extends AppCompatActivity
     @Override
     public void onStop() {
         super.onStop();
-        mWaterReportManager.removeReportListResultListener();
+        mWaterReportManager.removeQueryListResultListener();
     }
 }

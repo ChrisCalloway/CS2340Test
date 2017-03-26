@@ -5,6 +5,7 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -63,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
         //we will pass this on to the next activity
         //call is asynchronous; result handled by mUserResultListener.onComplete()
         mUserManager.setUserResultListener(mUserResultListener);
-        mUserManager.getCurrentUser();
+        try {
+            mUserManager.getCurrentUser();
+        } catch (UserNotAuthenticatedException e) {
+            //stop loading
+            finish();
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -117,7 +123,15 @@ public class MainActivity extends AppCompatActivity {
         btnViewReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
+            Intent intent;
+            if (!mUser.getUserPermissions().isAbleToViewPurityReports()) {
+                intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                intent.putExtra("reportType", "source"); //show list of source reports.
+            } else {
+                //ask what type of report to show
+                intent = new Intent(MainActivity.this, ChooseReportActivity.class);
+            }
+            startActivity(intent);
             }
         });
 
