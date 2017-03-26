@@ -5,7 +5,11 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,7 +29,7 @@ import com.project.sustain.R;
 import com.project.sustain.model.UserProfile;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button btnLogout;
     private FirebaseAuth auth;
     private FirebaseUser mUser;
@@ -38,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private Button subWtrRep;
     private Button viewWtrRep;
     private Button viewMap;
+
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         mUser = auth.getCurrentUser();
@@ -107,14 +112,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewMap = (Button) findViewById(R.id.buttonViewMap);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mToolbar, 0, 0);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        viewMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
-            }
-        });
+        navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     /**
@@ -167,5 +171,24 @@ public class MainActivity extends AppCompatActivity {
                 setToolbarTitle(data.getStringExtra("displayName"));
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_profile) {
+
+        } else if (id == R.id.nav_map) {
+            startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+        } else if (id == R.id.nav_water_source) {
+
+        } else if (id == R.id.nav_water_quality) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
