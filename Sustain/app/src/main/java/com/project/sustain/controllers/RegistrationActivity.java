@@ -3,8 +3,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,10 +45,16 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        //Toolbar with title and back button
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_registration_toolbar);
+        toolbar.setTitle("Register a new account");
+        this.setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         btnRegister = (Button) findViewById(R.id.buttonRegister);
-        btnCancelRegistration = (Button) findViewById(R.id.buttonCancelRegistration);
         enteredEmail = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
         progressBar = (ProgressBar) findViewById(R.id.registerProgressBar);
@@ -117,14 +125,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         });
             }
         });
-
-        btnCancelRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
-                finish();
-            }
-        });
     }
 
     @Override
@@ -139,6 +139,21 @@ public class RegistrationActivity extends AppCompatActivity {
             Log.d("EditResult", "Got result OK");
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
             finish();
+
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
 
         }
     }

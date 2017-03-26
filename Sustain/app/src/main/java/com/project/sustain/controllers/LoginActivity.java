@@ -3,8 +3,11 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +22,13 @@ import com.project.sustain.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText enteredUsername, enteredPassword;
-    private Button btnLogin, btnCancelLogin;
+    private Button btnLogin;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -35,11 +39,13 @@ public class LoginActivity extends AppCompatActivity {
 //            finish();
 //        }
 
-        setContentView(R.layout.activity_login);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_login_toolbar);
+        toolbar.setTitle("Login to account");
+        this.setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         btnLogin = (Button) findViewById(R.id.buttonLogin);
-        btnCancelLogin = (Button) findViewById(R.id.buttonCancelLogin);
         enteredUsername = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
 
@@ -82,13 +88,20 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
 
-        btnCancelLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                 finish();
-            }
-        });
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

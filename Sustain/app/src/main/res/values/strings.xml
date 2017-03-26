@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sustain</string>
     <string name="edit_message">Enter a message</string>
-    <string name="edit_email">Email</string>
+    <string name="edit_email">Email Address</string>
     <string name="edit_password">Password</string>
     <string name="edit_username">Username</string>
     <string name="empty_username">Please enter a username</string>
