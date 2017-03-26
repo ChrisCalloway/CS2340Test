@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
                 intent.putExtra("user", mUser);
                 startActivity(intent);
-                finish();
+
                /* String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
-                finish();
+
             }
         });
     }

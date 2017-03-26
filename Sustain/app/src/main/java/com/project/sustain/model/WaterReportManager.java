@@ -46,7 +46,7 @@ public class WaterReportManager {
      */
     public void getWaterSourceReports() {
         mDBWrapper.setQueryListResultListener(qrListener);
-        mDBWrapper.queryDatabaseForListAsync("waterReports", new WaterSourceReport());
+        mDBWrapper.queryDatabaseForListAsync("sourceReports", new WaterSourceReport());
 
     }
 
@@ -56,6 +56,22 @@ public class WaterReportManager {
     public void getWaterPurityReports() {
         mDBWrapper.setQueryListResultListener(qrListener);
         mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
+    }
+
+    /**
+     * Saves a single WaterSourceReport to Firebase Realtime Database.
+     * @param report the WaterSourceReport to save.
+     */
+    public void saveSourceReport(WaterSourceReport report) {
+        mDBWrapper.insertSingleRecord("sourceReports", report);
+    }
+
+    /**
+     * Saves a single WaterPurityReport to Firebase Realtime Database.
+     * @param report the WaterPurityReport to save.
+     */
+    public void savePurityReport(WaterPurityReport report) {
+        mDBWrapper.insertSingleRecord("purityReports", report);
     }
 
 

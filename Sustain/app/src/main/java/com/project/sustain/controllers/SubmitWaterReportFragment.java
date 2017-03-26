@@ -38,7 +38,7 @@ public class SubmitWaterReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //set the layout xml for this fragment, but don't show it yet (false).
         //view will be added and shown by the activity.
-        View v = inflater.inflate(R.layout.fragment_submit_water_report, container, false);
+        View v = inflater.inflate(R.layout.source_report, container, false);
 
         placeName = (EditText) v.findViewById(R.id.editPlaceName);
         spnWaterType = (Spinner) v.findViewById(R.id.spinWaterType);

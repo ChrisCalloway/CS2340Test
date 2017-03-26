@@ -87,7 +87,7 @@ public class ViewReportsActivity extends AppCompatActivity {
                 WaterSourceReport waterSourceReportClicked = mWaterSourceReportList.get(position);
                 //intent to be created.
                 Intent intent = new Intent(ViewReportsActivity.this, ViewReportActivity.class);
-                intent.putExtra("waterReportIntentData", waterSourceReportClicked);
+                intent.putExtra("report", waterSourceReportClicked);
                 startActivity(intent);
             }
 

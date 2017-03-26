@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @IgnoreExtraProperties
 public abstract class Report implements Serializable {
-    protected Address mAddress;
+    protected Address address;
     protected String reporterName;
     protected String reporterUserId;
     protected String dateOfReport;
@@ -24,7 +24,7 @@ public abstract class Report implements Serializable {
 
     public Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
                   String timeOfReport, int reportNumber) {
-        this.mAddress = address;
+        this.address = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;
         this.dateOfReport = dateOfReport;
@@ -72,23 +72,23 @@ public abstract class Report implements Serializable {
     public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 
     public Address getAddress() {
-        return mAddress;
+        return address;
     }
 
     public void setAddress(Address address) {
-        mAddress = address;
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        String place = mAddress.getPlaceName() + "";
+        String place = address.getPlaceName() + "";
         if (!place.equals("")) {
             return "Place: " + place + "\nReporter: " + reporterName + "\nLatitude: " +
-                    this.mAddress.getLocation().getLatitude() +
-                    "\nLongitude: " + this.mAddress.getLocation().getLongitude();
+                    this.address.getLocation().getLatitude() +
+                    "\nLongitude: " + this.address.getLocation().getLongitude();
         }
         return "Reporter: " + reporterName + "\nLatitude: " +
-                this.mAddress.getLocation().getLatitude() +
-                "\nLongitude: " + this.mAddress.getLocation().getLongitude();
+                this.address.getLocation().getLatitude() +
+                "\nLongitude: " + this.address.getLocation().getLongitude();
     }
 }

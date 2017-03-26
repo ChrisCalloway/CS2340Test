@@ -38,7 +38,7 @@ public class SubmitPurityReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //set the layout xml for this fragment, but don't show it yet (false).
         //view will be added and shown by the activity.
-        View v = inflater.inflate(R.layout.fragment_submit_purity_report, container, false);
+        View v = inflater.inflate(R.layout.purity_report, container, false);
 
         editPlaceName = (EditText) v.findViewById(R.id.editPlaceName);
         spnOverallCondition = (Spinner) v.findViewById(R.id.spinOverallCondition);

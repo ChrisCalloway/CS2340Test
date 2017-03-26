@@ -78,6 +78,7 @@ public class SetAddressActivity extends AppCompatActivity implements
     private Button btnGetLatLong;
     private LocationRequest mLocationRequest;
     private Report mReport;
+    private boolean puritySelected = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +102,7 @@ public class SetAddressActivity extends AppCompatActivity implements
                     if (checkedId == R.id.radbtnWaterReport) {
                         mReport = new WaterSourceReport();
                     } else {
+                        puritySelected = true;
                         mReport = new WaterPurityReport();
                     }
                 }
@@ -143,16 +145,25 @@ public class SetAddressActivity extends AppCompatActivity implements
                 .build();
 
 
+        /**
+         * Sends the selected report to the appropriate activity
+         * for the rest of the data to be entered.
+         */
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Address address = saveAddress();
                 mReport.setAddress(address);
                 //send report to next activity
-                Intent intent = new Intent(SetAddressActivity.this, ReportActivity.class);
+                Intent intent;
+                if (puritySelected) {
+                    intent = new Intent(SetAddressActivity.this, PurityReportActivity.class);
+                } else {
+                    intent = new Intent(SetAddressActivity.this, SourceReportActivity.class);
+                }
                 intent.putExtra("report", mReport);
                 startActivity(intent);
-                finish();
+
             }
         });
 

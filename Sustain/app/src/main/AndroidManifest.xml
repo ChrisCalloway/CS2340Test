@@ -21,19 +21,19 @@
             android:value="@string/google_maps_key"/>
 
         <activity android:name=".controllers.WelcomeActivity">
-           <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.LoginActivity" />
-        <activity android:name=".controllers.MainActivity" />
-        <activity android:name=".controllers.ViewReportsActivity" />
-        <activity android:name=".controllers.RegistrationActivity" />
-        <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.EditProfileActivity" />
-        <activity android:name=".controllers.SetAddressActivity" />
+        <activity android:name=".controllers.LoginActivity"/>
+        <activity android:name=".controllers.MainActivity"/>
+        <activity android:name=".controllers.ViewReportsActivity"/>
+        <activity android:name=".controllers.RegistrationActivity"/>
+        <activity android:name=".controllers.MapsMarkerActivity"/>
+        <activity android:name=".controllers.EditProfileActivity"/>
+        <activity android:name=".controllers.SetAddressActivity"/>
         <activity android:name=".controllers.ReportActivity"/>
         <activity
             android:name=".controllers.ViewReportActivity"
@@ -49,6 +49,10 @@
             android:name=".services.FetchAddressIntentService"
             android:exported="false"/>
 
+        <activity android:name=".controllers.SourceReportActivity">
+        </activity>
+        <activity android:name=".controllers.PurityReportActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.project.sustain.R;
 import com.project.sustain.model.Address;
+import com.project.sustain.model.Report;
 import com.project.sustain.model.WaterCondition;
+import com.project.sustain.model.WaterPurityReport;
 import com.project.sustain.model.WaterSourceReport;
 import com.project.sustain.model.WaterType;
 
@@ -36,8 +38,7 @@ public class ViewReportActivity extends AppCompatActivity {
     private TextView stateSet;
     private TextView countrySet;
     private TextView zipCodeSet;
-    private TextView typeSet;
-    private TextView conditionSet;
+    private TextView waterInfo;
     private Button backToRepBut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,37 +54,57 @@ public class ViewReportActivity extends AppCompatActivity {
         stateSet = (TextView) findViewById(R.id.stateReported);
         countrySet = (TextView) findViewById(R.id.countryReported);
         zipCodeSet = (TextView) findViewById(R.id.zipReported);
-        typeSet = (TextView) findViewById(R.id.typeReported);
-        conditionSet = (TextView) findViewById(R.id.conditionReported);
+
+        waterInfo = (TextView) findViewById(R.id.editWaterInfo);
         backToRepBut = (Button) findViewById(R.id.backButton);
 
         //gets the package passed in as an intent and initializes the instance data from the package
         final Intent intent = getIntent();
-        WaterSourceReport fromPrevActivity = (WaterSourceReport) intent.getSerializableExtra("WaterSourceReport");
+        Report fromPrevActivity = (Report) intent.getSerializableExtra("report");
 
+        StringBuilder info = new StringBuilder();  //build a multiline string of the reported information.
         date = fromPrevActivity.getDateOfReport();
         time = fromPrevActivity.getTimeOfReport();
         reportNum = fromPrevActivity.getReportNumber();
         name = fromPrevActivity.getReporterName();
         locationReceived = fromPrevActivity.getAddress();
-        typeReceived = fromPrevActivity.getWaterType();
-        conditionReceived = fromPrevActivity.getWaterCondition();
-        userIDReceived = fromPrevActivity.getReporterUserId();
 
-        titleSet.setText("Water Report #" + reportNum);
-        dateSet.setText(date.toString());
-        timeSet.setText(time.toString());
+        if (fromPrevActivity instanceof WaterSourceReport) {
+            info.append("Water Type: ");
+            info.append(((WaterSourceReport) fromPrevActivity).getWaterType().toString());
+            info.append("\n");
+            info.append("Water Condition: ");
+            info.append(((WaterSourceReport) fromPrevActivity).getWaterCondition().toString());
+        } else if (fromPrevActivity instanceof WaterPurityReport) {
+            info.append("Overall Condition: ");
+            info.append((((WaterPurityReport) fromPrevActivity)
+                    .getReportedOverallWaterCondition().toString()));
+            info.append("\n");
+            info.append("Virus PPM: ");
+            info.append(((WaterPurityReport) fromPrevActivity).getReportedVirusPPM());
+            info.append("\n");
+            info.append("Contaminant PPM: ");
+            info.append(((WaterPurityReport) fromPrevActivity).getReportedContaminantPPM());
+        }
+
+
+
+        dateSet.setText(date);
+        timeSet.setText(time);
         nameSet.setText(name);
         if (locationReceived != null) {
+            titleSet.setText("Water Report: " + locationReceived.getPlaceName());
             strAddSet1.setText(locationReceived.getStreetAddress1());
             strAddSet2.setText(locationReceived.getStreetAddress2());
             citySet.setText(locationReceived.getCity());
             stateSet.setText(locationReceived.getStateOrProvince());
             countrySet.setText(locationReceived.getCountry());
             zipCodeSet.setText(locationReceived.getZipCode());
+        } else {
+            titleSet.setText("Water Report");
         }
-        typeSet.setText(typeReceived.toString());
-        conditionSet.setText(conditionReceived.toString());
+
+        waterInfo.setText(info.toString());
 
         backToRepBut.setOnClickListener(new View.OnClickListener() {
             @Override
