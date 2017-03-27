@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="2">
+    android:weightSum="2"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/sustainIcon"
@@ -14,15 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center"
-         />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/screenName"
-        android:text="Welcome to Sustain"
+        android:text="@string/welcome_message"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1" />
 
@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/buttonWelcomeLogin"
-            android:text="Log In"
+            android:text="@string/login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/buttonWelcomeRegister"
-            android:text="Register"
+            android:text="@string/Register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -147,7 +147,6 @@ public class RegistrationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
                 finish();
                 return true;
             default:

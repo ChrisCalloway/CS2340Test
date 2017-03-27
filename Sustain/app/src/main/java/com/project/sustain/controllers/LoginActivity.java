@@ -94,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                 finish();
                 return true;
             default:

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/activity_login_toolbar"
@@ -19,7 +20,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="1">
 
@@ -49,12 +50,20 @@
             android:layout_marginBottom="16dp"
             android:elevation="1dp" />
     </LinearLayout>
-    <Button
-        android:id="@+id/buttonLogin"
-        android:text="Log In"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.Button"
-        />
+        android:background="@color/colorTransparent">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:text="@string/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

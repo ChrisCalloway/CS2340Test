@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,18 +31,15 @@ import com.project.sustain.model.UserProfile;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private Button btnLogout;
     private FirebaseAuth auth;
     private FirebaseUser mUser;
     private FirebaseDatabase mDatabase;
     private Toolbar mToolbar;
     private UserProfile mUserProfile;
     private DatabaseReference mProfiles;
-    public static final int PROFILE_CHANGE_REQ = 1000;
 
     private Button subWtrRep;
     private Button viewWtrRep;
-    private Button viewMap;
 
     private NavigationView navigationView;
     @Override
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        mToolbar.setTitle("Main Screen");
         this.setSupportActionBar(mToolbar);
 
         if (mUser != null) {
@@ -66,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mUserProfile = dataSnapshot.getValue(UserProfile.class);
                     if (mUserProfile != null) {
                         if (mUserProfile.getUserName().equals("") == false) {
-                            setToolbarTitle(mUserProfile.getUserName());
+                            ((TextView) findViewById(R.id.nav_main_username)).setText(mUserProfile.getUserName());
                         } else {
-                            setToolbarTitle(mUser.getEmail());
+                            ((TextView) findViewById(R.id.nav_main_username)).setText(mUser.getEmail());
                         }
                     }
                 }
@@ -79,17 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         }
-
-        btnLogout = (Button) findViewById(R.id.buttonLogout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
 
         subWtrRep = (Button) findViewById(R.id.subRep);
 
@@ -119,6 +107,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_main);
+    }
+
+    //When returning to main screen make sure main screen is highlighted in nav view
+    @Override
+    protected void onStart(){
+        super.onStart();
+        navigationView.setCheckedItem(R.id.nav_main);
     }
 
     /**
@@ -139,10 +135,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit_profile:
-                // User chose the "Edit Profile" action, show the user profile settings UI...
-                startActivityForResult(new Intent(MainActivity.this, EditProfileActivity.class),
-                        PROFILE_CHANGE_REQ);
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -164,27 +156,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PROFILE_CHANGE_REQ) {
-            if (resultCode == RESULT_OK) {
-                Log.d("EditResult", "Got result OK");
-                setToolbarTitle(data.getStringExtra("displayName"));
-            }
-        }
-    }
-
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-
+            startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
         } else if (id == R.id.nav_water_source) {
 
         } else if (id == R.id.nav_water_quality) {
 
+        } else if (id == R.id.nav_logout) {
+            auth.signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
