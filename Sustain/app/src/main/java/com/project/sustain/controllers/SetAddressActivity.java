@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -99,23 +98,11 @@ public class SetAddressActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_get_address);
 
         //make different report type options visible only if user is not "USER" type.
-        RadioGroup reportOptions = (RadioGroup) findViewById(R.id.radReportType);
+        final RadioGroup reportOptions = (RadioGroup) findViewById(R.id.radReportType);
         reportOptions.setVisibility((mUser.getUserPermissions()
                 .isAbleToCreatePurityReports() ? View.VISIBLE : View.GONE));
         if (reportOptions.getVisibility() == View.VISIBLE) {
-            reportOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                    if (checkedId == R.id.radbtnWaterReport) {
-                        mReport = new WaterSourceReport();
-                    } else {
-                        puritySelected = true;
-                        mReport = new WaterPurityReport();
-                    }
-                }
-            });
             reportOptions.check(R.id.radbtnWaterReport); //set Water Report as default.
-            mReport = new WaterSourceReport();
         } else {
             mReport = new WaterSourceReport();
         }
@@ -165,19 +152,27 @@ public class SetAddressActivity extends AppCompatActivity implements
                         "for this place.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //send report to next activity
+                Intent intent;
+                if (reportOptions.getVisibility() == View.VISIBLE) {
+                    if (reportOptions.getCheckedRadioButtonId() == R.id.radbtnPurityReport) {
+                        intent = new Intent(SetAddressActivity.this, PurityReportActivity.class);
+                        mReport = new WaterPurityReport();
+                    } else {
+                        intent = new Intent(SetAddressActivity.this, SourceReportActivity.class);
+                        mReport = new WaterSourceReport();
+                    }
+                } else {
+                    intent = new Intent(SetAddressActivity.this, SourceReportActivity.class);
+                    mReport = new WaterSourceReport();
+                }
                 Address address = saveAddress();
                 mReport.setAddress(address);
                 mReport.setDateOfReport(obtainDate());
                 mReport.setTimeOfReport(obtainTime());
                 mReport.setReporterName(mUser.getUserName());
                 mReport.setReporterUserId(mUser.getUserId());
-                //send report to next activity
-                Intent intent;
-                if (puritySelected) {
-                    intent = new Intent(SetAddressActivity.this, PurityReportActivity.class);
-                } else {
-                    intent = new Intent(SetAddressActivity.this, SourceReportActivity.class);
-                }
+
                 intent.putExtra("report", mReport);
                 startActivity(intent);
 
@@ -279,6 +274,15 @@ public class SetAddressActivity extends AppCompatActivity implements
             mGoogleApiClient.connect();
         }
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+        mReport = null;
+        super.onResume();
     }
 
     @Override

@@ -90,7 +90,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                         WaterSourceReport report = (WaterSourceReport) item;
                         String place = report.getAddress().getPlaceName();
                         Location loc = report.getAddress().getLocation();
-                        Log.d(TAG, report.toString());
+                        //Log.d(TAG, report.toString());
                         String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
                         if (!place.equals("")) {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
