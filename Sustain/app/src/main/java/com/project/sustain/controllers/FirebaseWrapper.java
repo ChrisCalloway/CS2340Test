@@ -50,6 +50,10 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
+        // Note that this listens if there is a change to the FirebaseAuth instance.
+        // So, when a user is created in the FirebaseAuth, the onAuthStateChanged function below
+        // is invoked and so getCurrentUser() is called.  This is how userID is assigned
+        // below for the mRegistrationResultListener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -60,6 +64,11 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
+    /**
+     * Makes call to the mFirebaseAuth object's getCurrentUser(), which returns an object
+     * with the display name, unique ID, and email of the user.  This method also sets
+     * isLoggedIn, a flag field variable, to true if a user is returned.
+     */
     private void getCurrentUser() {
         mUser = mFirebaseAuth.getCurrentUser();
         if (mUser != null) {
@@ -95,6 +104,9 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     /**
      * Updates the user's display name in the Firebase auth user store.
+     * This uses the Firebase library's UserProfileChangeRequest object to pass in a new
+     * display name to the FirebaseUser object's updateProfile method.
+     * @param newName The new display name
      */
     public void updateCurrentUserDisplayName(String newName) {
         final String name = newName;
@@ -129,10 +141,18 @@ public class FirebaseWrapper implements DatabaseWrapper {
         return isLoggedIn;
     }
 
+    /**
+     * Similar to what is done in the class's constructor method, an AuthStateListener is
+     * passed into the FirebaseAuth instance with its addAuthStateListener method.
+     */
     public void connect() {
         mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
+    /**
+     * Disconnects the app from the FirebaseAuth instance by removing the AuthStateListener from the
+     * mFirebaseAuth instance.
+     */
     public void disconnect() {
         if (mAuthListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthListener);
@@ -140,6 +160,15 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     }
 
+    /**
+     * Makes call to FirebaseAuth instance and creates a new user there with the
+     * email and password provided.  Note that the mFirebaseAuth has an AuthStateListener
+     * that invokes getCurrentUser() on state change (as in when a user is newly created).
+     * It is through this mechanism that userID is updated and the value is passed up the
+     * chain to the mUserManager object.
+     * @param email Any valid email address a user has inputted.
+     * @param password Any valid password a user has inputted.
+     */
     public void createAccountWithEmailPassword (String email, String password) {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(
@@ -154,6 +183,8 @@ public class FirebaseWrapper implements DatabaseWrapper {
 //                            userDisplayName = mUser.getDisplayName();
 //                            isLoggedIn = true;
                             if (mRegistrationResultListener != null) {
+                                // Where does userID get assigned the value of the userID in
+                                // Firebase?
                                 mRegistrationResultListener.onComplete(true, userId);
                             }
                         } else {

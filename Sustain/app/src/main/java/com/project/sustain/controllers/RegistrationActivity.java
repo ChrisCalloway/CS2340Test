@@ -47,6 +47,8 @@ public class RegistrationActivity extends AppCompatActivity {
         selectedUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
+        // On register, a couple of checks occur to make sure the password and email meet basic
+        // tests
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,8 +71,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 // Create user
+                //
                 RegistrationResultListener resultListener = new RegistrationResultListener() {
                     @Override
+                    // The RegistrationResultListener has two methods, onComplete and
+                    // onError.
                     public void onComplete(boolean success, String userId) {
                         progressBar.setVisibility(View.GONE);
                         if (success) {
@@ -104,9 +109,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     }
                 };
+                // Note that mUserManager is a model class with a RegistrationResultLister
+                // field variable.  This field variable is set to the resultListener
+                // that was just instantiated above with the onComplete and onError methods defined.
                 mUserManager.setRegistrationResultListener(resultListener);
-                mUserManager.registerWithEmailPassword(email, password);
 
+                // This is a method of the UserManager class that uses its very own
+                // RegistrationResultListener.  Within this method, an invocation on the
+                // mUserManager's field variable DatabaseWrapper DBWrapper's
+                // setRegistrationResultListener is made with the resultListener instantiated
+                // there.
+                mUserManager.registerWithEmailPassword(email, password);
             }
         });
 

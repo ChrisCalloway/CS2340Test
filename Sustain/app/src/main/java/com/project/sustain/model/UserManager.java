@@ -25,6 +25,11 @@ public class UserManager {
     private static String TAG = "UserManager";
 
     public UserManager() {
+        // Note that even though DBWrapper is an interface, this is permissible and we can assign
+        // to it an object of type FirebaseWrapper.  Note that the idea behind this programming
+        // pattern is that we have the freedom to change the type of wrapper later on.  For
+        // instance if we had a SQLite wrapper.  Whatever object that is a database wrapper we
+        // might want to use MUST define all the methods declared in the DatabaseWrapper interface.
         DBWrapper = new FirebaseWrapper();
         DBWrapper.connect();
     }
@@ -107,6 +112,9 @@ public class UserManager {
             @Override
             public void onComplete(boolean success, String result) {
                 if (mRegistrationResultListener != null) {
+                    // This is necessary to call so that one more step up, the UserID that
+                    // maps to the created user account is available to the RegistrationActivity,
+                    // which is then passed on to the EditProfileActivity
                     mRegistrationResultListener.onComplete(success, result);
                 }
             }
