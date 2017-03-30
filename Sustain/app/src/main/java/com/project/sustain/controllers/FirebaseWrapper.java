@@ -146,13 +146,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-   //                     AuthResult result = task.getResult();
                         if (task.isSuccessful()) {
-//                            mUser = result.getUser();
-//                            userId = mUser.getUid();
-//                            userEmail = mUser.getEmail();
-//                            userDisplayName = mUser.getDisplayName();
-//                            isLoggedIn = true;
                             if (mRegistrationResultListener != null) {
                                 mRegistrationResultListener.onComplete(true, userId);
                             }
@@ -193,7 +187,6 @@ public class FirebaseWrapper implements DatabaseWrapper {
     @Override
     public <T> void queryDatabaseForListAsync(String query, final T modelObject) {
         mModelObject = modelObject;
-        final List<T> resultList = new ArrayList<T>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(query);
         if (mDatabaseReference != null) {
             mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -208,8 +201,6 @@ public class FirebaseWrapper implements DatabaseWrapper {
                     }
                 }
 
-
-                // Iterate through waterReportList to get each ones water report list
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
