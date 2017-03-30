@@ -3,7 +3,6 @@ package com.project.sustain.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.project.sustain.controllers.WaterReportRecyclerTouchListener;
 
 /**
  * Created by georgiainstituteoftechnology on 3/2/17.

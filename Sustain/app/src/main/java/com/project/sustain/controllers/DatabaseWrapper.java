@@ -5,21 +5,45 @@ package com.project.sustain.controllers;
  */
 
 public interface DatabaseWrapper {
-    public void connect();
+     void connect();
 
-    public void disconnect();
+     void disconnect();
 
-    public void setRegistrationResultListener(RegistrationResultListener listener);
+     String getCurrentUserId();
 
-    public void removeRegistrationResultListener();
+     String getCurrentUserDisplayName();
 
-    public void createAccount(String email, String password);
+     void updateCurrentUserDisplayName(String newName);
 
-    public <T> void queryDatabaseAsync(String query, T modelObject);
+     String getCurrentUserEmail();
 
-    public <T> void saveSingleRecord(String recordLocation, T modelObject);
+     void setAuthResultListener(AuthResultListener listener);
 
-    public void setQueryResultListener(QueryResultListener listener);
+     void removeAuthResultListener();
 
-    public void removeQueryResultListener();
+     void createAccountWithEmailPassword(String email, String password);
+
+     void loginWithEmail(String email, String password);
+
+     void logOut();
+
+     <T> void queryDatabaseForListAsync(String query, T modelObject);
+
+     <T> void queryDatabaseForSingleAsync(String query, T modelObject);
+
+     <T> void insertSingleRecord(String recordLocation, T modelObject);
+
+     <T> void updateSingleRecord(String recordLocation, T modelObject);
+
+     void setQueryListResultListener(QueryListResultListener listener);
+
+     void removeQueryListResultListener();
+
+     void setQuerySingleResultListener(QuerySingleResultListener listener);
+
+     void removeQuerySingleResultListener();
+
+     void setRegistrationResultListener(RegistrationResultListener listener);
+
+     void removeRegistrationResultListener();
 }
