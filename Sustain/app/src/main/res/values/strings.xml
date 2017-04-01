@@ -24,5 +24,6 @@
     <string name="mobile">Mobile</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="get_current_location">Get My Location</string>
+    <string name="hist_graph">View Historical Graph</string>
 </resources>
 

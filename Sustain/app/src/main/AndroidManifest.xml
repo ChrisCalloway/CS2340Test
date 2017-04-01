@@ -39,6 +39,9 @@
             android:name=".controllers.ViewReportsActivity"
             android:screenOrientation="portrait"/>
         <activity
+        android:name=".controllers.ViewHistoricalGraph"
+        android:screenOrientation="portrait"/>
+        <activity
             android:name=".controllers.RegistrationActivity"
             android:screenOrientation="portrait"/>
         <activity

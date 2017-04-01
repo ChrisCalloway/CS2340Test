@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button subWtrRep;
     private Button viewWtrRep;
     private Button viewMap;
+    private Button viewHistGraph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +114,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+            }
+        });
+
+        viewHistGraph = (Button) findViewById(R.id.hist_graph);
+
+        viewHistGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ViewHistoricalGraph.class));
             }
         });
     }
