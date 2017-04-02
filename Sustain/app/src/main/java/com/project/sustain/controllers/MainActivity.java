@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnViewReport;
         Button btnViewMap;
         Button btnLogout;
+        Button viewHistGraph;
         Toolbar toolbar;
 
         mUserManager = new UserManager();
@@ -136,6 +137,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
 
+            }
+        });
+
+        viewHistGraph = (Button) findViewById(R.id.hist_graph);
+
+        viewHistGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ViewHistoricalGraph.class));
             }
         });
     }
