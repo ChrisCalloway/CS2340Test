@@ -13,20 +13,37 @@ import com.project.sustain.R;
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
     private GraphView graph;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_graph);
 
+        createGraph();
+    }
+
+    public void createGraph() {
         graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
+                new DataPoint(0, 500),
+                new DataPoint(1, 350),
+                new DataPoint(2, 200),
+                new DataPoint(3, 800),
+                new DataPoint(4, 50)
         });
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(1000);
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(5);
+
+        // enable scaling and scrolling
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScalableY(true);
+
         graph.addSeries(series);
     }
 }
