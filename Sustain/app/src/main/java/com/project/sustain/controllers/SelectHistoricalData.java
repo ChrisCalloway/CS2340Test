@@ -65,13 +65,14 @@ public class SelectHistoricalData extends AppCompatActivity {
 
         ArrayList<String> years = getYearsArray();
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, years);
+                android.R.layout.simple_spinner_dropdown_item, years);
         spinYear.setAdapter(yearAdapter);
 
-        // Will need to be able to retrieve the data from the
-        spinLocationName.setAdapter(new ArrayAdapter<>(this,
-                R.layout.support_simple_spinner_dropdown_item,
-                OverallWaterCondition.values()));
+        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, mLocationList);
+
+        spinLocationName.setAdapter(locationAdapter);
+
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
