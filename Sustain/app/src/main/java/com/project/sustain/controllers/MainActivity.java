@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnViewReport;
         Button btnViewMap;
         Button btnLogout;
-        Button viewHistGraph;
         Toolbar toolbar;
+        Button viewHistGraph;
 
         mUserManager = new UserManager();
 
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 if (mUser == null) {
                     //user does not have a profile saved yet. Create one
                     mUser = new User();
-
                 }
             }
 
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         viewHistGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ViewHistoricalGraph.class));
+                startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
             }
         });
     }
