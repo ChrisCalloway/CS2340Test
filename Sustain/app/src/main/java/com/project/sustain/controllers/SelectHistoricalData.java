@@ -1,24 +1,23 @@
 package com.project.sustain.controllers;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.view.View;
 import android.widget.Toast;
+
+import com.project.sustain.R;
+import com.project.sustain.model.HistoricalGraphData;
+import com.project.sustain.model.Report;
+import com.project.sustain.model.WaterReportManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import com.project.sustain.R;
-import com.project.sustain.model.HistoricalGraphData;
-import com.project.sustain.model.OverallWaterCondition;
-import com.project.sustain.model.WaterReportManager;
-import com.project.sustain.model.Report;
 
 public class SelectHistoricalData extends AppCompatActivity {
 
@@ -46,14 +45,17 @@ public class SelectHistoricalData extends AppCompatActivity {
 
         mReportManager = new WaterReportManager();
         mLocationList = new ArrayList<>();
-        wRAdapter = new WaterReportAdapter(mReportList);
+        final ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, mLocationList);
+
+        spinLocationName.setAdapter(locationAdapter);
 
         qrListener = new QueryListResultListener() {
             @Override
             public <T, K> void onComplete(T item, K key) {
-                ((Report) item).setReporterName((String)key);
+                ((Report) item).setReportId((String)key);
                 mLocationList.add(((Report) item).getAddress().getPlaceName());
-                wRAdapter.notifyDataSetChanged();
+                locationAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -68,17 +70,13 @@ public class SelectHistoricalData extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, years);
         spinYear.setAdapter(yearAdapter);
 
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, mLocationList);
-
-        spinLocationName.setAdapter(locationAdapter);
-
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //close and go back to MainActivity.
-                startActivity(new Intent(SelectHistoricalData.this, MainActivity.class));
+                //startActivity(new Intent(SelectHistoricalData.this, MainActivity.class));
+                finish();
             }
         });
 
