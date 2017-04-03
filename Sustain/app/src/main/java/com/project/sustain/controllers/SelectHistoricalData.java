@@ -28,9 +28,7 @@ public class SelectHistoricalData extends AppCompatActivity {
     private Button btnContinue;
     private WaterReportManager mReportManager;
     private List<String> mLocationList;
-    private List<Report> mReportList;
     private QueryListResultListener qrListener;
-    private WaterReportAdapter wRAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
