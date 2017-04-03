@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar;
         Button viewHistGraph;
 
+        //try to get user from previous activity (Login or Register)
+        mUser = (User) getIntent().getSerializableExtra("user");
         mUserManager = new UserManager();
 
         //result of asynchronous call to getCurrentUser()
@@ -70,9 +72,15 @@ public class MainActivity extends AppCompatActivity {
         //add Toolbar as ActionBar with menu
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         this.setSupportActionBar(toolbar);
-
-        String userName = mUserManager.getCurrentUserDisplayName();
-        String userEMail = mUserManager.getCurrentUserEmail();
+        String userName = "";
+        String userEMail = "";
+        if (mUser == null) {
+            userName = mUserManager.getCurrentUserDisplayName();
+            userEMail = mUserManager.getCurrentUserEmail();
+        } else {
+            userName = mUser.getUserName();
+            userEMail = mUser.getEmailAddress();
+        }
         if (!userName.equals("") && !userName.equals("null")) {
             setToolbarTitle(userName);
         } else {
@@ -140,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewHistGraph = (Button) findViewById(R.id.hist_graph);
+        if (mUser != null) {
+            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
+                viewHistGraph.setVisibility(View.VISIBLE);
+            } else {
+                viewHistGraph.setVisibility(View.GONE);
+            }
+        }
 
         viewHistGraph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,16 +238,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mUserResultListener != null) {
-            mUserManager.setUserResultListener(mUserResultListener);
-        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         checkLoggedInStatus();
-
     }
 
     @Override
