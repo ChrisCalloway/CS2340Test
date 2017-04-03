@@ -7,17 +7,24 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.project.sustain.R;
+import com.project.sustain.model.HistoricalGraphData;
 
 /**
  * Created by Julio de Sa on 4/1/2017.
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
     private GraphView graph;
+    private HistoricalGraphData graphData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_graph);
+
+        graphData = (HistoricalGraphData) getIntent().getSerializableExtra("graphData");
+
+        // Now, need to make calls to get the necessary information
+
 
         createGraph();
     }

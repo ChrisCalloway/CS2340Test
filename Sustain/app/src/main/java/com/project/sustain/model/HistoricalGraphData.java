@@ -1,6 +1,12 @@
 package com.project.sustain.model;
 import android.os.Parcelable;
 import android.os.Parcel;
+import android.util.SparseArray;
+
+import com.project.sustain.controllers.QueryListResultListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Chris on 4/2/17.
@@ -10,6 +16,10 @@ public class HistoricalGraphData implements Parcelable {
     private String location;
     private String year;
     private String dataType;
+    private WaterReportManager mReportManager;
+    private List<Report> mReportList;
+    private QueryListResultListener qrListener;
+
 
     public HistoricalGraphData(String location, String year, String dataType) {
         this.location = location;
@@ -70,6 +80,38 @@ public class HistoricalGraphData implements Parcelable {
             return new HistoricalGraphData[size];
         }
     };
+
+    // method to calculate for a location and a year, for each month, take average
+    // of PPM measure of whatever datatype passed in (virus or contaminant).
+    public SparseArray<Double> getCoordinatePointData(String location,
+                                                       String year, String dataType) {
+        // Get each recorded datatype value for a year for a location.
+        SparseArray<Double> coordinatePointData = new SparseArray<>(Month.values().length);
+
+
+        return coordinatePointData;
+    }
+
+    public List<Report> getWaterPurityReportList(String location, String year, String dataType) {
+        mReportManager = new WaterReportManager();
+        mReportList = new ArrayList<>();
+
+        qrListener = new QueryListResultListener() {
+            @Override
+            public <T, K> void onComplete(T item, K key) {
+                ((Report) item).setReportId((String)key);
+                mReportList.add(((Report) item));
+            }
+
+            @Override
+            public void onError(Throwable error) {
+            }
+        };
+        mReportManager.setQueryListResultListener(qrListener);
+        mReportManager.getWaterPurityReports();
+
+        return mReportList;
+    }
 
     public void setLocation(String location) {
         this.location = location;

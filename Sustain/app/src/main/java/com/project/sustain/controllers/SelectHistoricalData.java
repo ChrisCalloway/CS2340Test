@@ -116,7 +116,8 @@ public class SelectHistoricalData extends AppCompatActivity {
                 }
                 graphData.setYear(spinYear.getSelectedItem().toString());
                 graphData.setLocation(spinLocationName.getSelectedItem().toString());
-                startActivity(new Intent(SelectHistoricalData.this, MainActivity.class));
+                startActivity(new Intent(SelectHistoricalData.this, ViewHistoricalGraph.class)
+                        .putExtra("graphData", graphData));
             }
         });
     }
