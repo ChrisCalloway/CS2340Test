@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -69,53 +70,54 @@ public class ViewHistoricalGraph extends AppCompatActivity {
     public void createGraph(Map<Month, Double> coordinatePointData) {
         // Use graphData for information to display
         graph = (GraphView) findViewById(R.id.graph);
-        DataPoint[] dataPoints = new DataPoint[12];
+        DataPoint[] dataPoints = new DataPoint[Month.values().length];
         for (int i = 0; i < Month.values().length; i++) {
             Log.d("DataPointGenerator", "Y value is: " + coordinatePointData.get(Month.values()[i]));
             dataPoints[i] = new DataPoint(i, coordinatePointData.get(Month.values()[i]));
         }
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints
-//                new DataPoint[]{
-
-//                new DataPoint(0, coordinatePointData.get(Month.values()[0])),
-//                new DataPoint(1, coordinatePointData.get(Month.values()[1])),
-//                new DataPoint(2, coordinatePointData.get(Month.values()[2])),
-//                new DataPoint(3, coordinatePointData.get(Month.values()[3])),
-//                new DataPoint(4, coordinatePointData.get(Month.values()[4])),
-//                new DataPoint(5, coordinatePointData.get(Month.values()[5])),
-//                new DataPoint(6, coordinatePointData.get(Month.values()[6])),
-//                new DataPoint(7, coordinatePointData.get(Month.values()[7])),
-//                new DataPoint(8, coordinatePointData.get(Month.values()[8])),
-//                new DataPoint(9, coordinatePointData.get(Month.values()[9])),
-//                new DataPoint(10, coordinatePointData.get(Month.values()[10])),
-//                new DataPoint(11, coordinatePointData.get(Month.values()[11]))
-//                new DataPoint(0, 0.0),
-//                new DataPoint(1, 0.0),
-//                new DataPoint(2, 0.18),
-//                new DataPoint(3, 0.0),
-//                new DataPoint(4, 0.0),
-//                new DataPoint(5, 0.0),
-//                new DataPoint(6, 0.0),
-//                new DataPoint(7, 0.0),
-//                new DataPoint(8, 0.0),
-//                new DataPoint(9, 0.0),
-//                new DataPoint(10, 0.0),
-//                new DataPoint(11, 0.0)
-//        }
-        );
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints);
 
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(2);
+        graph.getViewport().setScalableY(true);
+        graph.getViewport().setScrollableY(true);
+
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(12);
-
-        // enable scaling and scrolling
+        graph.getViewport().setScrollable(true);
         graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(false);
 
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        staticLabelsFormatter.setHorizontalLabels(new String[] {
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+        });
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+        if(this.dataType.equals("virus")) {
+            Log.d("Display Graph", "Showing data for virus");
+            graph.setTitle("Historical Reports for " + this.year + " of " + "Virus PPM");
+            graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Virus PPM");
+            graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
+        } else if(this.dataType.equals("contaminant")) {
+            Log.d("Display Graph", "Showing data for contaminant");
+            graph.setTitle("Historical Reports for " + this.year + " of " + "Contaminant PPM");
+            graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Contaminant PPM");
+            graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
+        }
         graph.addSeries(series);
     }
 
