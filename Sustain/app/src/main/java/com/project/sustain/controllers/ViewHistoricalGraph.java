@@ -79,16 +79,16 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(2);
-        graph.getViewport().setScalableY(true);
-        graph.getViewport().setScrollableY(true);
+        graph.getViewport().setMaxY(100);
+        graph.getViewport().setScalableY(false);
+        graph.getViewport().setScrollableY(false);
 
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(12);
-        graph.getViewport().setScrollable(true);
-        graph.getViewport().setScalable(true);
+        graph.getViewport().setScrollable(false);
+        graph.getViewport().setScalable(false);
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(new String[] {
@@ -109,12 +109,14 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
         if(this.dataType.equals("virus")) {
             Log.d("Display Graph", "Showing data for virus");
-            graph.setTitle("Historical Reports for " + this.year + " of " + "Virus PPM");
+            graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
+                    + " of " + "Virus PPM");
             graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Virus PPM");
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
         } else if(this.dataType.equals("contaminant")) {
             Log.d("Display Graph", "Showing data for contaminant");
-            graph.setTitle("Historical Reports for " + this.year + " of " + "Contaminant PPM");
+            graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
+                    + " of " + "Contaminant PPM");
             graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Contaminant PPM");
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
         }

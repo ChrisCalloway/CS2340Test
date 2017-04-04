@@ -50,12 +50,16 @@ public class SelectHistoricalData extends AppCompatActivity {
 
         spinLocationName.setAdapter(locationAdapter);
 
+        // Assign to arraylist that backs up the spinner the locations.
+        // Note that if a location is already listed, it should not be added again.
         qrListener = new QueryListResultListener() {
             @Override
             public <T, K> void onComplete(T item, K key) {
                 ((Report) item).setReportId((String)key);
-                mLocationList.add(((Report) item).getAddress().getPlaceName());
-                locationAdapter.notifyDataSetChanged();
+                if(!mLocationList.contains(((Report) item).getAddress().getPlaceName())) {
+                    mLocationList.add(((Report) item).getAddress().getPlaceName());
+                    locationAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
