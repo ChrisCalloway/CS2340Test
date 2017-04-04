@@ -16,9 +16,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.model.User;
+<<<<<<< HEAD
+=======
+import com.project.sustain.model.WaterPurityReport;
+>>>>>>> develop
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by Marcia on 3/14/2017.
@@ -41,6 +46,10 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private QueryListResultListener mQueryListResultListener = null;
     private QuerySingleResultListener mQuerySingleResultListener = null;
     private RegistrationResultListener mRegistrationResultListener = null;
+<<<<<<< HEAD
+=======
+    private QueryEntireListListener mQueryEntireListListener = null;
+>>>>>>> develop
     private Object mModelObject = null;
     private User currentUser = null;
 
@@ -182,6 +191,38 @@ public class FirebaseWrapper implements DatabaseWrapper {
         mFirebaseAuth.signOut();
     }
 
+    public <T> void queryDatabaseForEntireListAsync(String query, final T modelObject) {
+        mModelObject = modelObject;
+        final List<T> resultList = new ArrayList<>();
+        mDatabaseReference = mFirebaseDatabase.getReference().child(query);
+        if (mDatabaseReference != null) {
+            mDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Log.d("FirebaseWrapper", "Got water report" + snapshot.getValue(mModelObject.getClass()));
+                        resultList.add((T)snapshot.getValue(mModelObject.getClass()));
+                    }
+                    if (mQueryEntireListListener != null) {
+                        mQueryEntireListListener.onComplete(resultList);
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    if (databaseError != null) {
+                        Throwable error = new Throwable(databaseError.getMessage(),
+                                databaseError.toException());
+                        if (mQueryEntireListListener != null) {
+                            mQueryEntireListListener.onError(error);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 
 
     @Override
@@ -297,6 +338,14 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     public void removeRegistrationResultListener() {
         this.mRegistrationResultListener = null;
+    }
+
+    public void setQueryEntireListListener(QueryEntireListListener listener) {
+        this.mQueryEntireListListener = listener;
+    }
+
+    public void removeQueryEntireListListener() {
+        this.mQueryEntireListListener = null;
     }
 
 }

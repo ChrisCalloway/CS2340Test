@@ -31,6 +31,8 @@ public interface DatabaseWrapper {
 
      <T> void queryDatabaseForSingleAsync(String query, T modelObject);
 
+     <T> void queryDatabaseForEntireListAsync(String query, T modelObject);
+
      <T> void insertSingleRecord(String recordLocation, T modelObject);
 
      <T> void updateSingleRecord(String recordLocation, T modelObject);
@@ -46,4 +48,8 @@ public interface DatabaseWrapper {
      void setRegistrationResultListener(RegistrationResultListener listener);
 
      void removeRegistrationResultListener();
+
+     void setQueryEntireListListener(QueryEntireListListener listener);
+
+     void removeQueryEntireListListener();
 }

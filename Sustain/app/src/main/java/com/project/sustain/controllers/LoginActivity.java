@@ -2,6 +2,7 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,9 +35,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(boolean success) {
                 if (success) {
-
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
+                    try {
+                        mUserManager.getCurrentUser();
+                    } catch (UserNotAuthenticatedException e) {
+                        Toast.makeText(getApplicationContext(), "Login failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failed.",
                             Toast.LENGTH_SHORT).show();
@@ -50,6 +54,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        //set user result listener
+        UserResultListener userResultListener = new UserResultListener() {
+            @Override
+            public void onComplete(User user) {
+                if (user != null) {
+                    mUser = user;
+                } else {
+                    mUser = new User();
+                }
+                startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                    .putExtra("user", mUser));
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        };
+
+        mUserManager.setUserResultListener(userResultListener);
 
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnCancelLogin = (Button) findViewById(R.id.buttonCancelLogin);

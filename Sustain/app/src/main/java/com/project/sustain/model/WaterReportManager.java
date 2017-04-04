@@ -2,19 +2,23 @@ package com.project.sustain.model;
 
 import com.project.sustain.controllers.DatabaseWrapper;
 import com.project.sustain.controllers.FirebaseWrapper;
+import com.project.sustain.controllers.QueryEntireListListener;
 import com.project.sustain.controllers.QueryListResultListener;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Chris on 3/13/17.
  */
 
-public class WaterReportManager {
+public class WaterReportManager implements Serializable{
     private List<Report> mReports;
     private DatabaseWrapper mDBWrapper = new FirebaseWrapper();
     private QueryListResultListener mListResultListener = null;
     private QueryListResultListener qrListener;
+    private QueryEntireListListener mEntireListResultListener = null;
+    private QueryEntireListListener qeListener;
     /**
      * Constructor
      */
@@ -37,6 +41,24 @@ public class WaterReportManager {
                 }
             }
         };
+
+        //this listener passes the query results back
+        //to the caller when the asynchronous query finishes.
+        qeListener = new QueryEntireListListener() {
+            @Override
+            public <T> void onComplete(List<T> list) {
+                if (mEntireListResultListener != null) {
+                    mEntireListResultListener.onComplete(list);
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                if (mEntireListResultListener != null) {
+                    mEntireListResultListener.onError(error);
+                }
+            }
+        };
     }
 
     /**
@@ -46,6 +68,38 @@ public class WaterReportManager {
         mDBWrapper.setQueryListResultListener(qrListener);
         mDBWrapper.queryDatabaseForListAsync("sourceReports", new WaterSourceReport());
 
+    }
+
+    /**
+     * Asks database for a list of water purity reports.
+     */
+    public void getWaterPurityReports() {
+        mDBWrapper.setQueryListResultListener(qrListener);
+        mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
+    }
+
+    /**
+     * Queries database for an entire list of water purity reports.
+     */
+    public void getEntireWaterPurityReportList() {
+        mDBWrapper.setQueryEntireListListener(qeListener);
+        mDBWrapper.queryDatabaseForEntireListAsync("purityReports", new WaterPurityReport());
+    }
+
+    /**
+     * Saves a single WaterSourceReport to database.
+     * @param report the WaterSourceReport to save.
+     */
+    public void saveSourceReport(WaterSourceReport report) {
+        mDBWrapper.insertSingleRecord("sourceReports", report);
+    }
+
+    /**
+     * Saves a single WaterPurityReport to database.
+     * @param report the WaterPurityReport to save.
+     */
+    public void savePurityReport(WaterPurityReport report) {
+        mDBWrapper.insertSingleRecord("purityReports", report);
     }
 
     /**
@@ -79,5 +133,14 @@ public class WaterReportManager {
 
     public void removeQueryListResultListener() {
         mListResultListener = null;
+    }
+
+
+    public void setQueryEntireListListener(QueryEntireListListener listener) {
+        mEntireListResultListener = listener;
+    }
+
+    public void removeQueryEntireListListener() {
+        mEntireListResultListener = null;
     }
 }

@@ -137,7 +137,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PROFILE_CHANGE_REQ) {
             Log.d("EditResult", "Got result OK");
-            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+            startActivity(new Intent(RegistrationActivity.this, MainActivity.class)
+                .putExtra("user", mUserProfile));
             finish();
 
         }
