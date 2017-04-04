@@ -16,10 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.model.User;
-<<<<<<< HEAD
-=======
-import com.project.sustain.model.WaterPurityReport;
->>>>>>> develop
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +42,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private QueryListResultListener mQueryListResultListener = null;
     private QuerySingleResultListener mQuerySingleResultListener = null;
     private RegistrationResultListener mRegistrationResultListener = null;
-<<<<<<< HEAD
-=======
     private QueryEntireListListener mQueryEntireListListener = null;
->>>>>>> develop
     private Object mModelObject = null;
     private User currentUser = null;
 

@@ -217,19 +217,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void checkLoggedInStatus() {
-        //get the User object for the current logged-in user
-        //we will pass this on to the next activity
-        //call is asynchronous; result handled by mUserResultListener.onComplete()
-        mUserManager.setUserResultListener(mUserResultListener);
-        try {
-            mUserManager.getCurrentUser();
-        } catch (UserNotAuthenticatedException e) {
-            //exit this activity
-            finish();
-        }
-    }
-
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

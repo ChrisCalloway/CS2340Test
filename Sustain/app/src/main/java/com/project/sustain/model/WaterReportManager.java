@@ -102,30 +102,6 @@ public class WaterReportManager implements Serializable{
         mDBWrapper.insertSingleRecord("purityReports", report);
     }
 
-    /**
-     * Asks database for a list of water purity reports.
-     */
-    public void getWaterPurityReports() {
-        mDBWrapper.setQueryListResultListener(qrListener);
-        mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
-    }
-
-    /**
-     * Saves a single WaterSourceReport to database.
-     * @param report the WaterSourceReport to save.
-     */
-    public void saveSourceReport(WaterSourceReport report) {
-        mDBWrapper.insertSingleRecord("sourceReports", report);
-    }
-
-    /**
-     * Saves a single WaterPurityReport to database.
-     * @param report the WaterPurityReport to save.
-     */
-    public void savePurityReport(WaterPurityReport report) {
-        mDBWrapper.insertSingleRecord("purityReports", report);
-    }
-
 
     public void setQueryListResultListener(QueryListResultListener listener) {
         mListResultListener = listener;
