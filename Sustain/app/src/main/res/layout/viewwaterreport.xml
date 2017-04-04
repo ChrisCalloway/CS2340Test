@@ -1,235 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Water Report #"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepTitle"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
-    </TableRow>
-
-    <TableRow
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="16dp">
+    <TextView
+        android:text="Water Report #"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp">
-
-        <TextView
-            android:text="Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepDate" />
-
-        <TextView
-            android:text="hello date!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dateReported"
-            android:paddingLeft="20dp" />
-
-    </TableRow>
-
-    <TableRow
+        android:id="@+id/wtrRepTitle"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepTime" />
-
-        <TextView
-            android:text="hello Time!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timeReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
+        android:layout_height="wrap_content"
+        android:text="Report #:"
+        android:id="@+id/wtrRepNumber"/>
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepName" />
-
-        <TextView
-            android:text="hello name!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Street Address 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepStrAdd1" />
-
-        <TextView
-            android:text="hello address 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add1Reported"
-            android:paddingLeft="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Street Address 2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepStrAdd2" />
-
-        <TextView
-            android:text="hello address 2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add2Reported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="City"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepCity"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cityReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="State"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepState"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stateReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepCountry"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/countryReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Zip Code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepZip"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello zip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/zipReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Water Type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/wtrRepType"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/typeReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:text="Water Condition"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/wtrRepCondition"
-            android:paddingLeft="20dp" />
-
-        <TextView
-            android:text="hello condition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/conditionReported"
-            android:paddingLeft="20dp" />
-    </TableRow>
-
-    <Button
-        android:text="Back to Reports"
+        android:layout_height="wrap_content"
+        android:id="@+id/wtrRepNumberReported"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:text="Date of Report:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/wtrRepDate" />
+    <TextView
+        android:text="hello date!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateReported"
+        android:paddingLeft="20dp" />
+    <TextView
+        android:text="Time of Report:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wtrRepTime" />
+
+    <TextView
+        android:text="hello Time!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeReported"
+        android:paddingLeft="20dp" />
+
+    <TextView
+        android:text="Reporter Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wtrRepName" />
+    <TextView
+        android:text="hello name!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameReported"
+        android:paddingLeft="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/wtrRepStrAdd1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Street Address 1"/>
+
+        <TextView
+            android:id="@+id/add1Reported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/wtrRepStrAdd1"
+            android:paddingLeft="20dp"
+            android:text="hello address 1"/>
+
+
+        <TextView
+            android:id="@+id/wtrRepStrAdd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wtrRepStrAdd1"
+            android:text="Street Address 2"/>
+
+        <TextView
+            android:id="@+id/add2Reported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/wtrRepStrAdd2"
+            android:layout_alignTop="@id/wtrRepStrAdd2"
+            android:paddingLeft="20dp"
+            android:text="hello address 2"/>
+
+        <TextView
+            android:id="@+id/wtrRepCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wtrRepStrAdd2"
+            android:text="City"/>
+
+        <TextView
+            android:id="@+id/cityReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/wtrRepCity"
+            android:layout_alignTop="@id/wtrRepCity"
+            android:paddingLeft="20dp"
+            android:text="hello city"/>
+
+        <TextView
+            android:id="@+id/wtrRepState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wtrRepCity"
+            android:text="State"/>
+
+        <TextView
+            android:id="@+id/stateReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/wtrRepState"
+            android:layout_alignTop="@id/wtrRepState"
+            android:paddingLeft="20dp"
+            android:text="hello state"/>
+
+        <TextView
+            android:id="@+id/wtrRepZip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wtrRepState"
+            android:text="Zip Code"/>
+
+        <TextView
+            android:id="@+id/zipReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="hello zip"
+            android:layout_alignTop="@id/wtrRepZip"
+            android:layout_toEndOf="@+id/wtrRepZip"
+            android:layout_marginStart="8dp"/>
+
+
+        <TextView
+            android:id="@+id/wtrRepCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Country"
+            android:layout_toRightOf="@+id/zipReported"
+            android:layout_alignTop="@id/zipReported"/>
+
+        <TextView
+            android:id="@+id/countryReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="hello country"
+            android:layout_toRightOf="@+id/wtrRepCountry"
+            android:layout_alignTop="@+id/zipReported"/>
+
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/wtrRepInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="Water Information:"/>
+
+    <EditText
+        android:id="@+id/editWaterInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"/>
+
+    <Button
         android:id="@+id/backButton"
-        android:layout_gravity="center" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Back to Reports"/>
 
 </LinearLayout>

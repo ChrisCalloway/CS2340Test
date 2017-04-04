@@ -1,22 +1,23 @@
 package com.project.sustain.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.io.Serializable;
 
 /**
  * Created by Marcia on 2/27/2017.
  */
 
 @IgnoreExtraProperties
-public class Address implements Parcelable {
+public class Address implements Serializable {
     private String streetAddress1;
     private String streetAddress2;
     private String city;
     private String stateOrProvince;
     private String country;
     private String zipCode;
+    private Location mLocation;
+    private String placeName;
 
     public Address() {
         streetAddress1 = "";
@@ -25,6 +26,15 @@ public class Address implements Parcelable {
         stateOrProvince = "";
         country = "";
         zipCode = "";
+        placeName = "";
+    }
+
+    public Location getLocation() {
+        return mLocation;
+    }
+
+    public void setLocation(Location location) {
+        mLocation = location;
     }
 
     public String getStreetAddress1() {
@@ -73,68 +83,13 @@ public class Address implements Parcelable {
         this.zipCode = zipCode;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    public String getPlaceName() { return this.placeName; }
+
+    public void setPlaceName(String placeName) { this.placeName = placeName; }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(streetAddress1);
-        dest.writeString(streetAddress2);
-        dest.writeString(city);
-        dest.writeString(stateOrProvince);
-        dest.writeString(country);
-        dest.writeString(zipCode);
+    public String toString() {
+        String address = streetAddress1 + ", " + city + ", " + stateOrProvince;
+        return address;
     }
-
-    public static final Parcelable.Creator
-        CREATOR = new Parcelable.Creator() {
-            public Address createFromParcel(Parcel in) {
-                return new Address(in);
-            }
-
-            public Address[] newArray(int size) {
-                return new Address[size];
-            }
-    };
-
-    private Address(Parcel in) {
-        streetAddress1 = in.readString();
-        streetAddress2 = in.readString();
-        city = in.readString();
-        stateOrProvince = in.readString();
-        country = in.readString();
-        zipCode = in.readString();
-    }
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(streetAddress1);
-//        dest.writeString(city);
-//        dest.writeString(stateOrProvince);
-//        dest.writeString(country);
-//        dest.writeString(zipCode);
-//    }
-
-//    public Address (Parcel parcel) {
-//        streetAddress1 = parcel.readString();
-//        city = parcel.readString();
-//        stateOrProvince = parcel.readString();
-//        country = parcel.readString();
-//        zipCode = parcel.readString();
-//    }
-
-//    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
-//        @Override
-//        public Address createFromParcel(Parcel parcel) {
-//            return new Address(parcel);
-//        }
-//        @Override
-//        public Address[] newArray(int size) {
-//            return new Address[size];
-//        }
-//    };
-
-//    public int describeContents() {
-//        return 0;
-//    }
 }

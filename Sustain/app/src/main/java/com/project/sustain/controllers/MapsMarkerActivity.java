@@ -20,12 +20,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.sustain.R;
-import com.project.sustain.model.ReportListResultListener;
-import com.project.sustain.model.WaterReport;
-import com.project.sustain.model.WaterReportManager;
 import com.project.sustain.model.Location;
-
-import java.util.List;
+import com.project.sustain.model.WaterReportManager;
+import com.project.sustain.model.WaterSourceReport;
 
 
 public class MapsMarkerActivity extends AppCompatActivity
@@ -85,28 +82,27 @@ public class MapsMarkerActivity extends AppCompatActivity
         // From this list of water reports, we would get each report's lat/longitude
         // and create the respective markers to add to the map.
 
-        mWaterReportManager.setReportListResultListener(new ReportListResultListener() {
+        mWaterReportManager.setQueryListResultListener(new QueryListResultListener() {
             @Override
-            public <T> void onComplete(List<T> list) {
+            public <T, K> void onComplete(T item, K key) {
                 if (mMap != null) {
-                    if (list != null && !list.isEmpty()) {
-                        Location lastLocation = null;
-                        for (T r : list) {
-                            WaterReport report = (WaterReport) r;
-                            Location loc = report.getLocation();
-                            Log.d(TAG, report.toString());
-                            String reportInfo = report.getTypeWater() + ", " + report.getConditionWater();
+                    if (item != null) {
+                        WaterSourceReport report = (WaterSourceReport) item;
+                        String place = report.getAddress().getPlaceName();
+                        Location loc = report.getAddress().getLocation();
+                        //Log.d(TAG, report.toString());
+                        String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
+                        if (!place.equals("")) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                                    loc.getLongitude())).title(place).snippet(reportInfo));
+                        } else {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title("Water Source").snippet(reportInfo));
-                            lastLocation = loc;
-                        }
-                        if (lastLocation != null) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng
-                                    (new LatLng(lastLocation.getLatitude(),
-                                            lastLocation.getLongitude())));
                         }
                     }
+
                 }
+
             }
 
             @Override
@@ -132,7 +128,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         getDeviceLocation();
 
         // get the water reports and display on the map.
-        mWaterReportManager.getWaterReports();
+        mWaterReportManager.getWaterSourceReports();
 
         /*
          * This is from the map marker tutorial on Google's developers site.
@@ -143,9 +139,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 //        mMap.addMarker(new MarkerOptions().position(sydney)
 //                .title("This is a Marker for Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-
     }
 
     /**
@@ -283,6 +276,6 @@ public class MapsMarkerActivity extends AppCompatActivity
     @Override
     public void onStop() {
         super.onStop();
-        mWaterReportManager.removeReportListResultListener();
+        mWaterReportManager.removeQueryListResultListener();
     }
 }
