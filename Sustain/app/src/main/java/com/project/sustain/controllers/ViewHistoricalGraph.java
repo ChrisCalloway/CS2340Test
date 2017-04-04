@@ -127,10 +127,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
         }
         graph.addSeries(series);
-
-        if(this.dataType.equals("virus")) {
-            series.setOnDataPointTapListener(new OnDataPointTapListener() {
-                String month;
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            String month;
                 @Override
                 public void onTap(Series series, DataPointInterface dataPoint) {
                     switch ((int) dataPoint.getX()) {
@@ -171,56 +169,13 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                             month = "December";
                             break;
                     }
-                    Toast.makeText(getApplicationContext(), "Average Virus PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
-                }
-            });
-         } else if(this.dataType.equals("contaminant")) {
-            series.setOnDataPointTapListener(new OnDataPointTapListener() {
-                String month;
-                @Override
-                public void onTap(Series series, DataPointInterface dataPoint) {
-                    switch ((int) dataPoint.getX()) {
-                        case 1:
-                            month = "January";
-                            break;
-                        case 2:
-                            month = "February";
-                            break;
-                        case 3:
-                            month = "March";
-                            break;
-                        case 4:
-                            month = "April";
-                            break;
-                        case 5:
-                            month = "May";
-                            break;
-                        case 6:
-                            month = "June";
-                            break;
-                        case 7:
-                            month = "July";
-                            break;
-                        case 8:
-                            month = "August";
-                            break;
-                        case 9:
-                            month = "September";
-                            break;
-                        case 10:
-                            month = "October";
-                            break;
-                        case 11:
-                            month = "November";
-                            break;
-                        case 12:
-                            month = "December";
-                            break;
+                    if(dataType.equals("virus")) {
+                        Toast.makeText(getApplicationContext(), "Average Virus PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                    } else if (dataType.equals("contaminant")) {
+                        Toast.makeText(getApplicationContext(), "Average Contaminant PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getApplicationContext(), "Average Contaminant PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
                 }
             });
-        }
     }
 
     /**
