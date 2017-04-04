@@ -8,18 +8,24 @@ import android.os.Parcelable;
  */
 
 public enum Month implements Parcelable {
-    JANUARY("January"),
-    FEBRUARY("February"),
-    MARCH("March"),
-    APRIL("April"),
-    MAY("MAY"),
-    JUNE("June"),
-    JULY("July"),
-    AUGUST("August"),
-    SEPTEMBER("September"),
-    OCTOBER("October"),
-    NOVEMBER("November"),
-    DECEMBER("December");
+    JANUARY("Jan"),
+    FEBRUARY("Feb"),
+    MARCH("Mar"),
+    APRIL("Apr"),
+    MAY("May"),
+    JUNE("Jun"),
+    JULY("Jul"),
+    AUGUST("Aug"),
+    SEPTEMBER("Sept"),
+    OCTOBER("Oct"),
+    NOVEMBER("Nov"),
+    DECEMBER("Dec");
+
+    private final String abbrName;
+
+    Month(String abbr) {
+        this.abbrName = abbr;
+    }
 
     public static final Parcelable.Creator<Month> CREATOR = new Parcelable.Creator<Month>() {
         public Month createFromParcel(Parcel in) {
@@ -41,13 +47,9 @@ public enum Month implements Parcelable {
         out.writeInt(ordinal());
     }
 
-    private String typeDeclared;
 
-    Month (String typePassed) {
-        typeDeclared = typePassed;
+    public String getAbbrName() {
+        return abbrName;
     }
 
-    public String toString() {
-        return typeDeclared;
-    }
 }

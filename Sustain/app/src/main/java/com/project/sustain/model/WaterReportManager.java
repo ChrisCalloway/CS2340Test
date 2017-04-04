@@ -5,13 +5,14 @@ import com.project.sustain.controllers.FirebaseWrapper;
 import com.project.sustain.controllers.QueryEntireListListener;
 import com.project.sustain.controllers.QueryListResultListener;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Chris on 3/13/17.
  */
 
-public class WaterReportManager {
+public class WaterReportManager implements Serializable{
     private List<Report> mReports;
     private DatabaseWrapper mDBWrapper = new FirebaseWrapper();
     private QueryListResultListener mListResultListener = null;

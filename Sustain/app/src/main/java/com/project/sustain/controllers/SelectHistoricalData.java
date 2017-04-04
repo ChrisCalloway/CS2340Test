@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.project.sustain.R;
+import com.project.sustain.model.HistoricalGraphDataCalculator;
 import com.project.sustain.model.HistoricalGraphData;
 import com.project.sustain.model.Report;
 import com.project.sustain.model.WaterReportManager;
@@ -81,7 +83,8 @@ public class SelectHistoricalData extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HistoricalGraphData graphData = new HistoricalGraphData();
+                HistoricalGraphDataCalculator calculatedGraphData = new HistoricalGraphDataCalculator();
+                HistoricalGraphData graphData;
                 // Check to ensure all fields have data inputted.
                 // If so, use data to do a search on the Firebase database
                 // and use returned results to build out history graph
@@ -104,9 +107,9 @@ public class SelectHistoricalData extends AppCompatActivity {
                     return;
                 }
                 if (radDataType.getCheckedRadioButtonId() == R.id.radbtnVirusOpt) {
-                    graphData.setDataType("virus");
+                    calculatedGraphData.setDataType("virus");
                 } else if (radDataType.getCheckedRadioButtonId() == R.id.radbtnContaminantOpt) {
-                    graphData.setDataType("contaminant");
+                    calculatedGraphData.setDataType("contaminant");
                 } else {
                     // Did not select an option, prompt user with toast to select an option
                     Toast.makeText(getApplicationContext(),
@@ -114,10 +117,13 @@ public class SelectHistoricalData extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                graphData.setYear(spinYear.getSelectedItem().toString());
-                graphData.setLocation(spinLocationName.getSelectedItem().toString());
+                Log.d("SelectHistoricalData", "About to process reports");
+                calculatedGraphData.setYear(spinYear.getSelectedItem().toString());
+                calculatedGraphData.setLocation(spinLocationName.getSelectedItem().toString());
                 // Call method to now process the data since all the data has been gathered.
-                graphData.getCoordinatePointData();
+                calculatedGraphData.calculateCoordinatePointData();
+
+                graphData = new HistoricalGraphData(calculatedGraphData.getCoordinatePointData());
                 startActivity(new Intent(SelectHistoricalData.this, ViewHistoricalGraph.class)
                         .putExtra("graphData", graphData));
             }
