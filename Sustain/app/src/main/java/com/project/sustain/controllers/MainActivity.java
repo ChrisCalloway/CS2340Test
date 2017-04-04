@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private UserManager mUserManager;
     private UserResultListener mUserResultListener;
     public static final int PROFILE_CHANGE_REQ = 1000;
-    public static String TAG = "MainActivity";
 
 
     @Override
@@ -36,38 +35,11 @@ public class MainActivity extends AppCompatActivity {
         Button btnViewMap;
         Button btnLogout;
         Toolbar toolbar;
-
         Button viewHistGraph;
 
         //try to get user from previous activity (Login or Register)
         mUser = (User) getIntent().getSerializableExtra("user");
         mUserManager = new UserManager();
-
-        //result of asynchronous call to getCurrentUser()
-        mUserResultListener = new UserResultListener() {
-            @Override
-            public void onComplete(User user) {
-                Log.d(TAG, "UserResultListener onComplete");
-                mUser = user;
-                if (mUser == null) {
-                    //user does not have a profile saved yet. Create one
-                    mUser = new User();
-
-                }
-            }
-
-            @Override
-            public void onError(Throwable error) {
-                if (error != null) {
-                    Log.d(TAG, "UserResultListener onError: " + error.getMessage());
-                }
-            }
-        };
-
-        //get the User object for the current logged-in user
-        //we will pass this on to the next activity
-        //call is asynchronous; result handled by mUserResultListener.onComplete()
-        checkLoggedInStatus();
 
         setContentView(R.layout.activity_main);
 
@@ -239,16 +211,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mUserResultListener != null) {
-            mUserManager.setUserResultListener(mUserResultListener);
-        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         checkLoggedInStatus();
-
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.model.User;
+import com.project.sustain.model.WaterPurityReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,8 +216,6 @@ public class FirebaseWrapper implements DatabaseWrapper {
             });
         }
     }
-
-
 
     @Override
     public <T> void queryDatabaseForListAsync(String query, final T modelObject) {
