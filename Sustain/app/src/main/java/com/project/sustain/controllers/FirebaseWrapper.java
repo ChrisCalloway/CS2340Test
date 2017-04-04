@@ -16,9 +16,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.model.User;
+import com.project.sustain.model.WaterPurityReport;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by Marcia on 3/14/2017.
@@ -192,6 +194,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Log.d("FirebaseWrapper", "Got water report" + snapshot.getValue(mModelObject.getClass()));
                         resultList.add((T)snapshot.getValue(mModelObject.getClass()));
                     }
                     if (mQueryEntireListListener != null) {

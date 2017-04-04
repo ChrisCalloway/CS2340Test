@@ -83,7 +83,7 @@ public class WaterReportManager implements Serializable{
      */
     public void getEntireWaterPurityReportList() {
         mDBWrapper.setQueryEntireListListener(qeListener);
-        mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
+        mDBWrapper.queryDatabaseForEntireListAsync("purityReports", new WaterPurityReport());
     }
 
     /**

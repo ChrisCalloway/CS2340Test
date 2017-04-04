@@ -28,12 +28,12 @@ public class HistoricalGraphDataCalculator implements Serializable {
         this.location = location;
         this.year = year;
         this.dataType = dataType;
+
     }
 
+    // Uses constructor chaining to invoke above constructor with empty strings.
     public HistoricalGraphDataCalculator() {
-        this.location = "";
-        this.year = "";
-        this.dataType = "";
+        this("","","");
     }
 
     /**
@@ -41,24 +41,6 @@ public class HistoricalGraphDataCalculator implements Serializable {
      *  of PPM measure of whatever datatype passed in (virus or contaminant).
      */
     public void calculateCoordinatePointData() {
-        mReportManager = new WaterReportManager();
-        mReportList = new ArrayList<>();
-
-        qeListener = new QueryEntireListListener() {
-            @Override
-            public <T> void onComplete(List<T> list) {
-                mReportList = ((ArrayList<WaterPurityReport>) list);
-                Log.d("GraphData-OnComplete", "Got reportList about to call processWaterPurityReports");
-                // Process the list of water purity reports
-                // It seems that we need to listen for when coordinatePointData is assigned a value.
-                coordinatePointData =  processWaterPurityReports();
-            }
-
-            @Override
-            public void onError(Throwable error) {
-            }
-        };
-        mReportManager.setQueryEntireListListener(qeListener);
         mReportManager.getEntireWaterPurityReportList();
     }
 

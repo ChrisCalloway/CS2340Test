@@ -121,11 +121,11 @@ public class SelectHistoricalData extends AppCompatActivity {
                 calculatedGraphData.setYear(spinYear.getSelectedItem().toString());
                 calculatedGraphData.setLocation(spinLocationName.getSelectedItem().toString());
                 // Call method to now process the data since all the data has been gathered.
-                calculatedGraphData.calculateCoordinatePointData();
+//                calculatedGraphData.calculateCoordinatePointData();
 
-                graphData = new HistoricalGraphData(calculatedGraphData.getCoordinatePointData());
+//                graphData = new HistoricalGraphData(calculatedGraphData.getCoordinatePointData());
                 startActivity(new Intent(SelectHistoricalData.this, ViewHistoricalGraph.class)
-                        .putExtra("graphData", graphData));
+                        .putExtra("graphData", calculatedGraphData));
             }
         });
     }
