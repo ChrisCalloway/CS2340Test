@@ -23,13 +23,11 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
         graphData = (HistoricalGraphData) getIntent().getSerializableExtra("graphData");
 
-        // Now, need to make calls to get the necessary information
-
-
         createGraph();
     }
 
     public void createGraph() {
+        // Use graphData for information to display
         graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, 500),

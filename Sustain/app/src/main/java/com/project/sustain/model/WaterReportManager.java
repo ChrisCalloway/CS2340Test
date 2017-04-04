@@ -2,6 +2,7 @@ package com.project.sustain.model;
 
 import com.project.sustain.controllers.DatabaseWrapper;
 import com.project.sustain.controllers.FirebaseWrapper;
+import com.project.sustain.controllers.QueryEntireListListener;
 import com.project.sustain.controllers.QueryListResultListener;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class WaterReportManager {
     private DatabaseWrapper mDBWrapper = new FirebaseWrapper();
     private QueryListResultListener mListResultListener = null;
     private QueryListResultListener qrListener;
+    private QueryEntireListListener mEntireListResultListener = null;
+    private QueryEntireListListener qeListener;
     /**
      * Constructor
      */
@@ -37,6 +40,24 @@ public class WaterReportManager {
                 }
             }
         };
+
+        //this listener passes the query results back
+        //to the caller when the asynchronous query finishes.
+        qeListener = new QueryEntireListListener() {
+            @Override
+            public <T> void onComplete(List<T> list) {
+                if (mEntireListResultListener != null) {
+                    mEntireListResultListener.onComplete(list);
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                if (mEntireListResultListener != null) {
+                    mEntireListResultListener.onError(error);
+                }
+            }
+        };
     }
 
     /**
@@ -53,6 +74,14 @@ public class WaterReportManager {
      */
     public void getWaterPurityReports() {
         mDBWrapper.setQueryListResultListener(qrListener);
+        mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
+    }
+
+    /**
+     * Queries database for an entire list of water purity reports.
+     */
+    public void getEntireWaterPurityReportList() {
+        mDBWrapper.setQueryEntireListListener(qeListener);
         mDBWrapper.queryDatabaseForListAsync("purityReports", new WaterPurityReport());
     }
 
@@ -79,5 +108,14 @@ public class WaterReportManager {
 
     public void removeQueryListResultListener() {
         mListResultListener = null;
+    }
+
+
+    public void setQueryEntireListListener(QueryEntireListListener listener) {
+        mEntireListResultListener = listener;
+    }
+
+    public void removeQueryEntireListListener() {
+        mEntireListResultListener = null;
     }
 }

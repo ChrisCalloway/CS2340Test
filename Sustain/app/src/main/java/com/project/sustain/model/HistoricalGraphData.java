@@ -3,6 +3,7 @@ import android.os.Parcelable;
 import android.os.Parcel;
 import android.util.SparseArray;
 
+import com.project.sustain.controllers.QueryEntireListListener;
 import com.project.sustain.controllers.QueryListResultListener;
 
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ public class HistoricalGraphData implements Parcelable {
     private String year;
     private String dataType;
     private WaterReportManager mReportManager;
-    private List<Report> mReportList;
-    private QueryListResultListener qrListener;
+    private List<WaterPurityReport> mReportList;
+    private QueryEntireListListener qeListener;
+    SparseArray<Double> coordinatePointData;
 
 
     public HistoricalGraphData(String location, String year, String dataType) {
@@ -81,36 +83,37 @@ public class HistoricalGraphData implements Parcelable {
         }
     };
 
-    // method to calculate for a location and a year, for each month, take average
-    // of PPM measure of whatever datatype passed in (virus or contaminant).
-    public SparseArray<Double> getCoordinatePointData(String location,
-                                                       String year, String dataType) {
-        // Get each recorded datatype value for a year for a location.
-        SparseArray<Double> coordinatePointData = new SparseArray<>(Month.values().length);
-
-
-        return coordinatePointData;
-    }
-
-    public List<Report> getWaterPurityReportList(String location, String year, String dataType) {
+    /**
+     *  method to calculate for a location and a year, for each month, take average
+     *  of PPM measure of whatever datatype passed in (virus or contaminant).
+     */
+    public void getCoordinatePointData() {
+        coordinatePointData = new SparseArray<>(Month.values().length);
         mReportManager = new WaterReportManager();
         mReportList = new ArrayList<>();
 
-        qrListener = new QueryListResultListener() {
+        qeListener = new QueryEntireListListener() {
             @Override
-            public <T, K> void onComplete(T item, K key) {
-                ((Report) item).setReportId((String)key);
-                mReportList.add(((Report) item));
+            public <T> void onComplete(List<T> list) {
+                mReportList = ((ArrayList<WaterPurityReport>) list);
+                // Process the list of water purity reports to
+                processWaterPurityReports();
             }
 
             @Override
             public void onError(Throwable error) {
             }
         };
-        mReportManager.setQueryListResultListener(qrListener);
-        mReportManager.getWaterPurityReports();
+        mReportManager.setQueryEntireListListener(qeListener);
+        mReportManager.getEntireWaterPurityReportList();
+    }
 
-        return mReportList;
+    // TODO
+    /**
+     * Helper method to process the WaterPurityReport list returned from the database
+     */
+    public void processWaterPurityReports() {
+
     }
 
     public void setLocation(String location) {
