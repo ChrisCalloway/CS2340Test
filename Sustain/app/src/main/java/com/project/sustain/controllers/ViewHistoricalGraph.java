@@ -3,12 +3,16 @@ package com.project.sustain.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 import com.project.sustain.R;
 import com.project.sustain.model.HistoricalGraphData;
 import com.project.sustain.model.HistoricalGraphDataCalculator;
@@ -67,6 +71,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
     }
 
+
+
     public void createGraph(Map<Month, Double> coordinatePointData) {
         // Use graphData for information to display
         graph = (GraphView) findViewById(R.id.graph);
@@ -121,6 +127,100 @@ public class ViewHistoricalGraph extends AppCompatActivity {
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
         }
         graph.addSeries(series);
+
+        if(this.dataType.equals("virus")) {
+            series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                String month;
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    switch ((int) dataPoint.getX()) {
+                        case 1:
+                            month = "January";
+                            break;
+                        case 2:
+                            month = "February";
+                            break;
+                        case 3:
+                            month = "March";
+                            break;
+                        case 4:
+                            month = "April";
+                            break;
+                        case 5:
+                            month = "May";
+                            break;
+                        case 6:
+                            month = "June";
+                            break;
+                        case 7:
+                            month = "July";
+                            break;
+                        case 8:
+                            month = "August";
+                            break;
+                        case 9:
+                            month = "September";
+                            break;
+                        case 10:
+                            month = "October";
+                            break;
+                        case 11:
+                            month = "November";
+                            break;
+                        case 12:
+                            month = "December";
+                            break;
+                    }
+                    Toast.makeText(getApplicationContext(), "Average Virus PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                }
+            });
+         } else if(this.dataType.equals("contaminant")) {
+            series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                String month;
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    switch ((int) dataPoint.getX()) {
+                        case 1:
+                            month = "January";
+                            break;
+                        case 2:
+                            month = "February";
+                            break;
+                        case 3:
+                            month = "March";
+                            break;
+                        case 4:
+                            month = "April";
+                            break;
+                        case 5:
+                            month = "May";
+                            break;
+                        case 6:
+                            month = "June";
+                            break;
+                        case 7:
+                            month = "July";
+                            break;
+                        case 8:
+                            month = "August";
+                            break;
+                        case 9:
+                            month = "September";
+                            break;
+                        case 10:
+                            month = "October";
+                            break;
+                        case 11:
+                            month = "November";
+                            break;
+                        case 12:
+                            month = "December";
+                            break;
+                    }
+                    Toast.makeText(getApplicationContext(), "Average Contaminant PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     /**
