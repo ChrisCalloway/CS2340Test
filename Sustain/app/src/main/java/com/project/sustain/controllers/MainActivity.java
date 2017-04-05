@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.sustain.R;
 import com.project.sustain.model.User;
@@ -41,20 +42,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         Button btnSubmitReport;
         Button btnViewReport;
 
         //try to get user from previous activity (Login or Register)
         mUser = (User) getIntent().getSerializableExtra("user");
         mUserManager = new UserManager();
-        /* Cannot get working with managers, works with users, workers
-        if(mUser != null) {
-            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
-                ((MenuItem) findViewById(R.id.hist_graph)).setVisible(true);
-            }
-        }
-        */
-        setContentView(R.layout.activity_main);
 
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -103,7 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_main);
-
+        if(mUser != null) {
+            if(mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
+                navigationView.getMenu().findItem(R.id.nav_hist_graph).setVisible(true);
+            } else {
+                navigationView.getMenu().findItem(R.id.nav_hist_graph).setVisible(false);
+            }
+        }
     }
 
     //When returning to main screen make sure main screen is highlighted in nav view
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_water_quality) {
 
-        } else if (id == R.id.hist_graph) {
+        } else if (id == R.id.nav_hist_graph) {
             startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
         } else if (id == R.id.nav_logout) {
             mUserManager.logOutUser();
