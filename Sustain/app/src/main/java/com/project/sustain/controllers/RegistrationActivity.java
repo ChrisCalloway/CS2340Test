@@ -52,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this,  R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -115,14 +115,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 mUserManager.setRegistrationResultListener(resultListener);
                 mUserManager.registerWithEmailPassword(email, password);
 
-            }
-        });
-
-        btnCancelRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
-                finish();
             }
         });
     }

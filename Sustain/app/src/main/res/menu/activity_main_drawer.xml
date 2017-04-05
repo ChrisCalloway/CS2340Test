@@ -19,6 +19,11 @@
             android:id="@+id/nav_water_quality"
             android:icon="@android:drawable/ic_menu_camera"
             android:title="@string/water_quality_reports"/>
+        <item
+            android:id="@+id/hist_graph"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/hist_graph"
+            android:visible="false" />
     </group>
     <group android:id="@+id/nav_bottom" android:checkableBehavior="single">
         <item

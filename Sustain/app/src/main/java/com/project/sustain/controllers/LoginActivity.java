@@ -19,7 +19,7 @@ import com.project.sustain.model.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText enteredUsername, enteredPassword;
-    private Button btnLogin, btnCancelLogin;
+    private Button btnLogin;
     private UserManager mUserManager;
     private User mUser;
     private LoginResultListener mLoginResultListener;
@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         btnLogin = (Button) findViewById(R.id.buttonLogin);
-        btnCancelLogin = (Button) findViewById(R.id.buttonCancelLogin);
         enteredUsername = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
 
@@ -110,15 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                 mUserManager.setLoginResultListener(mLoginResultListener);
                 mUserManager.logInUserEmailPassword(username, password);
 
-
-            }
-        });
-
-        btnCancelLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
-                finish();
             }
         });
     }

@@ -3,6 +3,7 @@
 
 package com.project.sustain.controllers;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -41,52 +43,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         Button btnSubmitReport;
         Button btnViewReport;
-        Button btnViewMap;
-        Button btnLogout;
-        Toolbar toolbar;
-        Button viewHistGraph;
 
         //try to get user from previous activity (Login or Register)
         mUser = (User) getIntent().getSerializableExtra("user");
         mUserManager = new UserManager();
-
+        /* Cannot get working with managers, works with users, workers
+        if(mUser != null) {
+            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
+                ((MenuItem) findViewById(R.id.hist_graph)).setVisible(true);
+            }
+        }
+        */
         setContentView(R.layout.activity_main);
 
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mToolbar.setTitle("Main Screen");
         this.setSupportActionBar(mToolbar);
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        this.setSupportActionBar(toolbar);
-        String userName = "";
-        String userEMail = "";
-        if (mUser == null) {
-            userName = mUserManager.getCurrentUserDisplayName();
-            userEMail = mUserManager.getCurrentUserEmail();
-        } else {
-            userName = mUser.getUserName();
-            userEMail = mUser.getEmailAddress();
-        }
-        if (!userName.equals("") && !userName.equals("null")) {
-            setToolbarTitle(userName);
-        } else {
-            setToolbarTitle(userEMail);
-        }
-
-
-        btnLogout = (Button) findViewById(R.id.buttonLogout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserManager.logOutUser();
-                mUser = null;
-                mUserManager.removeUserResultListener();
-
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
 
         btnSubmitReport = (Button) findViewById(R.id.subRep);
 
@@ -127,34 +100,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mToolbar, 0, 0);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        btnViewMap = (Button) findViewById(R.id.buttonViewMap);
-
-        btnViewMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
-
-            }
-        });
-
-        viewHistGraph = (Button) findViewById(R.id.hist_graph);
-        if (mUser != null) {
-            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
-                viewHistGraph.setVisibility(View.VISIBLE);
-            } else {
-                viewHistGraph.setVisibility(View.GONE);
-            }
-        }
-
-        viewHistGraph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
-            }
-        });
         navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_main);
+
     }
 
     //When returning to main screen make sure main screen is highlighted in nav view
@@ -164,33 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_main);
     }
 
-    /**
-     * Sets the text in the toolbar to the text provided.,
-     * @param name The name to put into the toolbar title.
-     */
-    private void setToolbarTitle(String name) {
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar !=null) { actionBar.setTitle(name + ""); }
-
-    }
-
-    private String getToolbarTitle() {
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            return actionBar.getTitle() + "";
-        } else {
-            return "";
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit_profile:
+            /*case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
                 Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
                 intent.putExtra("user", mUser);
-                startActivityForResult(intent, PROFILE_CHANGE_REQ);
+                startActivityForResult(intent, PROFILE_CHANGE_REQ);*/
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -229,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (resultCode == RESULT_OK) {
                 Log.d("EditResult", "Got result OK");
                 mUser = (User) data.getSerializableExtra("user");
-                setToolbarTitle(mUser.getUserName());
             }
         }
     }
@@ -244,8 +173,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_water_quality) {
 
+        } else if (id == R.id.hist_graph) {
+            startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
         } else if (id == R.id.nav_logout) {
-            auth.signOut();
+            mUserManager.logOutUser();
+            mUser = null;
+            mUserManager.removeUserResultListener();
+
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
