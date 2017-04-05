@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.project.sustain">
+    package="com.project.sustain">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -22,42 +22,68 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".controllers.WelcomeActivity">
-           <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity
+            android:name=".controllers.WelcomeActivity"
+            android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.LoginActivity"
+        <activity
+            android:name=".controllers.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.ViewReportsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.RegistrationActivity"
+            android:screenOrientation="portrait" />
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".controllers.MainActivity" />
-        <activity android:name=".controllers.ViewReportsActivity" />
-        <activity android:name=".controllers.RegistrationActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".controllers.WaterRptSubmitActivity" />
-        <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.EditProfileActivity"></activity>
+        <activity
+            android:name=".controllers.MapsMarkerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.SelectHistoricalData"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.ViewHistoricalGraph"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.SetAddressActivity"
+            android:screenOrientation="portrait" />
+        <!-- <activity android:name=".controllers.ReportActivity"/> -->
         <activity
             android:name=".controllers.ViewReportActivity"
-            android:label="ViewingWaterReport">
+            android:label="ViewingWaterReport"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="activityWaterReport"/>
+                <action android:name="activityWaterReport" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <service
             android:name=".services.FetchAddressIntentService"
-            android:exported="false"/>
-
-        <activity android:name=".controllers.TestActivity">
- 
-        </activity>
-
-        <activity android:name=".controllers.MapsMarkerActivity" />
-        <activity android:name=".controllers.SubmitWaterSourceReportActivity"></activity>
+            android:exported="false" />
+        <activity
+            android:name=".controllers.SourceReportActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".controllers.PurityReportActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".controllers.ChooseReportActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

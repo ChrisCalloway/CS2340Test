@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="16dp">
+
+    <TextView
+        android:id="@+id/lblReporterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="2dp"
+        android:text="Reporter Name:"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/txtReporterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lblReporterName"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/lblName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="Name:"
+        android:layout_below="@+id/lblReporterName"
+        android:layout_toStartOf="@+id/editName"
+        android:layout_marginEnd="7dp"/>
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/lblName"
+        android:layout_alignBottom="@+id/lblName"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Name of This Place"
+        android:inputType="textPersonName"
+        />
+
+    <TextView
+        android:id="@+id/lblLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latitude:"
+        android:layout_alignBaseline="@+id/editLatitude"
+        android:layout_alignBottom="@+id/editLatitude"
+        android:layout_alignEnd="@+id/lblStreetAddress1"/>
+
+    <EditText
+        android:id="@+id/editLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_below="@+id/editName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/editLongitude"/>
+
+    <TextView
+        android:id="@+id/lblLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitude:"
+        android:layout_alignBaseline="@+id/editLongitude"
+        android:layout_alignBottom="@+id/editLongitude"
+        android:layout_alignEnd="@+id/lblLatitude"/>
+
+    <EditText
+        android:id="@+id/editLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_below="@+id/lblLatitude"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblStreetAddress1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Street Address 1:"
+        android:layout_alignBaseline="@+id/editStreetAddress1"
+        android:layout_alignBottom="@+id/editStreetAddress1"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/editStreetAddress1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/editLongitude"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblStreetAddress2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Street Address 2:"
+        android:layout_alignBaseline="@+id/editStreetAddress2"
+        android:layout_alignBottom="@+id/editStreetAddress2"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/editStreetAddress2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/editStreetAddress1"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City:"
+        android:layout_alignBaseline="@+id/editCity"
+        android:layout_alignBottom="@+id/editCity"
+        android:layout_alignEnd="@+id/lblStreetAddress2"/>
+
+    <EditText
+        android:id="@+id/editCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/editStreetAddress2"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State/Province:"
+        android:layout_alignBaseline="@+id/editState"
+        android:layout_alignBottom="@+id/editState"
+        android:layout_alignEnd="@+id/lblCity"/>
+
+    <EditText
+        android:id="@+id/editState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/editCity"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Country:"
+        android:layout_alignBaseline="@+id/editCountry"
+        android:layout_alignBottom="@+id/editCountry"
+        android:layout_alignEnd="@+id/lblState"/>
+
+    <EditText
+        android:id="@+id/editCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/editState"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/lblZipCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zip Code:"
+        android:layout_alignBaseline="@+id/editZipCode"
+        android:layout_alignBottom="@+id/editZipCode"
+        android:layout_alignEnd="@+id/lblCountry"/>
+
+    <EditText
+        android:id="@+id/editZipCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/lblCountry"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:id="@+id/btnGetLatLong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Latitude/Longitude From Address"
+        android:layout_below="@+id/editZipCode"
+        android:layout_alignParentStart="true"/>
+
+    <ImageButton
+        android:id="@+id/btnGetMyLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:srcCompat="@android:drawable/ic_menu_mylocation"
+        android:layout_alignBottom="@+id/editName"
+        android:layout_alignParentEnd="true"/>
+
+    <FrameLayout
+        android:id="@+id/frameReportType"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnGetLatLong"
+        android:layout_above="@+id/btnCancel">
+
+        <RadioGroup
+            android:id="@+id/radReportType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radbtnWaterReport"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:text="Water Report"/>
+
+            <RadioButton
+                android:id="@+id/radbtnPurityReport"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="Purity Report"/>
+        </RadioGroup>
+
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Continue"/>
+</RelativeLayout>

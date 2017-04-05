@@ -6,8 +6,8 @@ import java.util.EventListener;
  * Created by Marcia on 3/22/2017.
  */
 
-public interface RegistrationResultListener extends EventListener {
-    void onComplete(boolean success, String result);
+public interface LoginResultListener extends EventListener {
+    void onComplete(boolean success);
     void onError(Throwable error);
 
 }

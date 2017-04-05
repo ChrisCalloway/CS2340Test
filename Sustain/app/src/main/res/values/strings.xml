@@ -33,5 +33,6 @@
     <string name="water_quality_reports">Water Quality Reports</string>
     <string name="logout">Log Out</string>
     <string name="map">Map</string>
+    <string name="hist_graph">View Historical Graphs</string>
+    <string name="historical_view_title">Historical Graph</string>
 </resources>
-

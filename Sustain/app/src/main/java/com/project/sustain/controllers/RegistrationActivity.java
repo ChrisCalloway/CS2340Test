@@ -1,7 +1,6 @@
 package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -15,29 +14,20 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.project.sustain.R;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 import com.project.sustain.model.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
     private EditText enteredEmail, enteredPassword;
     private Button btnRegister, btnCancelRegistration;
     private ProgressBar progressBar;
-    private FirebaseAuth auth;
     private Spinner selectedUserType;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mProfiles;
-    private UserProfile mUserProfile;
+    private User mUserProfile;
+    private UserManager mUserManager;
     public static final int PROFILE_CHANGE_REQ = 1000;
+    public static final String TAG = "RegistrationActivity";
 
 
     @Override
@@ -52,19 +42,14 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        // Get UserManager instance
+        mUserManager = new UserManager();
         btnRegister = (Button) findViewById(R.id.buttonRegister);
         enteredEmail = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
         progressBar = (ProgressBar) findViewById(R.id.registerProgressBar);
         selectedUserType = (Spinner) findViewById(R.id.spinnerUserType);
 
-        //get refs to Firebase user objects
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance();
-        mProfiles = mDatabase.getReference().child("userProfiles");
 
         //fill drop-down boxes
         selectedUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
@@ -73,13 +58,8 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = enteredEmail.getText().toString().trim();
+                final String email = enteredEmail.getText().toString().trim();
                 String password = enteredPassword.getText().toString().trim();
-
-                final UserProfile profile = new UserProfile();
-                final UserType userType = (UserType) selectedUserType.getSelectedItem();
-                profile.setUserType(userType);
-                profile.setEmailAddress(email);
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Please enter email address", Toast.LENGTH_SHORT).show();
@@ -97,32 +77,52 @@ public class RegistrationActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 // Create user
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // Hide progress bar
-                                progressBar.setVisibility(View.GONE);
+                RegistrationResultListener resultListener = new RegistrationResultListener() {
+                    @Override
+                    public void onComplete(boolean success, String userId) {
+                        progressBar.setVisibility(View.GONE);
+                        if (success) {
+                            Toast.makeText(RegistrationActivity.this, "Registration successful.",
+                                    Toast.LENGTH_SHORT).show();
+                            //create User object for this new user
+                            mUserProfile = new User();
+                            mUserProfile.setUserId(userId);
+                            mUserProfile.setEmailAddress(email);
+                            mUserProfile.setUserType((UserType) selectedUserType.getSelectedItem());
+                            Log.d(TAG, "adding user profile to database");
+                            mUserManager.addUser(mUserProfile);
+                            //open profile editor
+                            //EditProfileActivity expects to be passed a User object
+                            Intent intent = new Intent(RegistrationActivity.this, EditProfileActivity.class);
+                            intent.putExtra("user", mUserProfile);
+                            startActivityForResult(intent, PROFILE_CHANGE_REQ);
+                        } else {
+                            //userId may or may not contain an error message.
+                            Toast.makeText(RegistrationActivity.this, "Registration failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                                // If sign in fails, display a toast message to the user.  If the sign in succeeds,
-                                // the auth state listener will be notified and logic to handle the signed in
-                                // user can be handled in the listener.  On success, user is taken to main page
-                                // of application.
-                                if (!task.isSuccessful()) {
+                    @Override
+                    public void onError(Throwable error) {
+                        progressBar.setVisibility(View.GONE);
+                        if (error != null) {
+                            Toast.makeText(RegistrationActivity.this, "Error registering: " +
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
+                mUserManager.setRegistrationResultListener(resultListener);
+                mUserManager.registerWithEmailPassword(email, password);
 
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed: " + task.getException().getMessage(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(RegistrationActivity.this, "Successfully registered and signed in.", Toast.LENGTH_SHORT).show();
-                                    // Logic to save to database
-                                    FirebaseUser mUser = task.getResult().getUser();
-                                    mProfiles.child(mUser.getUid()).setValue(profile);
-                                    startActivityForResult(new Intent(RegistrationActivity.this, EditProfileActivity.class), PROFILE_CHANGE_REQ);
+            }
+        });
 
-
-                                }
-                            }
-                        });
+        btnCancelRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
+                finish();
             }
         });
     }
@@ -134,15 +134,22 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        if (mUserManager != null) {
+            mUserManager.removeAllListeners();
+        }
+        super.onStop();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PROFILE_CHANGE_REQ) {
             Log.d("EditResult", "Got result OK");
-            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+            startActivity(new Intent(RegistrationActivity.this, MainActivity.class)
+                .putExtra("user", mUserProfile));
             finish();
-
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

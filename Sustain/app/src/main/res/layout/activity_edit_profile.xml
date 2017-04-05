@@ -128,20 +128,20 @@
     </TableRow>
     <TableRow>
         <Button
-            android:text="Save"
+            android:text="Cancel"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:id="@+id/buttonSaveProfile"
+            android:id="@+id/buttonCancelProfile"
             android:layout_marginLeft="5dp"
             style="@android:style/Widget.Button"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="Cancel"
+            android:text="Save"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:id="@+id/buttonCancelProfile"
+            android:id="@+id/buttonSaveProfile"
             android:layout_marginLeft="5dp"
             style="@android:style/Widget.Button"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"

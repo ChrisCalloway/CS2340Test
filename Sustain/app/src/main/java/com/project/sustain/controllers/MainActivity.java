@@ -5,6 +5,7 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,24 +20,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private FirebaseAuth auth;
-    private FirebaseUser mUser;
-    private FirebaseDatabase mDatabase;
     private Toolbar mToolbar;
-    private UserProfile mUserProfile;
-    private DatabaseReference mProfiles;
+    private User mUser;
+    private UserManager mUserManager;
+    private UserResultListener mUserResultListener;
+    public static final int PROFILE_CHANGE_REQ = 1000;
 
     private Button subWtrRep;
     private Button viewWtrRep;
@@ -45,9 +39,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        mUser = auth.getCurrentUser();
+        Button btnSubmitReport;
+        Button btnViewReport;
+        Button btnViewMap;
+        Button btnLogout;
+        Toolbar toolbar;
+        Button viewHistGraph;
+
+        //try to get user from previous activity (Login or Register)
+        mUser = (User) getIntent().getSerializableExtra("user");
+        mUserManager = new UserManager();
 
         setContentView(R.layout.activity_main);
 
@@ -55,48 +56,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mToolbar.setTitle("Main Screen");
         this.setSupportActionBar(mToolbar);
-
-        if (mUser != null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mProfiles = mDatabase.getReference().child("userProfiles");
-            mProfiles.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    mUserProfile = dataSnapshot.getValue(UserProfile.class);
-                    if (mUserProfile != null) {
-                        if (mUserProfile.getUserName().equals("") == false) {
-                            ((TextView) findViewById(R.id.nav_main_username)).setText(mUserProfile.getUserName());
-                        } else {
-                            ((TextView) findViewById(R.id.nav_main_username)).setText(mUser.getEmail());
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        this.setSupportActionBar(toolbar);
+        String userName = "";
+        String userEMail = "";
+        if (mUser == null) {
+            userName = mUserManager.getCurrentUserDisplayName();
+            userEMail = mUserManager.getCurrentUserEmail();
+        } else {
+            userName = mUser.getUserName();
+            userEMail = mUser.getEmailAddress();
+        }
+        if (!userName.equals("") && !userName.equals("null")) {
+            setToolbarTitle(userName);
+        } else {
+            setToolbarTitle(userEMail);
         }
 
-        subWtrRep = (Button) findViewById(R.id.subRep);
 
-        subWtrRep.setOnClickListener(new View.OnClickListener() {
+        btnLogout = (Button) findViewById(R.id.buttonLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toPassIn = getToolbarTitle();
-                Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
-                forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
-                startActivity(forWtrRptSubmit);
+                mUserManager.logOutUser();
+                mUser = null;
+                mUserManager.removeUserResultListener();
+
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
-        viewWtrRep = (Button) findViewById(R.id.viewReportBut);
+        btnSubmitReport = (Button) findViewById(R.id.subRep);
 
-        viewWtrRep.setOnClickListener(new View.OnClickListener() {
+        //clicking Submit Report takes user to SetAddressActivity.
+        //from there, user will get to one of the water report submit screens.
+        btnSubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
+                Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
+                intent.putExtra("user", mUser);
+                startActivity(intent);
+
+               /* String toPassIn = getToolbarTitle();
+                Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
+                forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
+                startActivity(forWtrRptSubmit); */
+            }
+        });
+
+        btnViewReport = (Button) findViewById(R.id.viewReportBut);
+
+        btnViewReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent;
+            if (!mUser.getUserPermissions().isAbleToViewPurityReports()) {
+                intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                intent.putExtra("reportType", "source"); //show list of source reports.
+            } else {
+                //ask what type of report to show
+                intent = new Intent(MainActivity.this, ChooseReportActivity.class);
+            }
+            startActivity(intent);
             }
         });
 
@@ -104,7 +127,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mToolbar, 0, 0);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        btnViewMap = (Button) findViewById(R.id.buttonViewMap);
 
+        btnViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+
+            }
+        });
+
+        viewHistGraph = (Button) findViewById(R.id.hist_graph);
+        if (mUser != null) {
+            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
+                viewHistGraph.setVisibility(View.VISIBLE);
+            } else {
+                viewHistGraph.setVisibility(View.GONE);
+            }
+        }
+
+        viewHistGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
+            }
+        });
         navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_main);
@@ -123,18 +170,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void setToolbarTitle(String name) {
         ActionBar actionBar = this.getSupportActionBar();
-        actionBar.setTitle(name);
+        if (actionBar !=null) { actionBar.setTitle(name + ""); }
 
     }
 
     private String getToolbarTitle() {
         ActionBar actionBar = this.getSupportActionBar();
-        return (String) actionBar.getTitle();
+        if (actionBar != null) {
+            return actionBar.getTitle() + "";
+        } else {
+            return "";
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_edit_profile:
+                // User chose the "Edit Profile" action, show the user profile settings UI...
+                Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                intent.putExtra("user", mUser);
+                startActivityForResult(intent, PROFILE_CHANGE_REQ);
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -143,7 +199,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
+        }
+    }
 
+    private void checkLoggedInStatus() {
+        //get the User object for the current logged-in user
+        //we will pass this on to the next activity
+        //call is asynchronous; result handled by mUserResultListener.onComplete()
+        mUserManager.setUserResultListener(mUserResultListener);
+        try {
+            mUserManager.getCurrentUser();
+        } catch (UserNotAuthenticatedException e) {
+            //exit this activity
+            finish();
         }
     }
 
@@ -156,6 +224,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PROFILE_CHANGE_REQ) {
+            if (resultCode == RESULT_OK) {
+                Log.d("EditResult", "Got result OK");
+                mUser = (User) data.getSerializableExtra("user");
+                setToolbarTitle(mUser.getUserName());
+            }
+        }
+    }
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
