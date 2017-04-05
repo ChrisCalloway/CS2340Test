@@ -98,18 +98,18 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(new String[] {
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
+                Month.JAN.toString(),
+                Month.FEB.toString(),
+                Month.MAR.toString(),
+                Month.APR.toString(),
+                Month.MAY.toString(),
+                Month.JUN.toString(),
+                Month.JUL.toString(),
+                Month.AUG.toString(),
+                Month.SEPT.toString(),
+                Month.OCT.toString(),
+                Month.NOV.toString(),
+                Month.DEC.toString()
         });
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
@@ -132,40 +132,40 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                 @Override
                 public void onTap(Series series, DataPointInterface dataPoint) {
                     switch ((int) dataPoint.getX()) {
-                        case 1:
+                        case 0:
                             month = "January";
                             break;
-                        case 2:
+                        case 1:
                             month = "February";
                             break;
-                        case 3:
+                        case 2:
                             month = "March";
                             break;
-                        case 4:
+                        case 3:
                             month = "April";
                             break;
-                        case 5:
+                        case 4:
                             month = "May";
                             break;
-                        case 6:
+                        case 5:
                             month = "June";
                             break;
-                        case 7:
+                        case 6:
                             month = "July";
                             break;
-                        case 8:
+                        case 7:
                             month = "August";
                             break;
-                        case 9:
+                        case 8:
                             month = "September";
                             break;
-                        case 10:
+                        case 9:
                             month = "October";
                             break;
-                        case 11:
+                        case 10:
                             month = "November";
                             break;
-                        case 12:
+                        case 11:
                             month = "December";
                             break;
                     }
