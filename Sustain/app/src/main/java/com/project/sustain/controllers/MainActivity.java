@@ -98,12 +98,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_main);
+
+        /** hide or show menu options bases on user permissions
+         * note: make User return the boolean itself so it doesn't violate law of demeter
+         */
         if(mUser != null) {
-            if(mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
-                navigationView.getMenu().findItem(R.id.nav_hist_graph).setVisible(true);
-            } else {
-                navigationView.getMenu().findItem(R.id.nav_hist_graph).setVisible(false);
-            }
+            navigationView.getMenu().findItem(R.id.nav_hist_graph).
+                    setVisible(mUser.getUserPermissions().isAbleToViewHistoricalReports());
+            navigationView.getMenu().findItem(R.id.nav_water_purity).
+                    setVisible(mUser.getUserPermissions().isAbleToViewPurityReports());
         }
     }
 
@@ -171,9 +174,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
         } else if (id == R.id.nav_water_source) {
-
-        } else if (id == R.id.nav_water_quality) {
-
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } else if (id == R.id.nav_water_purity) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_hist_graph) {
             startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
         } else if (id == R.id.nav_logout) {

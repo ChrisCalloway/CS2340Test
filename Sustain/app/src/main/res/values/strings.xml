@@ -30,7 +30,7 @@
     <string name="main_screen">Main Screen</string>
     <string name="profile">Profile</string>
     <string name="water_source_reports">Water Source Reports</string>
-    <string name="water_quality_reports">Water Quality Reports</string>
+    <string name="water_purity_reports">Water Purity Reports</string>
     <string name="logout">Log Out</string>
     <string name="map">Map</string>
     <string name="hist_graph">View Historical Graphs</string>
