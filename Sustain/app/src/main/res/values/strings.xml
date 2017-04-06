@@ -22,5 +22,9 @@
     <string name="phones">Phone Numbers</string>
     <string name="home">Home</string>
     <string name="mobile">Mobile</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="get_current_location">Get My Location</string>
+    <string name="hist_graph">View Historical Graphs</string>
+    <string name="historical_view_title">Historical Graph</string>
 </resources>
 

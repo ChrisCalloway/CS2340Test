@@ -1,7 +1,11 @@
+// Clean slate version
+
+
 package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,95 +15,125 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.R;
-import com.project.sustain.model.UserProfile;
+import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout;
-    private FirebaseAuth auth;
-    private FirebaseUser mUser;
-    private FirebaseDatabase mDatabase;
-    private Toolbar mToolbar;
-    private UserProfile mUserProfile;
-    private DatabaseReference mProfiles;
+    private User mUser;
+    private UserManager mUserManager;
+    private UserResultListener mUserResultListener;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
-    private Button subWtrRep;
-    private Button viewWtrRep;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button btnSubmitReport;
+        Button btnViewReport;
+        Button btnViewMap;
+        Button btnLogout;
+        Toolbar toolbar;
+        Button viewHistGraph;
 
-        // Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        mUser = auth.getCurrentUser();
+        //try to get user from previous activity (Login or Register)
+        mUser = (User) getIntent().getSerializableExtra("user");
+        mUserManager = new UserManager();
 
         setContentView(R.layout.activity_main);
 
         //add Toolbar as ActionBar with menu
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        this.setSupportActionBar(mToolbar);
-
-        if (mUser != null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mProfiles = mDatabase.getReference().child("userProfiles");
-            mProfiles.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    mUserProfile = dataSnapshot.getValue(UserProfile.class);
-                    if (mUserProfile != null) {
-                        if (mUserProfile.getUserName().equals("") == false) {
-                            setToolbarTitle(mUserProfile.getUserName());
-                        } else {
-                            setToolbarTitle(mUser.getEmail());
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        this.setSupportActionBar(toolbar);
+        String userName = "";
+        String userEMail = "";
+        if (mUser == null) {
+            userName = mUserManager.getCurrentUserDisplayName();
+            userEMail = mUserManager.getCurrentUserEmail();
+        } else {
+            userName = mUser.getUserName();
+            userEMail = mUser.getEmailAddress();
         }
+        if (!userName.equals("") && !userName.equals("null")) {
+            setToolbarTitle(userName);
+        } else {
+            setToolbarTitle(userEMail);
+        }
+
 
         btnLogout = (Button) findViewById(R.id.buttonLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
+                mUserManager.logOutUser();
+                mUser = null;
+                mUserManager.removeUserResultListener();
+
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         });
 
-        subWtrRep = (Button) findViewById(R.id.subRep);
+        btnSubmitReport = (Button) findViewById(R.id.subRep);
 
-        subWtrRep.setOnClickListener(new View.OnClickListener() {
+        //clicking Submit Report takes user to SetAddressActivity.
+        //from there, user will get to one of the water report submit screens.
+        btnSubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toPassIn = getToolbarTitle();
+                Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
+                intent.putExtra("user", mUser);
+                startActivity(intent);
+
+               /* String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
-                startActivity(forWtrRptSubmit);
+                startActivity(forWtrRptSubmit); */
             }
         });
 
-        viewWtrRep = (Button) findViewById(R.id.viewReportBut);
+        btnViewReport = (Button) findViewById(R.id.viewReportBut);
 
-        viewWtrRep.setOnClickListener(new View.OnClickListener() {
+        btnViewReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, ViewReportsActivity.class), 5000);
+            Intent intent;
+            if (!mUser.getUserPermissions().isAbleToViewPurityReports()) {
+                intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                intent.putExtra("reportType", "source"); //show list of source reports.
+            } else {
+                //ask what type of report to show
+                intent = new Intent(MainActivity.this, ChooseReportActivity.class);
+            }
+            startActivity(intent);
+            }
+        });
+
+        btnViewMap = (Button) findViewById(R.id.buttonViewMap);
+
+        btnViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+
+            }
+        });
+
+        viewHistGraph = (Button) findViewById(R.id.hist_graph);
+        if (mUser != null) {
+            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
+                viewHistGraph.setVisibility(View.VISIBLE);
+            } else {
+                viewHistGraph.setVisibility(View.GONE);
+            }
+        }
+
+        viewHistGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
             }
         });
     }
@@ -110,13 +144,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setToolbarTitle(String name) {
         ActionBar actionBar = this.getSupportActionBar();
-        actionBar.setTitle(name);
+        if (actionBar !=null) { actionBar.setTitle(name + ""); }
 
     }
 
     private String getToolbarTitle() {
         ActionBar actionBar = this.getSupportActionBar();
-        return (String) actionBar.getTitle();
+        if (actionBar != null) {
+            return actionBar.getTitle() + "";
+        } else {
+            return "";
+        }
     }
 
     @Override
@@ -124,8 +162,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
-                startActivityForResult(new Intent(MainActivity.this, EditProfileActivity.class),
-                        PROFILE_CHANGE_REQ);
+                Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                intent.putExtra("user", mUser);
+                startActivityForResult(intent, PROFILE_CHANGE_REQ);
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -134,7 +173,19 @@ public class MainActivity extends AppCompatActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
+        }
+    }
 
+    private void checkLoggedInStatus() {
+        //get the User object for the current logged-in user
+        //we will pass this on to the next activity
+        //call is asynchronous; result handled by mUserResultListener.onComplete()
+        mUserManager.setUserResultListener(mUserResultListener);
+        try {
+            mUserManager.getCurrentUser();
+        } catch (UserNotAuthenticatedException e) {
+            //exit this activity
+            finish();
         }
     }
 
@@ -151,8 +202,29 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PROFILE_CHANGE_REQ) {
             if (resultCode == RESULT_OK) {
                 Log.d("EditResult", "Got result OK");
-                setToolbarTitle(data.getStringExtra("displayName"));
+                mUser = (User) data.getSerializableExtra("user");
+                setToolbarTitle(mUser.getUserName());
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkLoggedInStatus();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mUserResultListener != null) {
+            mUserManager.removeAllListeners();
         }
     }
 }
