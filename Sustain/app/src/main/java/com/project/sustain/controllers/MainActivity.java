@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
                 intent.putExtra("user", mUser);
                 startActivity(intent);
-
-               /* String toPassIn = getToolbarTitle();
+/*
+                String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
                 startActivity(forWtrRptSubmit); */
@@ -174,9 +174,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
         } else if (id == R.id.nav_water_source) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            Intent intent = new Intent(MainActivity.this, WaterSourceReportsActivity.class);
+            intent.putExtra("user", mUser);
+            startActivity(intent);
         } else if (id == R.id.nav_water_purity) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            Intent intent = new Intent(MainActivity.this, WaterSourceReportsActivity.class);
+            intent.putExtra("user", mUser);
+            startActivity(intent);
         } else if (id == R.id.nav_hist_graph) {
             startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
         } else if (id == R.id.nav_logout) {

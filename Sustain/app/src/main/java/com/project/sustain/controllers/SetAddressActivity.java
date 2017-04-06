@@ -175,15 +175,14 @@ public class SetAddressActivity extends AppCompatActivity implements
 
                 intent.putExtra("report", mReport);
                 startActivity(intent);
-
+                finish();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //close and go back to MainActivity.
-                startActivity(new Intent(SetAddressActivity.this, MainActivity.class));
+                //close and go back to Reports Screen
                 finish();
             }
         });
