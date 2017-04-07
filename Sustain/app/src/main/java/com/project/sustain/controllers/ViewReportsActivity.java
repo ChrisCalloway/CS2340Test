@@ -2,15 +2,19 @@ package com.project.sustain.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.project.sustain.R;
 import com.project.sustain.model.Report;
+import com.project.sustain.model.User;
 import com.project.sustain.model.WaterReportManager;
 
 import java.util.ArrayList;
@@ -30,21 +34,31 @@ public class ViewReportsActivity extends AppCompatActivity {
     private Button backButton;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
+    private Toolbar mToolbar;
+    private FloatingActionButton mFab;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewwaterreports);
+        setContentView(R.layout.activity_water_source);
+
 
         String reportTypeToShow = getIntent().getStringExtra("reportType");
+        mUser = (User) getIntent().getSerializableExtra("user");
+        //add Toolbar as ActionBar with menu
+        mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
+        mToolbar.setTitle("Water Source Reports");
+        this.setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        backButton = (Button) findViewById(R.id.backButtonWtrRepList);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                //MainActivity should still be running
+                startActivity(new Intent(ViewReportsActivity.this, SetAddressActivity.class)
+                        .putExtra("user", mUser));
             }
         });
 
@@ -74,7 +88,7 @@ public class ViewReportsActivity extends AppCompatActivity {
             mReportManager.getWaterPurityReports();
         }
 
-        wtrRepRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        wtrRepRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -113,6 +127,21 @@ public class ViewReportsActivity extends AppCompatActivity {
             mReportManager.setQueryListResultListener(qrListener);
         }
         super.onResume();
+    }
+
+    //Back button on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
 

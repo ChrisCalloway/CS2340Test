@@ -82,10 +82,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent;
             if (!mUser.getUserPermissions().isAbleToViewPurityReports()) {
                 intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                intent.putExtra("user", mUser);
                 intent.putExtra("reportType", "source"); //show list of source reports.
             } else {
                 //ask what type of report to show
                 intent = new Intent(MainActivity.this, ChooseReportActivity.class);
+                intent.putExtra("user",mUser);
             }
             startActivity(intent);
             }
@@ -170,16 +172,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            intent.putExtra("user", mUser);
+            startActivity(intent);
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
         } else if (id == R.id.nav_water_source) {
-            Intent intent = new Intent(MainActivity.this, WaterSourceReportsActivity.class);
+            Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
             intent.putExtra("user", mUser);
+            intent.putExtra("reportType", "source");
             startActivity(intent);
         } else if (id == R.id.nav_water_purity) {
-            Intent intent = new Intent(MainActivity.this, WaterSourceReportsActivity.class);
+            Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
             intent.putExtra("user", mUser);
+            intent.putExtra("reportType", "purity");
             startActivity(intent);
         } else if (id == R.id.nav_hist_graph) {
             startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
