@@ -3,78 +3,58 @@
 
 package com.project.sustain.controllers;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.sustain.R;
 import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private Toolbar mToolbar;
     private User mUser;
     private UserManager mUserManager;
     private UserResultListener mUserResultListener;
     public static final int PROFILE_CHANGE_REQ = 1000;
 
+    private Button subWtrRep;
+    private Button viewWtrRep;
 
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         Button btnSubmitReport;
         Button btnViewReport;
-        Button btnViewMap;
-        Button btnLogout;
-        Toolbar toolbar;
-        Button viewHistGraph;
 
         //try to get user from previous activity (Login or Register)
         mUser = (User) getIntent().getSerializableExtra("user");
         mUserManager = new UserManager();
 
-        setContentView(R.layout.activity_main);
-
         //add Toolbar as ActionBar with menu
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        this.setSupportActionBar(toolbar);
-        String userName = "";
-        String userEMail = "";
-        if (mUser == null) {
-            userName = mUserManager.getCurrentUserDisplayName();
-            userEMail = mUserManager.getCurrentUserEmail();
-        } else {
-            userName = mUser.getUserName();
-            userEMail = mUser.getEmailAddress();
-        }
-        if (!userName.equals("") && !userName.equals("null")) {
-            setToolbarTitle(userName);
-        } else {
-            setToolbarTitle(userEMail);
-        }
-
-
-        btnLogout = (Button) findViewById(R.id.buttonLogout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserManager.logOutUser();
-                mUser = null;
-                mUserManager.removeUserResultListener();
-
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
+        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        mToolbar.setTitle("Main Screen");
+        this.setSupportActionBar(mToolbar);
 
         btnSubmitReport = (Button) findViewById(R.id.subRep);
 
@@ -86,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
                 intent.putExtra("user", mUser);
                 startActivity(intent);
-
-               /* String toPassIn = getToolbarTitle();
+/*
+                String toPassIn = getToolbarTitle();
                 Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
                 startActivity(forWtrRptSubmit); */
@@ -102,69 +82,51 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
             if (!mUser.getUserPermissions().isAbleToViewPurityReports()) {
                 intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                intent.putExtra("user", mUser);
                 intent.putExtra("reportType", "source"); //show list of source reports.
             } else {
                 //ask what type of report to show
                 intent = new Intent(MainActivity.this, ChooseReportActivity.class);
+                intent.putExtra("user",mUser);
             }
             startActivity(intent);
             }
         });
 
-        btnViewMap = (Button) findViewById(R.id.buttonViewMap);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mToolbar, 0, 0);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        navigationView = (NavigationView) findViewById(R.id.main_activity_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_main);
 
-        btnViewMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
-
-            }
-        });
-
-        viewHistGraph = (Button) findViewById(R.id.hist_graph);
-        if (mUser != null) {
-            if (mUser.getUserPermissions().isAbleToViewHistoricalReports()) {
-                viewHistGraph.setVisibility(View.VISIBLE);
-            } else {
-                viewHistGraph.setVisibility(View.GONE);
-            }
+        /** hide or show menu options bases on user permissions
+         * note: make User return the boolean itself so it doesn't violate law of demeter
+         */
+        if(mUser != null) {
+            navigationView.getMenu().findItem(R.id.nav_hist_graph).
+                    setVisible(mUser.getUserPermissions().isAbleToViewHistoricalReports());
+            navigationView.getMenu().findItem(R.id.nav_water_purity).
+                    setVisible(mUser.getUserPermissions().isAbleToViewPurityReports());
         }
-
-        viewHistGraph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
-            }
-        });
     }
 
-    /**
-     * Sets the text in the toolbar to the text provided.,
-     * @param name The name to put into the toolbar title.
-     */
-    private void setToolbarTitle(String name) {
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar !=null) { actionBar.setTitle(name + ""); }
-
-    }
-
-    private String getToolbarTitle() {
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            return actionBar.getTitle() + "";
-        } else {
-            return "";
-        }
+    //When returning to main screen make sure main screen is highlighted in nav view
+    @Override
+    protected void onStart(){
+        super.onStart();
+        navigationView.setCheckedItem(R.id.nav_main);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit_profile:
+            /*case R.id.action_edit_profile:
                 // User chose the "Edit Profile" action, show the user profile settings UI...
                 Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
                 intent.putExtra("user", mUser);
-                startActivityForResult(intent, PROFILE_CHANGE_REQ);
+                startActivityForResult(intent, PROFILE_CHANGE_REQ);*/
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -203,28 +165,41 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Log.d("EditResult", "Got result OK");
                 mUser = (User) data.getSerializableExtra("user");
-                setToolbarTitle(mUser.getUserName());
             }
         }
     }
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        if (id == R.id.nav_profile) {
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            intent.putExtra("user", mUser);
+            startActivity(intent);
+        } else if (id == R.id.nav_map) {
+            startActivity(new Intent(MainActivity.this, MapsMarkerActivity.class));
+        } else if (id == R.id.nav_water_source) {
+            Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+            intent.putExtra("user", mUser);
+            intent.putExtra("reportType", "source");
+            startActivity(intent);
+        } else if (id == R.id.nav_water_purity) {
+            Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+            intent.putExtra("user", mUser);
+            intent.putExtra("reportType", "purity");
+            startActivity(intent);
+        } else if (id == R.id.nav_hist_graph) {
+            startActivity(new Intent(MainActivity.this, SelectHistoricalData.class));
+        } else if (id == R.id.nav_logout) {
+            mUserManager.logOutUser();
+            mUser = null;
+            mUserManager.removeUserResultListener();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkLoggedInStatus();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mUserResultListener != null) {
-            mUserManager.removeAllListeners();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

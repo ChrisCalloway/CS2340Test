@@ -5,65 +5,64 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
 
-    <ImageView
-        android:layout_width="301dp"
-        android:layout_height="177dp"
-        app:srcCompat="@drawable/sustain_svg"
-        android:id="@+id/sustainIcon"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="25dp" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_login_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
 
-    <TextView
-        android:text="Log In"
-        android:layout_width="86dp"
-        android:layout_height="43dp"
-        android:id="@+id/screenName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="25dp"
-        android:layout_weight="0.15" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-    <EditText
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editEmail"
-        android:layout_height="55dp"
-        android:hint="@string/edit_email"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="5dp"
-        android:elevation="8dp"
-        android:layout_width="279dp" />
+        <EditText
+            android:id="@+id/editEmail"
+            android:inputType="textEmailAddress"
+            android:ems="100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/edit_email"
+            android:elevation="1dp" />
 
-    <EditText
-        android:layout_height="55dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editPassword"
-        android:hint="@string/edit_password"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="0.11"
-        android:layout_width="280dp" />
+        <EditText
+            android:id="@+id/editPassword"
+            android:inputType="textPassword"
+            android:hint="@string/edit_password"
+            android:ems="100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="1dp" />
+    </LinearLayout>
 
-    <Button
-        android:text="Log In"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:id="@+id/buttonLogin"
-        android:layout_marginLeft="100dp"
-        style="@android:style/Widget.Button"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTransparent">
 
-    <Button
-        android:text="Cancel Log In"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:id="@+id/buttonCancelLogin"
-        android:layout_marginLeft="100dp"
-        style="@android:style/Widget.Button"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:layout_marginTop="10dp" />
+        <Button
+            android:id="@+id/buttonLogin"
+            android:text="@string/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

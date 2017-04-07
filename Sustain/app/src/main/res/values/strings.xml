@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sustain</string>
     <string name="edit_message">Enter a message</string>
-    <string name="edit_email">Email</string>
+    <string name="edit_email">Email Address</string>
     <string name="edit_password">Password</string>
     <string name="edit_username">Username</string>
     <string name="empty_username">Please enter a username</string>
@@ -24,7 +24,15 @@
     <string name="mobile">Mobile</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="get_current_location">Get My Location</string>
+    <string name="login">Log In</string>
+    <string name="Register">Register</string>
+    <string name="welcome_message">Welcome to Sustain</string>
+    <string name="main_screen">Main Screen</string>
+    <string name="profile">Profile</string>
+    <string name="water_source_reports">Water Source Reports</string>
+    <string name="water_purity_reports">Water Purity Reports</string>
+    <string name="logout">Log Out</string>
+    <string name="map">Map</string>
     <string name="hist_graph">View Historical Graphs</string>
     <string name="historical_view_title">Historical Graph</string>
 </resources>
-

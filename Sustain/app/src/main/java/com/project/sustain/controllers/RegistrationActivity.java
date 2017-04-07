@@ -2,8 +2,10 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,10 +35,16 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        //Toolbar with title and back button
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_registration_toolbar);
+        toolbar.setTitle("Register a new account");
+        this.setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // Get UserManager instance
         mUserManager = new UserManager();
         btnRegister = (Button) findViewById(R.id.buttonRegister);
-        btnCancelRegistration = (Button) findViewById(R.id.buttonCancelRegistration);
         enteredEmail = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
         progressBar = (ProgressBar) findViewById(R.id.registerProgressBar);
@@ -44,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this, R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this,  R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -109,14 +117,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
             }
         });
-
-        btnCancelRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
-                finish();
-            }
-        });
     }
 
     @Override
@@ -140,6 +140,18 @@ public class RegistrationActivity extends AppCompatActivity {
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class)
                 .putExtra("user", mUserProfile));
             finish();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
 
         }
     }

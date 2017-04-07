@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/nav_top" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@android:drawable/ic_dialog_email"
+            android:title="@string/main_screen" />
+
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/map"/>
+        <item
+            android:id="@+id/nav_water_source"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/water_source_reports"/>
+        <item
+            android:id="@+id/nav_water_purity"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/water_purity_reports"/>
+        <item
+            android:id="@+id/nav_hist_graph"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/hist_graph" />
+    </group>
+    <group android:id="@+id/nav_bottom" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="@string/profile"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/sustain_svg"
+            android:title="@string/logout" />
+    </group>
+</menu>

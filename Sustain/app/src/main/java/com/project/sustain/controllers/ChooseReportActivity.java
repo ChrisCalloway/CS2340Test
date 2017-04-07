@@ -9,13 +9,18 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.project.sustain.R;
+import com.project.sustain.model.User;
 
 public class ChooseReportActivity extends AppCompatActivity {
     private String reportType = "source";
+    private User mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_report);
+
+        mUser = (User) getIntent().getSerializableExtra("user");
 
         Button btnCancel = (Button) findViewById(R.id.btnSelectReportCancel);
         Button btnOK = (Button) findViewById(R.id.btnSelectReportOK);
@@ -50,6 +55,7 @@ public class ChooseReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseReportActivity.this, ViewReportsActivity.class);
                 intent.putExtra("reportType", reportType);
+                intent.putExtra("user", mUser);
                 startActivity(intent);
                 finish();
             }

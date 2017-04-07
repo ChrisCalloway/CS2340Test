@@ -15,23 +15,21 @@ import android.widget.Button;
 import com.project.sustain.R;
 import com.project.sustain.model.Report;
 import com.project.sustain.model.User;
+import com.project.sustain.model.UserManager;
 import com.project.sustain.model.WaterReportManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.vision.text.Text;
-
-
 /**
- * Created by georgiainstituteoftechnology on 3/6/17.
+ * Created by derek on 4/5/17.
  */
 
-public class ViewReportsActivity extends AppCompatActivity {
+public class WaterSourceReportsActivity extends AppCompatActivity{
     private List<Report> mReportList;
-    private RecyclerView wtrRepRecyclerView;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
     private WaterReportAdapter wRAdapter;
-    private Button backButton;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
     private Toolbar mToolbar;
@@ -43,9 +41,9 @@ public class ViewReportsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_source);
 
-
-        String reportTypeToShow = getIntent().getStringExtra("reportType");
+        //try to get user from previous activity (Login or Register)
         mUser = (User) getIntent().getSerializableExtra("user");
+
         //add Toolbar as ActionBar with menu
         mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
         mToolbar.setTitle("Water Source Reports");
@@ -57,21 +55,19 @@ public class ViewReportsActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewReportsActivity.this, SetAddressActivity.class)
-                        .putExtra("user", mUser));
+                startActivity(new Intent(WaterSourceReportsActivity.this, SetAddressActivity.class)
+                .putExtra("user", mUser));
             }
         });
-
         mReportManager = new WaterReportManager();
         mReportList = new ArrayList<>();
-        wRAdapter = new WaterReportAdapter(mReportList);
-
+        mAdapter = new WaterReportAdapter(mReportList);
         qrListener = new QueryListResultListener() {
             @Override
             public <T, K> void onComplete(T item, K key) {
                 ((Report) item).setReportId((String)key);
                 mReportList.add((Report)item);
-                wRAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
 
             }
 
@@ -80,30 +76,25 @@ public class ViewReportsActivity extends AppCompatActivity {
 
             }
         };
+
         mReportManager.setQueryListResultListener(qrListener);
+        mReportManager.getWaterSourceReports();
 
-        if (reportTypeToShow.equals("source")) {
-            mReportManager.getWaterSourceReports();
-        } else if (reportTypeToShow.equals("purity")) {
-            mReportManager.getWaterPurityReports();
-        }
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        wtrRepRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        wtrRepRecyclerView.setLayoutManager(mLayoutManager);
-        wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        wtrRepRecyclerView.setAdapter(wRAdapter);
-
-
-        wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(),
-                wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
+        mRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(this,
+                mRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Report reportClicked = mReportList.get(position);
                 //intent to be created.
-                Intent intent = new Intent(ViewReportsActivity.this, ViewReportActivity.class);
+                Intent intent = new Intent(WaterSourceReportsActivity.this, ViewReportActivity.class);
                 intent.putExtra("report", reportClicked);
                 startActivity(intent);
             }
@@ -123,13 +114,12 @@ public class ViewReportsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (mReportManager != null && qrListener != null) {
+        if ((mReportManager != null) && (qrListener != null)) {
             mReportManager.setQueryListResultListener(qrListener);
         }
         super.onResume();
     }
 
-    //Back button on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -144,4 +134,3 @@ public class ViewReportsActivity extends AppCompatActivity {
         }
     }
 }
-

@@ -1,117 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_drawer_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    >
+<LinearLayout
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="?attr/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
     <ImageView
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="177dp"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/sustain_svg"
         android:id="@+id/sustainIcon"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/mainScreen"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="81dp"
-        android:layout_marginBottom="82dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_toolbar" />
+        android:layout_marginBottom="82dp" />
 
     <TextView
         android:text="Sustain Main Page"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
+        android:layout_gravity="center"
         android:id="@+id/mainScreen"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="263dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.502" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
         android:text="Submit Report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/subRep"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="132dp"
-        app:layout_constraintTop_toBottomOf="@+id/sustainIcon"
-        android:layout_marginBottom="129dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_gravity="center"
+        android:id="@+id/subRep" />
 
     <Button
         android:text="View Reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/viewReportBut"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintTop_toBottomOf="@+id/subRep"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/subRep"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="4dp" />
+        android:layout_gravity="center"
+        android:id="@+id/viewReportBut" />
 
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="160dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="47dp"
-        android:text="Log Out"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewReportBut"
-        tools:layout_constraintTop_creator="1" />
+</LinearLayout>
 
-    <Button
-        android:id="@+id/buttonViewMap"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/main_activity_nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Map"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/subRep"
-        app:layout_constraintTop_toBottomOf="@+id/mainScreen"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer"
+        app:itemTextColor="@color/nav_colors"
+        app:itemIconTint="@color/nav_colors"
+        android:background="@color/colorPrimaryDark"/>
 
-    <Button
-        android:id="@+id/hist_graph"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Historical Graphs"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogout"
-        app:layout_constraintTop_toBottomOf="@+id/viewReportBut" />
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.DrawerLayout>
