@@ -26,11 +26,7 @@ public class SelectHistoricalData extends AppCompatActivity {
     private Spinner spinLocationName;
     private RadioGroup radDataType;
     private Spinner spinYear;
-    private Button btnCancel;
-    private Button btnContinue;
-    private WaterReportManager mReportManager;
     private List<String> mLocationList;
-    private QueryListResultListener qrListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +36,10 @@ public class SelectHistoricalData extends AppCompatActivity {
         spinLocationName = (Spinner) findViewById(R.id.spinLocationName);
         radDataType = (RadioGroup) findViewById(R.id.radDataType);
         spinYear = (Spinner) findViewById(R.id.spinYear);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        Button btnCancel = (Button) findViewById(R.id.btnCancel);
+        Button btnContinue = (Button) findViewById(R.id.btnContinue);
 
-        mReportManager = new WaterReportManager();
+        WaterReportManager mReportManager = new WaterReportManager();
         mLocationList = new ArrayList<>();
         final ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, mLocationList);
@@ -52,11 +48,11 @@ public class SelectHistoricalData extends AppCompatActivity {
 
         // Assign to arraylist that backs up the spinner the locations.
         // Note that if a location is already listed, it should not be added again.
-        qrListener = new QueryListResultListener() {
+        QueryListResultListener qrListener = new QueryListResultListener() {
             @Override
             public <T, K> void onComplete(T item, K key) {
-                ((Report) item).setReportId((String)key);
-                if(!mLocationList.contains(((Report) item).getAddress().getPlaceName())) {
+                ((Report) item).setReportId((String) key);
+                if (!mLocationList.contains(((Report) item).getAddress().getPlaceName())) {
                     mLocationList.add(((Report) item).getAddress().getPlaceName());
                     locationAdapter.notifyDataSetChanged();
                 }

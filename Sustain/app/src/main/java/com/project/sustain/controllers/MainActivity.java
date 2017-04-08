@@ -3,25 +3,20 @@
 
 package com.project.sustain.controllers;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.project.sustain.R;
 import com.project.sustain.model.User;
@@ -29,7 +24,6 @@ import com.project.sustain.model.UserManager;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private Toolbar mToolbar;
     private User mUser;
     private UserManager mUserManager;
     private UserResultListener mUserResultListener;
@@ -52,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mUserManager = new UserManager();
 
         //add Toolbar as ActionBar with menu
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mToolbar.setTitle("Main Screen");
         this.setSupportActionBar(mToolbar);
 

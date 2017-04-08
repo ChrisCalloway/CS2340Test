@@ -21,7 +21,7 @@ import com.project.sustain.model.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
     private EditText enteredEmail, enteredPassword;
-    private Button btnRegister, btnCancelRegistration;
+    private Button btnCancelRegistration;
     private ProgressBar progressBar;
     private Spinner selectedUserType;
     private User mUserProfile;
@@ -44,7 +44,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // Get UserManager instance
         mUserManager = new UserManager();
-        btnRegister = (Button) findViewById(R.id.buttonRegister);
+        Button btnRegister = (Button) findViewById(R.id.buttonRegister);
         enteredEmail = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
         progressBar = (ProgressBar) findViewById(R.id.registerProgressBar);

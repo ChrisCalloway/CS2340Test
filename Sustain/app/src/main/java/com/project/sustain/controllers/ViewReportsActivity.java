@@ -29,13 +29,10 @@ import java.util.List;
 
 public class ViewReportsActivity extends AppCompatActivity {
     private List<Report> mReportList;
-    private RecyclerView wtrRepRecyclerView;
     private WaterReportAdapter wRAdapter;
     private Button backButton;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
-    private Toolbar mToolbar;
-    private FloatingActionButton mFab;
     private User mUser;
 
     @Override
@@ -47,13 +44,13 @@ public class ViewReportsActivity extends AppCompatActivity {
         String reportTypeToShow = getIntent().getStringExtra("reportType");
         mUser = (User) getIntent().getSerializableExtra("user");
         //add Toolbar as ActionBar with menu
-        mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
         mToolbar.setTitle("Water Source Reports");
         this.setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +85,7 @@ public class ViewReportsActivity extends AppCompatActivity {
             mReportManager.getWaterPurityReports();
         }
 
-        wtrRepRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        RecyclerView wtrRepRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

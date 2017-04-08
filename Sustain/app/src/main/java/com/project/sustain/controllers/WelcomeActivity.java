@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.project.sustain.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-    private Button btnRegister, btnLogin;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -17,8 +16,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
 
-        btnLogin = (Button) findViewById(R.id.buttonWelcomeLogin);
-        btnRegister = (Button) findViewById(R.id.buttonWelcomeRegister);
+        Button btnLogin = (Button) findViewById(R.id.buttonWelcomeLogin);
+        Button btnRegister = (Button) findViewById(R.id.buttonWelcomeRegister);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

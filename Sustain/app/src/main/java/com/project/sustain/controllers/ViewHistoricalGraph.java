@@ -10,11 +10,9 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.project.sustain.R;
-import com.project.sustain.model.HistoricalGraphData;
 import com.project.sustain.model.HistoricalGraphDataCalculator;
 import com.project.sustain.model.Month;
 import com.project.sustain.model.WaterPurityReport;
@@ -29,12 +27,6 @@ import java.util.Map;
  * Created by Julio de Sa on 4/1/2017.
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
-    private GraphView graph;
-    private HistoricalGraphDataCalculator graphData;
-    // Have the basic data done in the Historical Graph Data,
-    // and then do the calculations here.
-    private QueryEntireListListener qeListener;
-    private WaterReportManager mReportManager;
     private List<WaterPurityReport> mReportList;
     private Map<Month, Double> coordinatePointData;
     private String year;
@@ -46,13 +38,13 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_graph);
 
-        graphData = (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
+        HistoricalGraphDataCalculator graphData = (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
         year = graphData.getYear();
         dataType = graphData.getDataType();
         location = graphData.getLocation();
-        mReportManager = new WaterReportManager();
+        WaterReportManager mReportManager = new WaterReportManager();
         mReportList = new ArrayList<>();
-        qeListener = new QueryEntireListListener() {
+        QueryEntireListListener qeListener = new QueryEntireListListener() {
             @Override
             public <T> void onComplete(List<T> list) {
                 mReportList = ((ArrayList<WaterPurityReport>) list);
@@ -75,7 +67,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
     public void createGraph(Map<Month, Double> coordinatePointData) {
         // Use graphData for information to display
-        graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
         DataPoint[] dataPoints = new DataPoint[Month.values().length];
         for (int i = 0; i < Month.values().length; i++) {
             Log.d("DataPointGenerator", "Y value is: " + coordinatePointData.get(Month.values()[i]));

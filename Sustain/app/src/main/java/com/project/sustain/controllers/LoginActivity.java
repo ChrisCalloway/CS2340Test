@@ -19,7 +19,6 @@ import com.project.sustain.model.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText enteredUsername, enteredPassword;
-    private Button btnLogin;
     private UserManager mUserManager;
     private User mUser;
     private LoginResultListener mLoginResultListener;
@@ -84,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mUserManager.setUserResultListener(userResultListener);
 
-        btnLogin = (Button) findViewById(R.id.buttonLogin);
+        Button btnLogin = (Button) findViewById(R.id.buttonLogin);
         enteredUsername = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
 

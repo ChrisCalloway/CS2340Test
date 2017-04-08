@@ -75,10 +75,6 @@ public class SetAddressActivity extends AppCompatActivity implements
     private EditText editLatitude;
     private EditText editLongitude;
 
-    private Button btnContinue;
-    private Button btnCancel;
-    private ImageButton btnGetMyLocation;
-    private Button btnGetLatLong;
     private LocationRequest mLocationRequest;
     private Report mReport;
     private boolean puritySelected = false;
@@ -119,10 +115,10 @@ public class SetAddressActivity extends AppCompatActivity implements
 
         TextView txtReporterName = (TextView) findViewById(R.id.txtReporterName);
         txtReporterName.setText(mUser.getUserName());
-        btnContinue = (Button) findViewById(R.id.btnContinue);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
-        btnGetLatLong = (Button) findViewById(R.id.btnGetLatLong);
+        Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        Button btnCancel = (Button) findViewById(R.id.btnCancel);
+        ImageButton btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
+        Button btnGetLatLong = (Button) findViewById(R.id.btnGetLatLong);
 
 
         mLocationRequest = LocationRequest.create();
