@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by derek on 4/5/17.
+ * Activity that shows the water source reports.
+ * @author Derek
  */
 
 public class WaterSourceReportsActivity extends AppCompatActivity{

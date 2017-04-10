@@ -3,7 +3,8 @@ package com.project.sustain.controllers;
 import java.util.EventListener;
 
 /**
- * Created by Marcia on 3/14/2017.
+ * Listener for result of getting Auth object from Firebase.
+ * @author Marcia
  */
 
 public interface AuthResultListener extends EventListener {

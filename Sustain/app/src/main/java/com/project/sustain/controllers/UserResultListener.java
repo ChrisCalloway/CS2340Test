@@ -5,7 +5,8 @@ import com.project.sustain.model.User;
 import java.util.EventListener;
 
 /**
- * Created by Marcia on 3/22/2017.
+ * Listener for getting a user from Firebase Authentication.
+ * @author Marcia
  */
 
 public interface UserResultListener extends EventListener {

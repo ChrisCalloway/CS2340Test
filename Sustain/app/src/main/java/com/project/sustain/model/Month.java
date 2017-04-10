@@ -4,22 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Chris on 4/3/17.
+ * Enum class for months of the year.
+ * @author Chris
  */
 
 public enum Month implements Parcelable {
-//    JANUARY("Jan"),
-//    FEBRUARY("Feb"),
-//    MARCH("Mar"),
-//    APRIL("Apr"),
-//    MAY("May"),
-//    JUNE("Jun"),
-//    JULY("Jul"),
-//    AUGUST("Aug"),
-//    SEPTEMBER("Sept"),
-//    OCTOBER("Oct"),
-//    NOVEMBER("Nov"),
-//    DECEMBER("Dec");
     JAN("Jan"),
     FEB("Feb"),
     MAR("Mar"),

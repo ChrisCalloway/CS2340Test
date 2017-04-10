@@ -3,7 +3,8 @@ package com.project.sustain.model;
 import java.io.Serializable;
 
 /**
- * Created by Marcia on 3/26/2017.
+ * Parent class that sets permissions for basic user in application.
+ * @author Marcia
  */
 
 public class UserPermissions implements Serializable {

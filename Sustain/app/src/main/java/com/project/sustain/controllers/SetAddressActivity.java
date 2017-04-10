@@ -49,7 +49,8 @@ import static com.project.sustain.services.FetchAddressConstants.LOCATION_RESULT
 import static com.project.sustain.services.FetchAddressConstants.RESULT_DATA_KEY;
 
 /**
- * Created by Marcia on 3/22/2017.
+ * Activity that enables user to set the address for a report.
+ * @author Marcia
  */
 
 public class SetAddressActivity extends AppCompatActivity implements

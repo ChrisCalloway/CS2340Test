@@ -7,7 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by Anish on 3/7/17.
+ * Enables one to touch entry in list to see report details.
+ * @author Anish
  */
 
 

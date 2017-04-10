@@ -21,11 +21,10 @@ import com.project.sustain.model.WaterReportManager;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.vision.text.Text;
-
 
 /**
- * Created by Anish on 3/6/17.
+ * Activity that enables user to scroll through all possible reports.
+ * @author Anish
  */
 
 public class ViewReportsActivity extends AppCompatActivity {

@@ -3,7 +3,8 @@ import java.util.EventListener;
 import java.util.List;
 
 /**
- * Created by Chris on 4/3/17.
+ * Listener for a list of entries in database.
+ * @author Chris
  */
 
 public interface QueryEntireListListener extends EventListener {

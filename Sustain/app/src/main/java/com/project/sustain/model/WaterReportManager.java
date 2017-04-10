@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Chris on 3/13/17.
+ * Water report manager has methods to get water reports.
+ * @author Chris
  */
 
 public class WaterReportManager implements Serializable{

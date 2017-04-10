@@ -15,6 +15,7 @@ import java.util.Map;
  * Created by Chris on 4/2/17.
  */
 
+@SuppressWarnings("ALL")
 public class HistoricalGraphDataCalculator implements Serializable {
     private String location;
     private String year;

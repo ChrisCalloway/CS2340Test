@@ -12,7 +12,8 @@ import com.project.sustain.controllers.RegistrationResultListener;
 import com.project.sustain.controllers.UserResultListener;
 
 /**
- * Created by Marcia on 3/22/2017.
+ * User Manager class has methods for users in relation to water reports.
+ * @author Marcia
  */
 
 public class UserManager {
