@@ -1,6 +1,7 @@
 package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -39,8 +40,11 @@ public class RegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_registration_toolbar);
         toolbar.setTitle("Register a new account");
         this.setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar support = getSupportActionBar();
+        if (support != null) {
+            support.setDisplayHomeAsUpEnabled(true);
+            support.setDisplayShowHomeEnabled(true);
+        }
 
         // Get UserManager instance
         mUserManager = new UserManager();
@@ -52,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this,  R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(new ArrayAdapter<>(this,  R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {

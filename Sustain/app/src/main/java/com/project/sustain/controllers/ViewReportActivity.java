@@ -11,7 +11,7 @@ import com.project.sustain.model.WaterPurityReport;
 import com.project.sustain.model.WaterSourceReport;
 
 /**
- * Created by georgiainstituteoftechnology on 3/7/17.
+ * Created by Anish on 3/7/17.
  */
 
 public class ViewReportActivity extends AppCompatActivity {

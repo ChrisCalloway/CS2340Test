@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.project.sustain.R;
 import com.project.sustain.model.HistoricalGraphDataCalculator;
-import com.project.sustain.model.HistoricalGraphData;
 import com.project.sustain.model.Report;
 import com.project.sustain.model.WaterReportManager;
 
@@ -46,7 +45,7 @@ public class SelectHistoricalData extends AppCompatActivity {
 
         spinLocationName.setAdapter(locationAdapter);
 
-        // Assign to arraylist that backs up the spinner the locations.
+        // Assign to array list that backs up the spinner the locations.
         // Note that if a location is already listed, it should not be added again.
         QueryListResultListener qrListener = new QueryListResultListener() {
             @Override
@@ -84,7 +83,6 @@ public class SelectHistoricalData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HistoricalGraphDataCalculator calculatedGraphData = new HistoricalGraphDataCalculator();
-                HistoricalGraphData graphData;
                 // Check to ensure all fields have data inputted.
                 // If so, use data to do a search on the Firebase database
                 // and use returned results to build out history graph
@@ -108,7 +106,7 @@ public class SelectHistoricalData extends AppCompatActivity {
                 }
                 if (radDataType.getCheckedRadioButtonId() == R.id.radbtnVirusOpt) {
                     calculatedGraphData.setDataType("virus");
-                } else if (radDataType.getCheckedRadioButtonId() == R.id.radbtnContaminantOpt) {
+                } else if (radDataType.getCheckedRadioButtonId() == R.id.radBtnContaminantOpt) {
                     calculatedGraphData.setDataType("contaminant");
                 } else {
                     // Did not select an option, prompt user with toast to select an option
@@ -135,7 +133,7 @@ public class SelectHistoricalData extends AppCompatActivity {
      * @return years An ArrayList of years from 2000 to present.
      */
     private ArrayList<String> getYearsArray() {
-        ArrayList<String> years = new ArrayList<String>();
+        ArrayList<String> years = new ArrayList<>();
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = 2000; i <= thisYear; i++) {
             years.add(Integer.toString(i));

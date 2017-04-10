@@ -4,13 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by georgiainstituteoftechnology on 3/2/17.
+ * Created by Anish on 3/2/17.
  */
 
 public enum WaterCondition implements Parcelable {
     WASTE("Waste"),
-    TREATABLECLEAR("Treatable-Clear"),
-    TREATABLEMUDDY("Treatable-Muddy"),
+    TREATABLE_CLEAR("Treatable-Clear"),
+    TREATABLE_MUDDY("Treatable-Muddy"),
     POTABLE("Potable");
 
     private String conditionDeclared;

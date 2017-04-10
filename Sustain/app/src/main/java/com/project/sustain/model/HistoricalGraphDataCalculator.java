@@ -1,5 +1,7 @@
 package com.project.sustain.model;
 
+import android.util.Log;
+
 import com.project.sustain.controllers.QueryEntireListListener;
 
 import java.io.Serializable;
@@ -7,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.util.Log;
 
 
 /**
@@ -38,7 +39,7 @@ public class HistoricalGraphDataCalculator implements Serializable {
 
     /**
      *  method to calculate for a location and a year, for each month, take average
-     *  of PPM measure of whatever datatype passed in (virus or contaminant).
+     *  of PPM measure of whatever data type passed in (virus or contaminant).
      */
     public void calculateCoordinatePointData() {
         mReportManager.getEntireWaterPurityReportList();
@@ -47,9 +48,9 @@ public class HistoricalGraphDataCalculator implements Serializable {
     // TODO
     /**
      * Helper method to process the WaterPurityReport list returned from the database.
-     * Take using the year selected, the datatype (virus or contaminant), and the location,
+     * Take using the year selected, the data type (virus or contaminant), and the location,
      * created 12 tuples such that each corresponds to a month of the year selected wherein
-     * each month is the average of the amount in PPM of the datatype selected.
+     * each month is the average of the amount in PPM of the data type selected.
      */
     public Map<Month, Double> processWaterPurityReports() {
         Log.d("GraphData-Process", "Got to processWaterPurityReports");
@@ -82,7 +83,7 @@ public class HistoricalGraphDataCalculator implements Serializable {
         // Now, we have all those water purity reports that match the year
         // and location.  Now, need to divide these into months.
         // Am instantiating a hashmap where the key is the month, the value is the
-        // total PPM for the provided datatype.
+        // total PPM for the provided data type.
         if(this.dataType.equals("virus")) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 // Get the current report's key

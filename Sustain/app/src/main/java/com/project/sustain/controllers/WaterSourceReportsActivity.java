@@ -3,6 +3,7 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,9 +44,11 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
         Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
         mToolbar.setTitle("Water Source Reports");
         this.setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        ActionBar support = getSupportActionBar();
+        if (support != null) {
+            support.setDisplayHomeAsUpEnabled(true);
+            support.setDisplayShowHomeEnabled(true);
+        }
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

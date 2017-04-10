@@ -172,9 +172,9 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
     /**
      * Helper method to process the WaterPurityReport list returned from the database.
-     * Take using the year selected, the datatype (virus or contaminant), and the location,
+     * Take using the year selected, the data type (virus or contaminant), and the location,
      * created 12 tuples such that each corresponds to a month of the year selected wherein
-     * each month is the average of the amount in PPM of the datatype selected.
+     * each month is the average of the amount in PPM of the data type selected.
      */
     public void processWaterPurityReports() {
         Log.d("GraphData-Process", "Got to processWaterPurityReports");
@@ -187,7 +187,6 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         Map<Month, Double> graphAveragePPMValues = new HashMap<>(Month.values().length);
         Month month;
         Integer initialCount;
-        Integer newCount;
         Double ppmValue;
         Double newPPMValue;
 
@@ -207,7 +206,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         // Now, we have all those water purity reports that match the year
         // and location.  Now, need to divide these into months.
         // Am instantiating a hashmap where the key is the month, the value is the
-        // total PPM for the provided datatype.
+        // total PPM for the provided data type.
         if(this.dataType.equals("virus")) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 // Get the current report's key

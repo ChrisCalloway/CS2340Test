@@ -13,7 +13,7 @@ public class FetchAddressConstants {
     public static final String RESULT_DATA_KEY = PACKAGE_NAME +
         ".RESULT_DATA_KEY";
 
-    public static final String ACTION_FETCH_LATLONG = PACKAGE_NAME + ".FETCH_LATLONG";
+    public static final String ACTION_FETCH_LAT_LONG = PACKAGE_NAME + ".FETCH_LATITUDE_LONGITUDE";
     public static final String ACTION_FETCH_ADDRESS = PACKAGE_NAME + ".FETCH_ADDRESS";
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
     public static final String LOCATION_ADDRESS_EXTRA = PACKAGE_NAME + ".LOCATION_ADDRESS_EXTRA";

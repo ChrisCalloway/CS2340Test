@@ -4,7 +4,7 @@ import java.util.EventListener;
 
 /**
  * For receiving a list of results (such as WaterSourceReports)
- * from an ansynchronous database query.
+ * from an asynchronous database query.
  * Created by Marcia on 3/14/2017.
  */
 

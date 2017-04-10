@@ -6,6 +6,7 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_main);
 
-        /** hide or show menu options bases on user permissions
+        /* hide or show menu options bases on user permissions
          * note: make User return the boolean itself so it doesn't violate law of demeter
          */
         if(mUser != null) {
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {

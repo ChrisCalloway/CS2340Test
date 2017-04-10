@@ -12,7 +12,7 @@ import com.project.sustain.model.Report;
 import java.util.List;
 
 /**
- * Created by georgiainstituteoftechnology on 3/7/17.
+ * Created by Anish on 3/7/17.
  */
 
 public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.WaterViewHolder>{

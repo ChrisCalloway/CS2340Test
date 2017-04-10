@@ -48,13 +48,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         //get refs to widgets on screen
         mUserName = (EditText) findViewById(R.id.editText_userName);
-        mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
+        mSpinnerUserType = (Spinner) findViewById(R.id.spinner_userType);
         mStreet1 = (EditText) findViewById(R.id.editText_street1);
         mStreet2 = (EditText) findViewById(R.id.editText_street2);
         mCity = (EditText) findViewById(R.id.editText_city);
         mState = (EditText) findViewById(R.id.editText_state);
         mCountry = (EditText) findViewById(R.id.editText_country);
-        mZip    = (EditText) findViewById(R.id.editText_zipcode);
+        mZip    = (EditText) findViewById(R.id.editText_zipCode);
 
         //UserManager will handle all database reads/writes for us
         mUserManager = new UserManager();
@@ -63,7 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Button btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //fill drop-down boxes
-        mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this,
+        mSpinnerUserType.setAdapter(new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 

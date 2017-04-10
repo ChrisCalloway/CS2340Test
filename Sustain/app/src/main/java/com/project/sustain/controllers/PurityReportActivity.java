@@ -38,7 +38,7 @@ public class PurityReportActivity extends AppCompatActivity {
 
         final Spinner spinOverallCond = (Spinner) findViewById(R.id.spinOverallCondition);
         final EditText editVirusPpm = (EditText) findViewById(R.id.editVirusPpm);
-        final EditText editContamPpm = (EditText) findViewById(R.id.editContaminantPpm);
+        final EditText editContaminantPpm = (EditText) findViewById(R.id.editContaminantPpm);
 
         spinOverallCond.setAdapter(new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item,
@@ -49,7 +49,7 @@ public class PurityReportActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                report.setReportedContaminantPPM(Double.parseDouble(editContamPpm.getText()
+                report.setReportedContaminantPPM(Double.parseDouble(editContaminantPpm.getText()
                     .toString()));
                 report.setReportedOverallWaterCondition((OverallWaterCondition)
                         spinOverallCond.getSelectedItem());

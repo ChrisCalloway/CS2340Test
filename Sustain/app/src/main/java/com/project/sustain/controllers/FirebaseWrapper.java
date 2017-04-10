@@ -258,7 +258,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
                     singleResult = dataSnapshot.getValue(mModelObject.getClass());
                 if(mQuerySingleResultListener != null) {
 
-                    mQuerySingleResultListener.onComplete((T) singleResult);
+                    mQuerySingleResultListener.onComplete(singleResult);
                 }
             }
 

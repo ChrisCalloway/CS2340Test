@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Datatype to Search" />
+        android:text="Data Type to Search" />
 
 
     <RadioGroup
@@ -44,13 +44,13 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radbtnVirusOpt"
+            android:id="@+id/radBtnVirusOpt"
             android:layout_width="166dp"
             android:layout_height="wrap_content"
             android:text="Virus"/>
 
         <RadioButton
-            android:id="@+id/radbtnContaminantOpt"
+            android:id="@+id/radBtnContaminantOpt"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:text="Contaminant"/>

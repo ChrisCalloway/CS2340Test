@@ -34,7 +34,7 @@
             android:gravity="start"
             android:textSize="14sp"/>
         <Spinner
-            android:id="@+id/spinner_usertype"
+            android:id="@+id/spinner_userType"
             android:gravity="start"
             android:paddingLeft="10dp"
             android:textSize="14sp"/>
@@ -117,13 +117,13 @@
               android:layout_marginRight="10dp"
               android:layout_width="match_parent">
         <TextView
-            android:text="@string/zipcode"
+            android:text="@string/zip_code"
             android:gravity="start"
             android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
-            android:id="@+id/editText_zipcode"
+            android:id="@+id/editText_zipCode"
             android:textSize="14sp"/>
     </TableRow>
     <TableRow>
