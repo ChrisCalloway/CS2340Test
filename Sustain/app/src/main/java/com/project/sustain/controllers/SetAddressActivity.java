@@ -57,7 +57,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
     private User mUser;
-    protected android.location.Location mLastLocation;
+    private android.location.Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
     private boolean mAddressRequested;
     private boolean mLocationPermissionGranted;
@@ -327,7 +327,7 @@ public class SetAddressActivity extends AppCompatActivity implements
      * @param action FetchAddressIntentService constant indicating the type of data to retrieve
      *               (Address or LatLong).
      */
-    protected void startIntentService(String action) {
+    private void startIntentService(String action) {
         Log.d(TAG, "Starting address fetching service");
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.setAction(action);

@@ -12,7 +12,7 @@ import android.view.View;
  */
 
 
-public class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetector gestureDetector;
     private ClickListener clickListener;
 

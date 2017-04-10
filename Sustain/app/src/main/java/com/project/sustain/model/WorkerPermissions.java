@@ -5,7 +5,7 @@ package com.project.sustain.model;
  * @author Marcia
  */
 
-public class WorkerPermissions extends UserPermissions {
+class WorkerPermissions extends UserPermissions {
 
     public WorkerPermissions() {
         super(true, false, false, false, false);

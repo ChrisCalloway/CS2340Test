@@ -19,11 +19,11 @@ public class UserPermissions implements Serializable {
         this(false, false, false, false, false);
      }
 
-    protected UserPermissions(boolean ableToCreatePurityReports,
-            boolean ableToViewPurityReports,
-            boolean ableToViewHistoricalReports,
-            boolean ableToDeleteReports,
-            boolean ableToAdministerUsers) {
+    UserPermissions(boolean ableToCreatePurityReports,
+                    boolean ableToViewPurityReports,
+                    boolean ableToViewHistoricalReports,
+                    boolean ableToDeleteReports,
+                    boolean ableToAdministerUsers) {
         this.ableToCreatePurityReports = ableToCreatePurityReports;
         this.ableToViewPurityReports = ableToViewPurityReports;
         this.ableToViewHistoricalReports = ableToViewHistoricalReports;

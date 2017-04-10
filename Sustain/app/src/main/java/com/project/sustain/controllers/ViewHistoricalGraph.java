@@ -66,7 +66,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
 
 
-    public void createGraph(Map<Month, Double> coordinatePointData) {
+    private void createGraph(Map<Month, Double> coordinatePointData) {
         // Use graphData for information to display
         GraphView graph = (GraphView) findViewById(R.id.graph);
         DataPoint[] dataPoints = new DataPoint[Month.values().length];
@@ -177,7 +177,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
      * created 12 tuples such that each corresponds to a month of the year selected wherein
      * each month is the average of the amount in PPM of the data type selected.
      */
-    public void processWaterPurityReports() {
+    private void processWaterPurityReports() {
         Log.d("GraphData-Process", "Got to processWaterPurityReports");
         // First need to iterate through each object and see if its location matches.
         // Then, while iterating through, if the location matches, then need to see if

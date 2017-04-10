@@ -12,20 +12,20 @@ import java.io.Serializable;
  */
 @IgnoreExtraProperties
 public abstract class Report implements Serializable {
-    protected Address address;
-    protected String reporterName;
-    protected String reporterUserId;
-    protected String dateOfReport;
-    protected String timeOfReport;
-    protected String reportId;
+    private Address address;
+    private String reporterName;
+    private String reporterUserId;
+    private String dateOfReport;
+    private String timeOfReport;
+    private String reportId;
 
-    public Report() {
+    Report() {
         this(null, "","","","", "");
 
     }
 
-    public Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
-                  String timeOfReport, String reportId) {
+    Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
+           String timeOfReport, String reportId) {
         this.address = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;

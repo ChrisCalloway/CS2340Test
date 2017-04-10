@@ -5,7 +5,7 @@ package com.project.sustain.model;
  * @author Marcia
  */
 
-public class AdminPermissions extends UserPermissions {
+class AdminPermissions extends UserPermissions {
 
     public AdminPermissions() {
         super(true, true, true, true, true);

@@ -5,6 +5,7 @@ package com.project.sustain.controllers;
  * @author Marcia
  */
 
+@SuppressWarnings("SameParameterValue")
 public interface DatabaseWrapper {
      void connect();
 
