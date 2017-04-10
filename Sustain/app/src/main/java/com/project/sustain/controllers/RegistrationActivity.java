@@ -1,6 +1,7 @@
 package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -21,7 +22,7 @@ import com.project.sustain.model.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
     private EditText enteredEmail, enteredPassword;
-    private Button btnRegister, btnCancelRegistration;
+    private Button btnCancelRegistration;
     private ProgressBar progressBar;
     private Spinner selectedUserType;
     private User mUserProfile;
@@ -39,12 +40,15 @@ public class RegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_registration_toolbar);
         toolbar.setTitle("Register a new account");
         this.setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar support = getSupportActionBar();
+        if (support != null) {
+            support.setDisplayHomeAsUpEnabled(true);
+            support.setDisplayShowHomeEnabled(true);
+        }
 
         // Get UserManager instance
         mUserManager = new UserManager();
-        btnRegister = (Button) findViewById(R.id.buttonRegister);
+        Button btnRegister = (Button) findViewById(R.id.buttonRegister);
         enteredEmail = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
         progressBar = (ProgressBar) findViewById(R.id.registerProgressBar);

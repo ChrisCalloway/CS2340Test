@@ -17,7 +17,7 @@ import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 import static com.project.sustain.services.FetchAddressConstants.ACTION_FETCH_ADDRESS;
-import static com.project.sustain.services.FetchAddressConstants.ACTION_FETCH_LATLONG;
+import static com.project.sustain.services.FetchAddressConstants.ACTION_FETCH_LAT_LONG;
 import static com.project.sustain.services.FetchAddressConstants.LOCATION_ADDRESS_EXTRA;
 import static com.project.sustain.services.FetchAddressConstants.LOCATION_DATA_EXTRA;
 import static com.project.sustain.services.FetchAddressConstants.RECEIVER;
@@ -47,7 +47,7 @@ public class FetchAddressIntentService extends IntentService {
             mReceiver = intent.getParcelableExtra(RECEIVER);
             if (ACTION_FETCH_ADDRESS.equals(action)) {
                 handleActionFetchAddress(location.getLatitude(), location.getLongitude());
-            } else if (ACTION_FETCH_LATLONG.equals(action)) {
+            } else if (ACTION_FETCH_LAT_LONG.equals(action)) {
                 String address = intent.getStringExtra(LOCATION_ADDRESS_EXTRA);
                 handleActionFetchLatLong(address);
             }

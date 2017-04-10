@@ -79,15 +79,16 @@
         <service
             android:name=".services.FetchAddressIntentService"
             android:exported="false" />
+
         <activity
             android:name=".controllers.SourceReportActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".controllers.PurityReportActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".controllers.ChooseReportActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

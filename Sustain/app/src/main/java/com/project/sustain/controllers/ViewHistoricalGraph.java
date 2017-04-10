@@ -10,11 +10,9 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.project.sustain.R;
-import com.project.sustain.model.HistoricalGraphData;
 import com.project.sustain.model.HistoricalGraphDataCalculator;
 import com.project.sustain.model.Month;
 import com.project.sustain.model.WaterPurityReport;
@@ -29,12 +27,6 @@ import java.util.Map;
  * Created by Julio de Sa on 4/1/2017.
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
-    private GraphView graph;
-    private HistoricalGraphDataCalculator graphData;
-    // Have the basic data done in the Historical Graph Data,
-    // and then do the calculations here.
-    private QueryEntireListListener qeListener;
-    private WaterReportManager mReportManager;
     private List<WaterPurityReport> mReportList;
     private Map<Month, Double> coordinatePointData;
     private String year;
@@ -46,13 +38,13 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_graph);
 
-        graphData = (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
+        HistoricalGraphDataCalculator graphData = (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
         year = graphData.getYear();
         dataType = graphData.getDataType();
         location = graphData.getLocation();
-        mReportManager = new WaterReportManager();
+        WaterReportManager mReportManager = new WaterReportManager();
         mReportList = new ArrayList<>();
-        qeListener = new QueryEntireListListener() {
+        QueryEntireListListener qeListener = new QueryEntireListListener() {
             @Override
             public <T> void onComplete(List<T> list) {
                 mReportList = ((ArrayList<WaterPurityReport>) list);
@@ -75,7 +67,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
     public void createGraph(Map<Month, Double> coordinatePointData) {
         // Use graphData for information to display
-        graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
         DataPoint[] dataPoints = new DataPoint[Month.values().length];
         for (int i = 0; i < Month.values().length; i++) {
             Log.d("DataPointGenerator", "Y value is: " + coordinatePointData.get(Month.values()[i]));
@@ -180,9 +172,9 @@ public class ViewHistoricalGraph extends AppCompatActivity {
 
     /**
      * Helper method to process the WaterPurityReport list returned from the database.
-     * Take using the year selected, the datatype (virus or contaminant), and the location,
+     * Take using the year selected, the data type (virus or contaminant), and the location,
      * created 12 tuples such that each corresponds to a month of the year selected wherein
-     * each month is the average of the amount in PPM of the datatype selected.
+     * each month is the average of the amount in PPM of the data type selected.
      */
     public void processWaterPurityReports() {
         Log.d("GraphData-Process", "Got to processWaterPurityReports");
@@ -195,7 +187,6 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         Map<Month, Double> graphAveragePPMValues = new HashMap<>(Month.values().length);
         Month month;
         Integer initialCount;
-        Integer newCount;
         Double ppmValue;
         Double newPPMValue;
 
@@ -215,7 +206,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         // Now, we have all those water purity reports that match the year
         // and location.  Now, need to divide these into months.
         // Am instantiating a hashmap where the key is the month, the value is the
-        // total PPM for the provided datatype.
+        // total PPM for the provided data type.
         if(this.dataType.equals("virus")) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 // Get the current report's key

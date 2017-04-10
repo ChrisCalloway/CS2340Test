@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by georgiainstituteoftechnology on 3/2/17.
+ * Created by Anish on 3/2/17.
  */
 
 public enum WaterCondition implements Parcelable {

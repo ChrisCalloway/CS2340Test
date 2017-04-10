@@ -75,10 +75,6 @@ public class SetAddressActivity extends AppCompatActivity implements
     private EditText editLatitude;
     private EditText editLongitude;
 
-    private Button btnContinue;
-    private Button btnCancel;
-    private ImageButton btnGetMyLocation;
-    private Button btnGetLatLong;
     private LocationRequest mLocationRequest;
     private Report mReport;
     private boolean puritySelected = false;
@@ -102,7 +98,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         reportOptions.setVisibility((mUser.getUserPermissions()
                 .isAbleToCreatePurityReports() ? View.VISIBLE : View.GONE));
         if (reportOptions.getVisibility() == View.VISIBLE) {
-            reportOptions.check(R.id.radbtnWaterReport); //set Water Report as default.
+            reportOptions.check(R.id.radBtnWaterReport); //set Water Report as default.
         } else {
             mReport = new WaterSourceReport();
         }
@@ -119,10 +115,10 @@ public class SetAddressActivity extends AppCompatActivity implements
 
         TextView txtReporterName = (TextView) findViewById(R.id.txtReporterName);
         txtReporterName.setText(mUser.getUserName());
-        btnContinue = (Button) findViewById(R.id.btnContinue);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
-        btnGetLatLong = (Button) findViewById(R.id.btnGetLatLong);
+        Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        Button btnCancel = (Button) findViewById(R.id.btnCancel);
+        ImageButton btnGetMyLocation = (ImageButton) findViewById(R.id.btnGetMyLocation);
+        Button btnGetLatLong = (Button) findViewById(R.id.btnGetLatLong);
 
 
         mLocationRequest = LocationRequest.create();
@@ -140,7 +136,7 @@ public class SetAddressActivity extends AppCompatActivity implements
                 .build();
 
 
-        /**
+        /*
          * Sends the selected report to the appropriate activity
          * for the rest of the data to be entered.
          */
@@ -155,7 +151,7 @@ public class SetAddressActivity extends AppCompatActivity implements
                 //send report to next activity
                 Intent intent;
                 if (reportOptions.getVisibility() == View.VISIBLE) {
-                    if (reportOptions.getCheckedRadioButtonId() == R.id.radbtnPurityReport) {
+                    if (reportOptions.getCheckedRadioButtonId() == R.id.radBtnPurityReport) {
                         intent = new Intent(SetAddressActivity.this, PurityReportActivity.class);
                         mReport = new WaterPurityReport();
                     } else {
@@ -209,7 +205,7 @@ public class SetAddressActivity extends AppCompatActivity implements
                         }
                     } else if (v.getId() == R.id.btnGetLatLong) {
                         //get Lat/Long from user-entered address
-                        requestedAction = FetchAddressConstants.ACTION_FETCH_LATLONG;
+                        requestedAction = FetchAddressConstants.ACTION_FETCH_LAT_LONG;
                           startIntentService(requestedAction);
                     }
                 } else {
@@ -263,8 +259,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
         String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
         String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
-        String completeTime = hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
-        return completeTime;
+        return hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
     }
 
     @Override
@@ -337,7 +332,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         intent.setAction(action);
         intent.putExtra(FetchAddressConstants.RECEIVER, mResultReceiver);
         intent.putExtra(FetchAddressConstants.LOCATION_DATA_EXTRA, mLastLocation);
-        if (action == FetchAddressConstants.ACTION_FETCH_LATLONG) {
+        if (action.equals(FetchAddressConstants.ACTION_FETCH_LAT_LONG)) {
             Address address = saveAddress();
             intent.putExtra(FetchAddressConstants.LOCATION_ADDRESS_EXTRA,
                     address.toString());
@@ -454,7 +449,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             if (resultCode == FetchAddressConstants.SUCCESS_RESULT) {
-                if (requestedAction == FetchAddressConstants.ACTION_FETCH_ADDRESS) {
+                if (requestedAction.equals(FetchAddressConstants.ACTION_FETCH_ADDRESS)) {
                     // Display the address string
                     // or an error message sent from the intent service.
                     ArrayList<String> address = resultData.
@@ -462,7 +457,7 @@ public class SetAddressActivity extends AppCompatActivity implements
 
 
                     displayAddressOutput(address);
-                } else if (requestedAction == FetchAddressConstants.ACTION_FETCH_LATLONG) {
+                } else if (requestedAction.equals(FetchAddressConstants.ACTION_FETCH_LAT_LONG)) {
                     double latitude = resultData.getDouble(LOCATION_RESULT_LATITUDE);
                     double longitude = resultData.getDouble(LOCATION_RESULT_LONGITUDE);
                     displayLatLongOutput(latitude, longitude);

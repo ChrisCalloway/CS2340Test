@@ -7,11 +7,9 @@ import android.widget.TextView;
 
 import com.project.sustain.R;
 import com.project.sustain.model.Report;
-import com.project.sustain.model.WaterPurityReport;
-import com.project.sustain.model.WaterSourceReport;
 
 /**
- * Created by georgiainstituteoftechnology on 3/7/17.
+ * Created by Anish on 3/7/17.
  */
 
 public class ViewReportActivity extends AppCompatActivity {
@@ -28,11 +26,7 @@ public class ViewReportActivity extends AppCompatActivity {
         //loads the report text into the TextView
         if (fromPrevActivity != null) {
             TextView txtReportText = (TextView) findViewById(R.id.txtReportText);
-            if (fromPrevActivity instanceof WaterSourceReport) {
-                txtReportText.setText(((WaterSourceReport) fromPrevActivity).toString());
-            } else if (fromPrevActivity instanceof WaterPurityReport) {
-                txtReportText.setText(((WaterPurityReport) fromPrevActivity).toString());
-            }
+            txtReportText.setText(fromPrevActivity.toString());
         }
 
     }

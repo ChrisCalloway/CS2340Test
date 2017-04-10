@@ -219,13 +219,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radbtnWaterReport"
+                android:id="@+id/radBtnWaterReport"
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:text="Water Report"/>
 
             <RadioButton
-                android:id="@+id/radbtnPurityReport"
+                android:id="@+id/radBtnPurityReport"
                 android:layout_width="144dp"
                 android:layout_height="wrap_content"
                 android:text="Purity Report"/>

@@ -16,7 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.sustain.model.User;
-import com.project.sustain.model.WaterPurityReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -259,7 +258,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
                     singleResult = dataSnapshot.getValue(mModelObject.getClass());
                 if(mQuerySingleResultListener != null) {
 
-                    mQuerySingleResultListener.onComplete((T) singleResult);
+                    mQuerySingleResultListener.onComplete(singleResult);
                 }
             }
 

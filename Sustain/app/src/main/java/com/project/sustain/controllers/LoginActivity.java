@@ -3,6 +3,7 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,7 +20,6 @@ import com.project.sustain.model.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText enteredUsername, enteredPassword;
-    private Button btnLogin;
     private UserManager mUserManager;
     private User mUser;
     private LoginResultListener mLoginResultListener;
@@ -33,11 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_login_toolbar);
-        toolbar.setTitle("Login to account");
-        this.setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        if (toolbar != null) {
+            toolbar.setTitle("Login to account");
+            this.setSupportActionBar(toolbar);
+            ActionBar support = getSupportActionBar();
+            if (support != null) {
+                support.setDisplayHomeAsUpEnabled(true);
+                support.setDisplayShowHomeEnabled(true);
+            }
+        }
         // set Log In result listener
         mLoginResultListener = new LoginResultListener() {
             @Override
@@ -84,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mUserManager.setUserResultListener(userResultListener);
 
-        btnLogin = (Button) findViewById(R.id.buttonLogin);
+        Button btnLogin = (Button) findViewById(R.id.buttonLogin);
         enteredUsername = (EditText) findViewById(R.id.editEmail);
         enteredPassword = (EditText) findViewById(R.id.editPassword);
 

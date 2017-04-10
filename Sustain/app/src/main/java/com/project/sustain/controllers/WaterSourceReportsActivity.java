@@ -3,6 +3,7 @@ package com.project.sustain.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.project.sustain.R;
 import com.project.sustain.model.Report;
 import com.project.sustain.model.User;
-import com.project.sustain.model.UserManager;
 import com.project.sustain.model.WaterReportManager;
 
 import java.util.ArrayList;
@@ -27,13 +26,10 @@ import java.util.List;
 
 public class WaterSourceReportsActivity extends AppCompatActivity{
     private List<Report> mReportList;
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private WaterReportAdapter wRAdapter;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
-    private Toolbar mToolbar;
-    private FloatingActionButton mFab;
     private User mUser;
 
     @Override
@@ -45,13 +41,15 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
         mUser = (User) getIntent().getSerializableExtra("user");
 
         //add Toolbar as ActionBar with menu
-        mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_water_source_toolbar);
         mToolbar.setTitle("Water Source Reports");
         this.setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
+        ActionBar support = getSupportActionBar();
+        if (support != null) {
+            support.setDisplayHomeAsUpEnabled(true);
+            support.setDisplayShowHomeEnabled(true);
+        }
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +78,7 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
         mReportManager.setQueryListResultListener(qrListener);
         mReportManager.getWaterSourceReports();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

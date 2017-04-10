@@ -23,8 +23,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
     private EditText mUserName;
     private Spinner mSpinnerUserType;
-    private Button btnSave;
-    private Button btnCancel;
     private EditText mStreet1;
     private EditText mStreet2;
     private EditText mCity;
@@ -33,7 +31,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mZip;
     private UserManager mUserManager;
     private User mUserProfile;
-    private String currentDisplayName = "";
     private Context appContext = this.getApplication();
 
     @Override
@@ -51,19 +48,19 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         //get refs to widgets on screen
         mUserName = (EditText) findViewById(R.id.editText_userName);
-        mSpinnerUserType = (Spinner) findViewById(R.id.spinner_usertype);
+        mSpinnerUserType = (Spinner) findViewById(R.id.spinner_userType);
         mStreet1 = (EditText) findViewById(R.id.editText_street1);
         mStreet2 = (EditText) findViewById(R.id.editText_street2);
         mCity = (EditText) findViewById(R.id.editText_city);
         mState = (EditText) findViewById(R.id.editText_state);
         mCountry = (EditText) findViewById(R.id.editText_country);
-        mZip    = (EditText) findViewById(R.id.editText_zipcode);
+        mZip    = (EditText) findViewById(R.id.editText_zipCode);
 
         //UserManager will handle all database reads/writes for us
         mUserManager = new UserManager();
 
-        btnSave = (Button) findViewById(R.id.buttonSaveProfile);
-        btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
+        Button btnSave = (Button) findViewById(R.id.buttonSaveProfile);
+        Button btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //fill drop-down boxes
         mSpinnerUserType.setAdapter(new ArrayAdapter<>(this,
@@ -107,7 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
      * Updates the user's display name in the user store.
      */
     private void updateUserDisplayName() {
-        currentDisplayName = mUserName.getText().toString();
+        String currentDisplayName = mUserName.getText().toString();
         if (currentDisplayName.length() > 0) {
             mUserManager.updateCurrentUserDisplayName(currentDisplayName);
         }

@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 /**
- * Created by georgiainstituteoftechnology on 3/2/17.
+ * Created by Anish on 3/2/17.
  */
 @IgnoreExtraProperties
 public class WaterSourceReport extends Report implements Serializable {
