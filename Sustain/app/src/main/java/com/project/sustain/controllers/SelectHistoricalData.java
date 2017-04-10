@@ -104,7 +104,7 @@ public class SelectHistoricalData extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (radDataType.getCheckedRadioButtonId() == R.id.radbtnVirusOpt) {
+                if (radDataType.getCheckedRadioButtonId() == R.id.radBtnVirusOpt) {
                     calculatedGraphData.setDataType("virus");
                 } else if (radDataType.getCheckedRadioButtonId() == R.id.radBtnContaminantOpt) {
                     calculatedGraphData.setDataType("contaminant");

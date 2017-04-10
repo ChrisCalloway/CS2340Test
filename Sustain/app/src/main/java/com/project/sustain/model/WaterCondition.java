@@ -9,8 +9,8 @@ import android.os.Parcelable;
 
 public enum WaterCondition implements Parcelable {
     WASTE("Waste"),
-    TREATABLE_CLEAR("Treatable-Clear"),
-    TREATABLE_MUDDY("Treatable-Muddy"),
+    TREATABLECLEAR("Treatable-Clear"),
+    TREATABLEMUDDY("Treatable-Muddy"),
     POTABLE("Potable");
 
     private String conditionDeclared;
