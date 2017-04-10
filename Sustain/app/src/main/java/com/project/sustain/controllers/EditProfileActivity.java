@@ -66,7 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
         btnCancel = (Button) findViewById(R.id.buttonCancelProfile);
 
         //fill drop-down boxes
-        mSpinnerUserType.setAdapter(new ArrayAdapter<UserType>(this,
+        mSpinnerUserType.setAdapter(new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 

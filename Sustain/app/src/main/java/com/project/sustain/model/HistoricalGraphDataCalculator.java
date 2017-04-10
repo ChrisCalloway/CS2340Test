@@ -90,20 +90,20 @@ public class HistoricalGraphDataCalculator implements Serializable {
                         substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')));
 
                 // Get the current report's value
-                ppmValue = new Double(currentWaterPurityReport.getReportedVirusPPM());
+                ppmValue = currentWaterPurityReport.getReportedVirusPPM();
 
-                initialCount = new Integer(0);
+                initialCount = 0;
 
                 // If key already in map, or if a value already in map for given month,
                 // aggregate the value of ppm
                 if(graphAggregateValues.containsKey(month)) {
                     // Aggregate the cumulative ppm value with the current ppm value
-                    newPPMValue = new Double(ppmValue
-                            + graphAggregateValues.get(month));
+                    newPPMValue = ppmValue
+                            + graphAggregateValues.get(month);
                     // Insert the newly aggregated ppm value back into the hashmap
                     graphAggregateValues.put(month, newPPMValue);
                     // Increment the cumulative count by one
-                    newCount = new Integer(graphCountValues.get(month) + 1);
+                    newCount = graphCountValues.get(month) + 1;
                     // Insert the just incremented count back into the hashmap
                     graphCountValues.put(month, newCount);
 
@@ -119,7 +119,7 @@ public class HistoricalGraphDataCalculator implements Serializable {
             for (int i = 0; i < Month.values().length; i++) {
                 month = Month.values()[i];
                 if(!graphAggregateValues.containsKey(month)) {
-                    graphAggregateValues.put(month, new Double(0.0));
+                    graphAggregateValues.put(month, 0.0);
                 }
             }
 
@@ -139,20 +139,20 @@ public class HistoricalGraphDataCalculator implements Serializable {
                         substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')));
 
                 // Get the current report's value
-                ppmValue = new Double(currentWaterPurityReport.getReportedContaminantPPM());
+                ppmValue = currentWaterPurityReport.getReportedContaminantPPM();
 
-                initialCount = new Integer(0);
+                initialCount = 0;
 
                 // If key already in map, or if a value already in map for given month,
                 // aggregate the value of ppm
                 if(graphAggregateValues.containsKey(month)) {
                     // Aggregate the cumulative ppm value with the current ppm value
-                    newPPMValue = new Double(ppmValue
-                            + graphAggregateValues.get(month));
+                    newPPMValue = ppmValue
+                            + graphAggregateValues.get(month);
                     // Insert the newly aggregated ppm value back into the hashmap
                     graphAggregateValues.put(month, newPPMValue);
                     // Increment the cumulative count by one
-                    newCount = new Integer(graphCountValues.get(month) + 1);
+                    newCount = graphCountValues.get(month) + 1;
                     // Insert the just incremented count back into the hashmap
                     graphCountValues.put(month, newCount);
 
@@ -168,7 +168,7 @@ public class HistoricalGraphDataCalculator implements Serializable {
             for (int i = 0; i < Month.values().length; i++) {
                 month = Month.values()[i];
                 if(!graphAggregateValues.containsKey(month)) {
-                    graphAggregateValues.put(month, new Double(0.0));
+                    graphAggregateValues.put(month, 0.0);
                 }
             }
 

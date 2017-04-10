@@ -139,7 +139,7 @@ public class SelectHistoricalData extends AppCompatActivity {
      * @return years An ArrayList of years from 2000 to present.
      */
     private ArrayList<String> getYearsArray() {
-        ArrayList<String> years = new ArrayList<String>();
+        ArrayList<String> years = new ArrayList<>();
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = 2000; i <= thisYear; i++) {
             years.add(Integer.toString(i));

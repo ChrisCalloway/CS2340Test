@@ -52,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<UserType>(this,  R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
