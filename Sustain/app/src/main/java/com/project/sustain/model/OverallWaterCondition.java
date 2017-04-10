@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Enum class for overal water condition.
+ * Enum class for overall water condition.
  * @author Chris
  */
 
