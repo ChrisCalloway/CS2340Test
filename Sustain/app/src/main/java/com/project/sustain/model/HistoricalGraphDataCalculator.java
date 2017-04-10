@@ -98,8 +98,8 @@ public class HistoricalGraphDataCalculator implements Serializable {
                 // aggregate the value of ppm
                 if(graphAggregateValues.containsKey(month)) {
                     // Aggregate the cumulative ppm value with the current ppm value
-                    newPPMValue = new Double(ppmValue.doubleValue()
-                            + graphAggregateValues.get(month).doubleValue());
+                    newPPMValue = new Double(ppmValue
+                            + graphAggregateValues.get(month));
                     // Insert the newly aggregated ppm value back into the hashmap
                     graphAggregateValues.put(month, newPPMValue);
                     // Increment the cumulative count by one
@@ -128,8 +128,8 @@ public class HistoricalGraphDataCalculator implements Serializable {
             for (int i = 0; i < Month.values().length; i++) {
                 month = Month.values()[i];
                 // divide the total ppm for each month by count of instances per month
-                averagePPMForMonth = graphAggregateValues.get(month).doubleValue() /
-                        (double) graphCountValues.get(month).intValue();
+                averagePPMForMonth = graphAggregateValues.get(month) /
+                        (double) graphCountValues.get(month);
                 graphAveragePPMValues.put(month, averagePPMForMonth);
             }
         } else if(this.dataType.equals("contaminant")) {
@@ -147,8 +147,8 @@ public class HistoricalGraphDataCalculator implements Serializable {
                 // aggregate the value of ppm
                 if(graphAggregateValues.containsKey(month)) {
                     // Aggregate the cumulative ppm value with the current ppm value
-                    newPPMValue = new Double(ppmValue.doubleValue()
-                            + graphAggregateValues.get(month).doubleValue());
+                    newPPMValue = new Double(ppmValue
+                            + graphAggregateValues.get(month));
                     // Insert the newly aggregated ppm value back into the hashmap
                     graphAggregateValues.put(month, newPPMValue);
                     // Increment the cumulative count by one
@@ -177,8 +177,8 @@ public class HistoricalGraphDataCalculator implements Serializable {
             for (int i = 0; i < Month.values().length; i++) {
                 month = Month.values()[i];
                 // divide the total ppm for each month by count of instances per month
-                averagePPMForMonth = graphAggregateValues.get(month).doubleValue() /
-                        (double) graphCountValues.get(month).intValue();
+                averagePPMForMonth = graphAggregateValues.get(month) /
+                        (double) graphCountValues.get(month);
                 graphAveragePPMValues.put(month, averagePPMForMonth);
             }
         }
