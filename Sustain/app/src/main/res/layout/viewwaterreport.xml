@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wtrRepNumberReported"
-        android:paddingLeft="20dp"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
     <TextView
         android:text="@string/report_date"
         android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dateReported"
-        android:paddingLeft="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp" />
     <TextView
         android:text="@string/report_time"
         android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timeReported"
-        android:paddingLeft="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp" />
 
     <TextView
         android:text="@string/name_reporter"
@@ -55,7 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nameReported"
-        android:paddingLeft="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -72,8 +76,9 @@
             android:id="@+id/add1Reported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/wtrRepStrAdd1"
-            android:paddingLeft="20dp"
+            android:layout_toEndOf="@id/wtrRepStrAdd1"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"/>
 
 
@@ -88,9 +93,10 @@
             android:id="@+id/add2Reported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/wtrRepStrAdd2"
+            android:layout_toEndOf="@id/wtrRepStrAdd2"
             android:layout_alignTop="@id/wtrRepStrAdd2"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"/>
 
         <TextView
@@ -104,9 +110,10 @@
             android:id="@+id/cityReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/wtrRepCity"
+            android:layout_toEndOf="@id/wtrRepCity"
             android:layout_alignTop="@id/wtrRepCity"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"/>
 
         <TextView
@@ -120,9 +127,10 @@
             android:id="@+id/stateReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/wtrRepState"
+            android:layout_toEndOf="@id/wtrRepState"
             android:layout_alignTop="@id/wtrRepState"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"/>
 
         <TextView
@@ -136,7 +144,8 @@
             android:id="@+id/zipReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"
             android:layout_alignTop="@id/wtrRepZip"
             android:layout_toEndOf="@+id/wtrRepZip"
@@ -147,18 +156,20 @@
             android:id="@+id/wtrRepCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/country"
-            android:layout_toRightOf="@+id/zipReported"
+            android:layout_toEndOf="@+id/zipReported"
             android:layout_alignTop="@id/zipReported"/>
 
         <TextView
             android:id="@+id/countryReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/placeholder_text"
-            android:layout_toRightOf="@+id/wtrRepCountry"
+            android:layout_toEndOf="@+id/wtrRepCountry"
             android:layout_alignTop="@+id/zipReported"/>
 
 

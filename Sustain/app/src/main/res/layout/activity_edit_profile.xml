@@ -6,10 +6,7 @@
     android:id="@+id/activity_edit_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="16dp"
     android:stretchColumns="1"
     tools:context="com.project.sustain.controllers.EditProfileActivity">
     <TableRow android:layout_marginLeft="10dp"
@@ -22,7 +19,6 @@
         <EditText
             android:inputType="textPersonName"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:id="@+id/editText_userName"
             android:textSize="14sp"/>
     </TableRow>
@@ -36,7 +32,6 @@
         <Spinner
             android:id="@+id/spinner_userType"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
@@ -54,7 +49,6 @@
         <TextView
             android:text="@string/street_address1"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -67,7 +61,6 @@
         <TextView
             android:text="@string/street_address2"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -80,7 +73,6 @@
         <TextView
             android:text="@string/city"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -93,7 +85,6 @@
         <TextView
             android:text="@string/state_or_province"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -106,7 +97,6 @@
         <TextView
             android:text="@string/country"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -119,7 +109,6 @@
         <TextView
             android:text="@string/zip_code"
             android:gravity="start"
-            android:paddingLeft="10dp"
             android:textSize="14sp"/>
         <EditText
             android:inputType="textPostalAddress"
@@ -132,7 +121,6 @@
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:id="@+id/buttonCancelProfile"
-            android:layout_marginLeft="5dp"
             style="@android:style/Widget.Button"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:layout_marginTop="5dp"
@@ -142,7 +130,6 @@
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:id="@+id/buttonSaveProfile"
-            android:layout_marginLeft="5dp"
             style="@android:style/Widget.Button"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:layout_marginTop="5dp"
