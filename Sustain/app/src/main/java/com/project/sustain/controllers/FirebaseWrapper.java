@@ -185,6 +185,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     }
 
     public void logOut() {
+        mUser = null;
         mFirebaseAuth.signOut();
     }
 
