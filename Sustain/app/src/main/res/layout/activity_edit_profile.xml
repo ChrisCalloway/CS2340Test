@@ -128,7 +128,7 @@
     </TableRow>
     <TableRow>
         <Button
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:id="@+id/buttonCancelProfile"
@@ -138,7 +138,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="Save"
+            android:text="@string/save"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:id="@+id/buttonSaveProfile"

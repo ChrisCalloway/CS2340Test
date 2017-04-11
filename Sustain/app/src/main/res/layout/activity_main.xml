@@ -35,7 +35,7 @@
         android:layout_marginBottom="82dp" />
 
     <TextView
-        android:text="Sustain Main Page"
+        android:text="@string/main_page"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_gravity="center"
@@ -43,14 +43,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
-        android:text="Submit Report"
+        android:text="@string/submit_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/subRep" />
 
     <Button
-        android:text="View Reports"
+        android:text="@string/view_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

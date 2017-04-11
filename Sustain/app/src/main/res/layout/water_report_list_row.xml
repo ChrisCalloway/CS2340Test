@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/reportPlace"
-            android:hint="Place"
+            android:hint="@string/place"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/reportDate"
-            android:hint="Date"
+            android:hint="@string/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/reportNum"
-            android:hint="Number"
+            android:hint="@string/number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="14sp"

@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:padding="16dp">
     <TextView
-        android:text="Water Report #"
+        android:text="@string/water_report_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wtrRepTitle"
@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Report #:"
+        android:text="@string/report_num"
         android:id="@+id/wtrRepNumber"/>
     <TextView
         android:layout_width="match_parent"
@@ -22,36 +22,36 @@
         android:id="@+id/wtrRepNumberReported"
         android:paddingLeft="20dp"/>
     <TextView
-        android:text="Date of Report:"
+        android:text="@string/report_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/wtrRepDate" />
     <TextView
-        android:text="hello date!"
+        android:text="@string/placeholder_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dateReported"
         android:paddingLeft="20dp" />
     <TextView
-        android:text="Time of Report:"
+        android:text="@string/report_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/wtrRepTime" />
 
     <TextView
-        android:text="hello Time!"
+        android:text="@string/placeholder_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timeReported"
         android:paddingLeft="20dp" />
 
     <TextView
-        android:text="Reporter Name:"
+        android:text="@string/name_reporter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/wtrRepName" />
     <TextView
-        android:text="hello name!"
+        android:text="@string/placeholder_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nameReported"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="Street Address 1"/>
+            android:text="@string/street_address1"/>
 
         <TextView
             android:id="@+id/add1Reported"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/wtrRepStrAdd1"
             android:paddingLeft="20dp"
-            android:text="hello address 1"/>
+            android:text="@string/placeholder_text"/>
 
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/wtrRepStrAdd1"
-            android:text="Street Address 2"/>
+            android:text="@string/street_address2"/>
 
         <TextView
             android:id="@+id/add2Reported"
@@ -91,14 +91,14 @@
             android:layout_toRightOf="@id/wtrRepStrAdd2"
             android:layout_alignTop="@id/wtrRepStrAdd2"
             android:paddingLeft="20dp"
-            android:text="hello address 2"/>
+            android:text="@string/placeholder_text"/>
 
         <TextView
             android:id="@+id/wtrRepCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/wtrRepStrAdd2"
-            android:text="City"/>
+            android:text="@string/city"/>
 
         <TextView
             android:id="@+id/cityReported"
@@ -107,14 +107,14 @@
             android:layout_toRightOf="@id/wtrRepCity"
             android:layout_alignTop="@id/wtrRepCity"
             android:paddingLeft="20dp"
-            android:text="hello city"/>
+            android:text="@string/placeholder_text"/>
 
         <TextView
             android:id="@+id/wtrRepState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/wtrRepCity"
-            android:text="State"/>
+            android:text="@string/state_or_province"/>
 
         <TextView
             android:id="@+id/stateReported"
@@ -123,21 +123,21 @@
             android:layout_toRightOf="@id/wtrRepState"
             android:layout_alignTop="@id/wtrRepState"
             android:paddingLeft="20dp"
-            android:text="hello state"/>
+            android:text="@string/placeholder_text"/>
 
         <TextView
             android:id="@+id/wtrRepZip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/wtrRepState"
-            android:text="Zip Code"/>
+            android:text="@string/zip_code"/>
 
         <TextView
             android:id="@+id/zipReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="hello zip"
+            android:text="@string/placeholder_text"
             android:layout_alignTop="@id/wtrRepZip"
             android:layout_toEndOf="@+id/wtrRepZip"
             android:layout_marginStart="8dp"/>
@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Country"
+            android:text="@string/country"
             android:layout_toRightOf="@+id/zipReported"
             android:layout_alignTop="@id/zipReported"/>
 
@@ -157,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="hello country"
+            android:text="@string/placeholder_text"
             android:layout_toRightOf="@+id/wtrRepCountry"
             android:layout_alignTop="@+id/zipReported"/>
 
@@ -171,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="Water Information:"/>
+        android:text="@string/water_info"/>
 
     <EditText
         android:id="@+id/editWaterInfo"
@@ -185,6 +185,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Back to Reports"/>
+        android:text="@string/report_back"/>
 
 </LinearLayout>

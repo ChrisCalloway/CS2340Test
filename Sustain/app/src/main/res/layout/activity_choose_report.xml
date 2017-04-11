@@ -20,13 +20,13 @@
             android:id="@+id/radBtnReportListSourceReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Water Source Report"/>
+            android:text="@string/water_source_reports"/>
 
         <RadioButton
             android:id="@+id/radBtnReportListPurityReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Water Purity Report"/>
+            android:text="@string/water_purity_reports"/>
     </RadioGroup>
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/radGrpReportListType"
         android:layout_marginBottom="98dp"
-        android:text="Select the report type to view:"
+        android:text="@string/select_report_type"
         android:textAlignment="center"/>
 
     <Button
@@ -46,7 +46,7 @@
         android:layout_below="@+id/radGrpReportListType"
         android:layout_marginStart="30dp"
         android:layout_marginTop="42dp"
-        android:text="Cancel"/>
+        android:text="@string/cancel"/>
 
     <Button
         android:id="@+id/btnSelectReportOK"
@@ -55,6 +55,6 @@
         android:layout_alignBottom="@+id/btnSelectReportCancel"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="23dp"
-        android:text="OK"/>
+        android:text="@string/ok"/>
 
 </RelativeLayout>

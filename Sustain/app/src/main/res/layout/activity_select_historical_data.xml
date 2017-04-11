@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Select Data for Graph" />
+        android:text="@string/select_data_graph" />
 
     <TextView
         android:id="@+id/lblWaterLocation"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Location" />
+        android:text="@string/location" />
 
     <Spinner
         android:id="@+id/spinLocationName"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Data Type to Search" />
+        android:text="@string/data_type_search" />
 
 
     <RadioGroup
@@ -47,13 +47,13 @@
             android:id="@+id/radBtnVirusOpt"
             android:layout_width="166dp"
             android:layout_height="wrap_content"
-            android:text="Virus"/>
+            android:text="@string/virus"/>
 
         <RadioButton
             android:id="@+id/radBtnContaminantOpt"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
-            android:text="Contaminant"/>
+            android:text="@string/contaminant"/>
     </RadioGroup>
 
     <TextView
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Year" />
+        android:text="@string/year" />
 
     <Spinner
         android:id="@+id/spinYear"
@@ -81,14 +81,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:text="Display Graph" />
+            android:text="@string/display_graph" />
     </LinearLayout>
 
 </LinearLayout>

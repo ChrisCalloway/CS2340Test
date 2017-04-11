@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Sustain</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="cont">Continue</string>
+
+    <string name="placeholder_text">Placeholder Text</string>
+
     <string name="edit_message">Enter a message</string>
     <string name="edit_email">Email Address</string>
     <string name="edit_password">Password</string>
@@ -13,12 +20,6 @@
     <string name="username">Username</string>
     <string name="user_type">Role</string>
     <string name="home_address">Home Address:</string>
-    <string name="street_address1">Street Address 1</string>
-    <string name="street_address2">Street Address 2</string>
-    <string name="city">City</string>
-    <string name="state_or_province">State/Province</string>
-    <string name="zip_code">Zip Code</string>
-    <string name="country">Country</string>
     <string name="phones">Phone Numbers</string>
     <string name="home">Home</string>
     <string name="mobile">Mobile</string>
@@ -31,8 +32,55 @@
     <string name="profile">Profile</string>
     <string name="water_source_reports">Water Source Reports</string>
     <string name="water_purity_reports">Water Purity Reports</string>
+    <string name="source_report">Source Report</string>
+    <string name="purity_report">Purity Report</string>
     <string name="logout">Log Out</string>
     <string name="map">Map</string>
     <string name="hist_graph">View Historical Graphs</string>
     <string name="historical_view_title">Historical Graph</string>
+    <string name="select_report_type">Select the report type to view:</string>
+    <!--activity_main.xml-->
+    <string name="main_page">Sustain Main Page</string>
+    <string name="submit_report">Submit Report</string>
+    <string name="view_report">View Reports</string>
+    <!--activity_get_address.xml-->
+    <string name="name_reporter">Reporter Name</string>
+    <string name="name">Name:</string>
+    <string name="name_place">Name of this place</string>
+    <string name="button_description">Gets your current location</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="street_address1">Street Address 1</string>
+    <string name="street_address2">Street Address 2</string>
+    <string name="city">City:</string>
+    <string name="state_or_province">State/Province</string>
+    <string name="country">Country:</string>
+    <string name="zip_code">Zip Code:</string>
+    <string name="find_lat_long">Finde Latitude/Longitude From Address</string>
+    <!--activity_select_historical_data.xml-->
+    <string name="select_data_graph">Select Data for Grpah</string>
+    <string name="location">Location</string>
+    <string name="data_type_search">Data Type to Search</string>
+    <string name="virus">Virus</string>
+    <string name="contaminant">Contaminant</string>
+    <string name="year">Year</string>
+    <string name="display_graph">Display Graph</string>
+    <!--purity_report.xml-->
+    <string name="overall_condition">Overall Condition</string>
+    <string name="virus_ppm">Virus PPM</string>
+    <string name="contaminant_ppm">Contaminant PPM</string>
+    <!--source_report.xml-->
+    <string name="water_type">Water Type</string>
+    <string name="water_condition">Water Condition</string>
+    <!--viewwaterreport.xml-->
+    <string name="water_report_num">Water Report #</string>
+    <string name="report_num">Report #</string>
+    <string name="report_date">Report Date</string>
+    <string name="report_time">Report Time</string>
+    <string name="water_info">Water Information</string>
+    <string name="report_back">Back to Reports</string>
+    <!--water_report_list_row.xml-->
+    <string name="place">Place</string>
+    <string name="date">Date</string>
+    <string name="number">Number</string>
 </resources>

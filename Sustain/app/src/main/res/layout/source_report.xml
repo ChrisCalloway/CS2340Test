@@ -10,7 +10,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place Name"/>
+        android:text="@string/name_place"/>
 
     <EditText
         android:id="@+id/editPlaceName"
@@ -25,7 +25,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Water Type"/>
+        android:text="@string/water_type"/>
 
     <Spinner
         android:id="@+id/spinWaterType"
@@ -37,14 +37,14 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Water Condition"/>
+        android:text="@string/water_condition"/>
 
     <Spinner
         android:id="@+id/spinWaterCondition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -52,15 +52,15 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:layout_weight=".5"
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:text="Save"/>
-    </RelativeLayout>
+            android:layout_weight=".5"
+            android:text="@string/save"/>
+    </LinearLayout>
 
 </LinearLayout>
