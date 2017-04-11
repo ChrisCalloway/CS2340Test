@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.project.sustain.R;
 import com.project.sustain.model.Report;
@@ -21,17 +20,16 @@ import com.project.sustain.model.WaterReportManager;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.vision.text.Text;
-
 
 /**
- * Created by Anish on 3/6/17.
+ * Activity that enables user to scroll through all possible reports.
+ * @author Anish
  */
 
 public class ViewReportsActivity extends AppCompatActivity {
     private List<Report> mReportList;
     private WaterReportAdapter wRAdapter;
-    private Button backButton;
+    // --Commented out by Inspection (4/10/2017 21:15 PM):private Button backButton;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
     private User mUser;

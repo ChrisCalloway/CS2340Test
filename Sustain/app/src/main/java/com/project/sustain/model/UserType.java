@@ -1,7 +1,8 @@
 package com.project.sustain.model;
 
 /**
- * Created by Marcia on 2/27/2017.
+ * Enum for the possible user types in the application.
+ * @author Marcia
  */
 
 public enum UserType {
@@ -10,7 +11,7 @@ public enum UserType {
     MANAGER("Manager"),
     ADMIN("Administrator");
 
-    private String description;
+    private final String description;
     UserType(String userDescription) {
         this.description = userDescription;
     }

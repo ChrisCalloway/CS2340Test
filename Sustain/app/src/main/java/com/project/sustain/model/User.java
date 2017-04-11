@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Created by Marcia on 2/27/2017.
  */
 
+@SuppressWarnings("ALL")
 @IgnoreExtraProperties
 public class User implements Serializable {
     private UserType userType;
@@ -21,8 +22,8 @@ public class User implements Serializable {
         this(UserType.USER, "", "", "", new Address());
     }
 
-    public User(UserType userType, String userName, String userId,
-                String emailAddress, Address homeAddress) {
+    private User(UserType userType, String userName, String userId,
+                 String emailAddress, Address homeAddress) {
         this.userType = userType;
         this.userName = userName;
         this.userId = userId;
@@ -60,9 +61,11 @@ public class User implements Serializable {
 
     public UserPermissions getUserPermissions() { return this.userPermissions; }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
+// --Commented out by Inspection START (4/10/2017 21:14 PM):
+//    public String getEmailAddress() {
+//        return emailAddress;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:14 PM)
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;

@@ -5,7 +5,8 @@ import android.os.Parcelable;
 
 
 /**
- * Created by Anish on 3/2/17.
+ * Enum for the water types possible.
+ * @author Anish
  */
 
 public enum WaterType implements Parcelable{
@@ -36,7 +37,7 @@ public enum WaterType implements Parcelable{
         out.writeInt(ordinal());
     }
 
-    private String typeDeclared;
+    private final String typeDeclared;
 
     WaterType (String typePassed) {
         typeDeclared = typePassed;

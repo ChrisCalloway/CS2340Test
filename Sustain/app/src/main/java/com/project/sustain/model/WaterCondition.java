@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Anish on 3/2/17.
+ * Enum that lists the possible water conditions.
+ * @author Anish
  */
 
 public enum WaterCondition implements Parcelable {
@@ -13,7 +14,7 @@ public enum WaterCondition implements Parcelable {
     TREATABLEMUDDY("Treatable-Muddy"),
     POTABLE("Potable");
 
-    private String conditionDeclared;
+    private final String conditionDeclared;
 
     WaterCondition (String conditionPassed) {
         conditionDeclared = conditionPassed;

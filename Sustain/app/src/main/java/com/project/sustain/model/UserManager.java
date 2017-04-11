@@ -12,17 +12,18 @@ import com.project.sustain.controllers.RegistrationResultListener;
 import com.project.sustain.controllers.UserResultListener;
 
 /**
- * Created by Marcia on 3/22/2017.
+ * User Manager class has methods for users in relation to water reports.
+ * @author Marcia
  */
 
 public class UserManager {
     private User currentUser;
-    private DatabaseWrapper DBWrapper;
+    private final DatabaseWrapper DBWrapper;
     private UserResultListener mUserResultListener = null;
     private AuthResultListener mAuthResultListener = null;
     private LoginResultListener mLoginResultListener = null;
     private RegistrationResultListener mRegistrationResultListener = null;
-    private static String TAG = "UserManager";
+    private static final String TAG = "UserManager";
 
     public UserManager() {
         DBWrapper = new FirebaseWrapper();
@@ -145,9 +146,11 @@ public class UserManager {
         this.mRegistrationResultListener = listener;
     }
 
-    public void removeRegistrationResultListener() {
-        this.mRegistrationResultListener = null;
-    }
+// --Commented out by Inspection START (4/10/2017 21:14 PM):
+//    public void removeRegistrationResultListener() {
+//        this.mRegistrationResultListener = null;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:14 PM)
 
     public void removeAllListeners() {
         mUserResultListener = null;

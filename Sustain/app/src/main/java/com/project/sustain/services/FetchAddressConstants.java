@@ -1,7 +1,8 @@
 package com.project.sustain.services;
 
 /**
- * Created by Marcia on 3/13/2017.
+ * Constants for addresses.
+ * @author Marcia
  */
 
 public class FetchAddressConstants {

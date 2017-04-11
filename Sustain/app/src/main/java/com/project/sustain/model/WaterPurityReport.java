@@ -5,7 +5,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 /**
- * Created by Chris on 3/13/17.
+ * Model class for model purity reports.
+ * @author Chris
  */
 @IgnoreExtraProperties
 public class WaterPurityReport extends Report implements Serializable {
@@ -16,18 +17,6 @@ public class WaterPurityReport extends Report implements Serializable {
 
     // Constructors for WaterPurityReport
     public WaterPurityReport() {}
-
-    public WaterPurityReport(Address address, String reporterName, String reportUserId,
-                             String dateOfReport, String timeOfReport, int reportNumber,
-                             OverallWaterCondition reportedOverallWaterCondition,
-                             double reportedVirusPPM, double reportedContaminantPPM,
-                             String reportId) {
-        super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
-                reportId);
-        this.reportedOverallWaterCondition = reportedOverallWaterCondition;
-        this.reportedVirusPPM = reportedVirusPPM;
-        this.reportedContaminantPPM = reportedContaminantPPM;
-    }
 
     public void setReportedOverallWaterCondition(OverallWaterCondition condition) {
         this.reportedOverallWaterCondition = condition;

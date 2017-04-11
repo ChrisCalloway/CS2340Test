@@ -37,7 +37,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
-    private WaterReportManager mWaterReportManager = new WaterReportManager();
+    private final WaterReportManager mWaterReportManager = new WaterReportManager();
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
@@ -50,9 +50,11 @@ public class MapsMarkerActivity extends AppCompatActivity
     // location retrieved by the Fused Location Provider.
     private android.location.Location mLastKnownLocation;
 
+
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

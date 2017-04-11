@@ -21,13 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by derek on 4/5/17.
+ * Activity that shows the water source reports.
+ * @author Derek
  */
 
 public class WaterSourceReportsActivity extends AppCompatActivity{
     private List<Report> mReportList;
     private RecyclerView.Adapter mAdapter;
-    private WaterReportAdapter wRAdapter;
+    // --Commented out by Inspection (4/10/2017 21:17 PM):private WaterReportAdapter wRAdapter;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
     private User mUser;

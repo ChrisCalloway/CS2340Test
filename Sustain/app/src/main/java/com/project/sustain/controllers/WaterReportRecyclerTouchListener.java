@@ -7,13 +7,14 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by Anish on 3/7/17.
+ * Enables one to touch entry in list to see report details.
+ * @author Anish
  */
 
 
-public class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-    private GestureDetector gestureDetector;
-    private ClickListener clickListener;
+class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+    private final GestureDetector gestureDetector;
+    private final ClickListener clickListener;
 
     public WaterReportRecyclerTouchListener(Context context, final RecyclerView wtrRepRecyclerView, final ClickListener clickListener) {
         this.clickListener = clickListener;

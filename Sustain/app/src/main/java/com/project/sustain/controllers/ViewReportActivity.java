@@ -9,7 +9,8 @@ import com.project.sustain.R;
 import com.project.sustain.model.Report;
 
 /**
- * Created by Anish on 3/7/17.
+ * Activity that user uses to see view a single report.
+ * @author Anish
  */
 
 public class ViewReportActivity extends AppCompatActivity {

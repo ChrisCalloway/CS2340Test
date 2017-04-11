@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Chris on 3/13/17.
+ * Enum class for overall water condition.
+ * @author Chris
  */
 
 public enum OverallWaterCondition implements Parcelable {
@@ -12,7 +13,7 @@ public enum OverallWaterCondition implements Parcelable {
     TREATABLE("Treatable"),
     UNSAFE("Unsafe");
 
-    private String overallWaterCondition;
+    private final String overallWaterCondition;
 
     OverallWaterCondition (String overallWaterCondition) {
         this.overallWaterCondition = overallWaterCondition;

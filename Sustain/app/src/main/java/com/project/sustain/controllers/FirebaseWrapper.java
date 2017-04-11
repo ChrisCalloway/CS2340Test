@@ -22,20 +22,20 @@ import java.util.List;
 
 
 /**
- * Created by Marcia on 3/14/2017.
+ * Instance of DatabaseWrapper for the Firebase database.
+ * @author Marcia
  */
 
 public class FirebaseWrapper implements DatabaseWrapper {
 
     //Firebase objects
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private final FirebaseAuth mFirebaseAuth;
+    private final FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser mUser;
-    private FirebaseDatabase mFirebaseDatabase;
+    private final FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private Object singleResult;
     private String userDisplayName = "";
-    private boolean isLoggedIn = false;
     private String userId = "";
     private String userEmail = "";
     private AuthResultListener mAuthResultListener = null;
@@ -46,7 +46,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private Object mModelObject = null;
     private User currentUser = null;
 
-    private static String TAG = "FirebaseWrapper";
+    private static final String TAG = "FirebaseWrapper";
 
     public FirebaseWrapper() {
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -64,6 +64,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     private void getCurrentUser() {
         mUser = mFirebaseAuth.getCurrentUser();
+        boolean isLoggedIn = false;
         if (mUser != null) {
             isLoggedIn = true;
             userDisplayName = mUser.getDisplayName() + "";
@@ -124,23 +125,27 @@ public class FirebaseWrapper implements DatabaseWrapper {
         return userEmail;
     }
 
-    public boolean isLoggedIn() {
-        if (mUser == null) {
-            getCurrentUser();
-        }
-        return isLoggedIn;
-    }
+// --Commented out by Inspection START (4/10/2017 20:59 PM):
+//    public boolean isLoggedIn() {
+//        if (mUser == null) {
+//            getCurrentUser();
+//        }
+//        return isLoggedIn;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 20:59 PM)
 
     public void connect() {
         mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
-    public void disconnect() {
-        if (mAuthListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthListener);
-        }
-
-    }
+// --Commented out by Inspection START (4/10/2017 20:59 PM):
+//    public void disconnect() {
+//        if (mAuthListener != null) {
+//            mFirebaseAuth.removeAuthStateListener(mAuthListener);
+//        }
+//
+//    }
+// --Commented out by Inspection STOP (4/10/2017 20:59 PM)
 
     public void createAccountWithEmailPassword (String email, String password) {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -301,10 +306,12 @@ public class FirebaseWrapper implements DatabaseWrapper {
         this.mQueryListResultListener = listener;
     }
 
-    @Override
-    public void removeQueryListResultListener() {
-        this.mQueryListResultListener = null;
-    }
+
+// --Commented out by Inspection START (4/10/2017 21:05 PM):
+//    public void removeQueryListResultListener() {
+//        this.mQueryListResultListener = null;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:05 PM)
 
     @Override
     public void setQuerySingleResultListener(QuerySingleResultListener listener) {
@@ -337,8 +344,10 @@ public class FirebaseWrapper implements DatabaseWrapper {
         this.mQueryEntireListListener = listener;
     }
 
-    public void removeQueryEntireListListener() {
-        this.mQueryEntireListListener = null;
-    }
+// --Commented out by Inspection START (4/10/2017 20:59 PM):
+//    public void removeQueryEntireListListener() {
+//        this.mQueryEntireListListener = null;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 20:59 PM)
 
 }

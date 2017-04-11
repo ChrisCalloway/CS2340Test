@@ -1,7 +1,6 @@
 package com.project.sustain.controllers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mZip;
     private UserManager mUserManager;
     private User mUserProfile;
-    private Context appContext = this.getApplication();
+    // --Commented out by Inspection (4/10/2017 20:55 PM):private Context appContext = this.getApplication();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
