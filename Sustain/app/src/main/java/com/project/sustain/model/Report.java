@@ -35,11 +35,9 @@ public abstract class Report implements Serializable {
 
     }
 
-// --Commented out by Inspection START (4/10/2017 21:06 PM):
-//    public String getReporterUserId() {
-//        return reporterUserId;
-//    }
-// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
+    public String getReporterUserId() {
+        return reporterUserId;
+    }
 
     public void setReporterUserId(String reporterUserId) {
         this.reporterUserId = reporterUserId;
@@ -57,21 +55,17 @@ public abstract class Report implements Serializable {
         this.dateOfReport = dateOfReport;
     }
 
-// --Commented out by Inspection START (4/10/2017 21:06 PM):
-//    public String getTimeOfReport() {
-//        return timeOfReport;
-//    }
-// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
+    public String getTimeOfReport() {
+        return timeOfReport;
+    }
 
     public void setTimeOfReport(String timeOfReport) {
         this.timeOfReport = timeOfReport;
     }
 
-// --Commented out by Inspection START (4/10/2017 21:06 PM):
-//    public String getReporterName() {
-//        return reporterName;
-//    }
-// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
+    public String getReporterName() {
+        return reporterName;
+    }
 
     public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 

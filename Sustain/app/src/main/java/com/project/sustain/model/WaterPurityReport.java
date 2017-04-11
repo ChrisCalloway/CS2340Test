@@ -17,18 +17,6 @@ public class WaterPurityReport extends Report implements Serializable {
     // Constructors for WaterPurityReport
     public WaterPurityReport() {}
 
-    public WaterPurityReport(Address address, String reporterName, String reportUserId,
-                             String dateOfReport, String timeOfReport, int reportNumber,
-                             OverallWaterCondition reportedOverallWaterCondition,
-                             double reportedVirusPPM, double reportedContaminantPPM,
-                             String reportId) {
-        super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
-                reportId);
-        this.reportedOverallWaterCondition = reportedOverallWaterCondition;
-        this.reportedVirusPPM = reportedVirusPPM;
-        this.reportedContaminantPPM = reportedContaminantPPM;
-    }
-
     public void setReportedOverallWaterCondition(OverallWaterCondition condition) {
         this.reportedOverallWaterCondition = condition;
     }

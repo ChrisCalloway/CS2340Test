@@ -16,16 +16,6 @@ public class WaterSourceReport extends Report implements Serializable {
     public WaterSourceReport() {
     }
 
-    public WaterSourceReport(Address address, String reporterName, String reportUserId,
-                             String dateOfReport, String timeOfReport, int reportNumber,
-                             WaterType waterType, WaterCondition waterCondition,
-                             String reportId) {
-        super(address, reporterName, reportUserId, dateOfReport, timeOfReport,
-                reportId);
-        this.mWaterType = waterType;
-        this.mWaterCondition = waterCondition;
-    }
-
     public WaterSourceReport(Address address) {
         this.setAddress(address);
     }
