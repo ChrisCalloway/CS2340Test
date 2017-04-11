@@ -13,12 +13,12 @@ import java.util.List;
  */
 
 public class WaterReportManager implements Serializable{
-    private List<Report> mReports;
-    private DatabaseWrapper mDBWrapper = new FirebaseWrapper();
+    // --Commented out by Inspection (4/10/2017 21:16 PM):private List<Report> mReports;
+    private final DatabaseWrapper mDBWrapper = new FirebaseWrapper();
     private QueryListResultListener mListResultListener = null;
-    private QueryListResultListener qrListener;
+    private final QueryListResultListener qrListener;
     private QueryEntireListListener mEntireListResultListener = null;
-    private QueryEntireListListener qeListener;
+    private final QueryEntireListListener qeListener;
     /**
      * Constructor
      */
@@ -116,7 +116,9 @@ public class WaterReportManager implements Serializable{
         mEntireListResultListener = listener;
     }
 
-    public void removeQueryEntireListListener() {
-        mEntireListResultListener = null;
-    }
+// --Commented out by Inspection START (4/10/2017 21:16 PM):
+//    public void removeQueryEntireListListener() {
+//        mEntireListResultListener = null;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:16 PM)
 }

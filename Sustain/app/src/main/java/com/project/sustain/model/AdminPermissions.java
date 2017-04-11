@@ -4,6 +4,7 @@ package com.project.sustain.model;
  * Created by Marcia on 3/26/2017.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class AdminPermissions extends UserPermissions {
 
     public AdminPermissions() {

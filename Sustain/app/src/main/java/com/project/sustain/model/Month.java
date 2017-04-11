@@ -60,8 +60,10 @@ public enum Month implements Parcelable {
     }
 
 
-    public String getAbbrName() {
-        return abbrName;
-    }
+// --Commented out by Inspection START (4/10/2017 21:06 PM):
+//    public String getAbbrName() {
+//        return abbrName;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
 
 }

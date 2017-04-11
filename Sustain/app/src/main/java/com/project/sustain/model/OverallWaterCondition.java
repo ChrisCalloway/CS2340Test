@@ -12,7 +12,7 @@ public enum OverallWaterCondition implements Parcelable {
     TREATABLE("Treatable"),
     UNSAFE("Unsafe");
 
-    private String overallWaterCondition;
+    private final String overallWaterCondition;
 
     OverallWaterCondition (String overallWaterCondition) {
         this.overallWaterCondition = overallWaterCondition;

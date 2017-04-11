@@ -8,21 +8,21 @@ import java.io.Serializable;
 
 public class UserPermissions implements Serializable {
 
-    private boolean ableToCreatePurityReports;
-    private boolean ableToViewPurityReports;
-    private boolean ableToViewHistoricalReports;
-    private boolean ableToDeleteReports;
-    private boolean ableToAdministerUsers;
+    private final boolean ableToCreatePurityReports;
+    private final boolean ableToViewPurityReports;
+    private final boolean ableToViewHistoricalReports;
+    private final boolean ableToDeleteReports;
+    private final boolean ableToAdministerUsers;
 
     public UserPermissions() {
         this(false, false, false, false, false);
      }
 
-    protected UserPermissions(boolean ableToCreatePurityReports,
-            boolean ableToViewPurityReports,
-            boolean ableToViewHistoricalReports,
-            boolean ableToDeleteReports,
-            boolean ableToAdministerUsers) {
+    UserPermissions(boolean ableToCreatePurityReports,
+                    boolean ableToViewPurityReports,
+                    boolean ableToViewHistoricalReports,
+                    boolean ableToDeleteReports,
+                    boolean ableToAdministerUsers) {
         this.ableToCreatePurityReports = ableToCreatePurityReports;
         this.ableToViewPurityReports = ableToViewPurityReports;
         this.ableToViewHistoricalReports = ableToViewHistoricalReports;
@@ -42,12 +42,16 @@ public class UserPermissions implements Serializable {
         return this.ableToViewPurityReports;
     }
 
-    public boolean isAbleToDeleteReports() {
-        return this.ableToDeleteReports;
-    }
+// --Commented out by Inspection START (4/10/2017 21:15 PM):
+//    public boolean isAbleToDeleteReports() {
+//        return this.ableToDeleteReports;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:15 PM)
 
-    public boolean isAbleToAdministerUsers() {
-        return this.ableToAdministerUsers;
-    }
+// --Commented out by Inspection START (4/10/2017 21:15 PM):
+//    public boolean isAbleToAdministerUsers() {
+//        return this.ableToAdministerUsers;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:15 PM)
 }
 

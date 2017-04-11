@@ -31,7 +31,7 @@ import java.util.List;
 public class ViewReportsActivity extends AppCompatActivity {
     private List<Report> mReportList;
     private WaterReportAdapter wRAdapter;
-    private Button backButton;
+    // --Commented out by Inspection (4/10/2017 21:15 PM):private Button backButton;
     private WaterReportManager mReportManager;
     private QueryListResultListener qrListener;
     private User mUser;

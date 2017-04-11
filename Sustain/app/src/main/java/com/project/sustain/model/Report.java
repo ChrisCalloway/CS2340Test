@@ -12,20 +12,20 @@ import java.io.Serializable;
  */
 @IgnoreExtraProperties
 public abstract class Report implements Serializable {
-    protected Address address;
-    protected String reporterName;
-    protected String reporterUserId;
-    protected String dateOfReport;
-    protected String timeOfReport;
-    protected String reportId;
+    private Address address;
+    private String reporterName;
+    private String reporterUserId;
+    private String dateOfReport;
+    private String timeOfReport;
+    private String reportId;
 
-    public Report() {
+    Report() {
         this(null, "","","","", "");
 
     }
 
-    public Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
-                  String timeOfReport, String reportId) {
+    Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
+           String timeOfReport, String reportId) {
         this.address = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;
@@ -35,9 +35,11 @@ public abstract class Report implements Serializable {
 
     }
 
-    public String getReporterUserId() {
-        return reporterUserId;
-    }
+// --Commented out by Inspection START (4/10/2017 21:06 PM):
+//    public String getReporterUserId() {
+//        return reporterUserId;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
 
     public void setReporterUserId(String reporterUserId) {
         this.reporterUserId = reporterUserId;
@@ -55,17 +57,21 @@ public abstract class Report implements Serializable {
         this.dateOfReport = dateOfReport;
     }
 
-    public String getTimeOfReport() {
-        return timeOfReport;
-    }
+// --Commented out by Inspection START (4/10/2017 21:06 PM):
+//    public String getTimeOfReport() {
+//        return timeOfReport;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
 
     public void setTimeOfReport(String timeOfReport) {
         this.timeOfReport = timeOfReport;
     }
 
-    public String getReporterName() {
-        return reporterName;
-    }
+// --Commented out by Inspection START (4/10/2017 21:06 PM):
+//    public String getReporterName() {
+//        return reporterName;
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:06 PM)
 
     public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 

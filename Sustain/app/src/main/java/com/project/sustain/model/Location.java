@@ -13,12 +13,14 @@ import java.io.Serializable;
 
 
 public class Location implements Serializable {
-    private double latitude;
-    private double longitude;
+    private final double latitude;
+    private final double longitude;
 
-    public Location() {
-
-    }
+// --Commented out by Inspection START (4/10/2017 21:05 PM):
+//    public Location() {
+//
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:05 PM)
 
     public Location(double latitude, double longitude) {
         this.latitude = latitude;

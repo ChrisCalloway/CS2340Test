@@ -11,9 +11,9 @@ import android.view.View;
  */
 
 
-public class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-    private GestureDetector gestureDetector;
-    private ClickListener clickListener;
+class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+    private final GestureDetector gestureDetector;
+    private final ClickListener clickListener;
 
     public WaterReportRecyclerTouchListener(Context context, final RecyclerView wtrRepRecyclerView, final ClickListener clickListener) {
         this.clickListener = clickListener;

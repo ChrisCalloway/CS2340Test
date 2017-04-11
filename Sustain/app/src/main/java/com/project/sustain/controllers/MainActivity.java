@@ -27,11 +27,11 @@ import com.project.sustain.model.UserManager;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private User mUser;
     private UserManager mUserManager;
-    private UserResultListener mUserResultListener;
-    public static final int PROFILE_CHANGE_REQ = 1000;
+    // --Commented out by Inspection (4/10/2017 21:05 PM):private UserResultListener mUserResultListener;
+    private static final int PROFILE_CHANGE_REQ = 1000;
 
-    private Button subWtrRep;
-    private Button viewWtrRep;
+    // --Commented out by Inspection (4/10/2017 21:05 PM):private Button subWtrRep;
+    // --Commented out by Inspection (4/10/2017 21:05 PM):private Button viewWtrRep;
 
     private NavigationView navigationView;
     @Override
@@ -133,18 +133,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void checkLoggedInStatus() {
-        //get the User object for the current logged-in user
-        //we will pass this on to the next activity
-        //call is asynchronous; result handled by mUserResultListener.onComplete()
-        mUserManager.setUserResultListener(mUserResultListener);
-        try {
-            mUserManager.getCurrentUser();
-        } catch (UserNotAuthenticatedException e) {
-            //exit this activity
-            finish();
-        }
-    }
+// --Commented out by Inspection START (4/10/2017 21:05 PM):
+//    private void checkLoggedInStatus() {
+//        //get the User object for the current logged-in user
+//        //we will pass this on to the next activity
+//        //call is asynchronous; result handled by mUserResultListener.onComplete()
+//        mUserManager.setUserResultListener(mUserResultListener);
+//        try {
+//            mUserManager.getCurrentUser();
+//        } catch (UserNotAuthenticatedException e) {
+//            //exit this activity
+//            finish();
+//        }
+//    }
+// --Commented out by Inspection STOP (4/10/2017 21:05 PM)
 
     // Menu icons are inflated just as they were with actionbar
     @Override

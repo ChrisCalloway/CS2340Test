@@ -16,12 +16,12 @@ import java.util.List;
  */
 
 public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.WaterViewHolder>{
-    private List<Report> wtrReportList;
+    private final List<Report> wtrReportList;
 
     public class WaterViewHolder extends RecyclerView.ViewHolder {
-        public TextView reportNumText;
-        public TextView reportDateText;
-        public TextView reportPlaceText;
+        public final TextView reportNumText;
+        public final TextView reportDateText;
+        public final TextView reportPlaceText;
 
         public WaterViewHolder(View view) {
             super(view);

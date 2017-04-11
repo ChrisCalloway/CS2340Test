@@ -10,7 +10,7 @@ public enum UserType {
     MANAGER("Manager"),
     ADMIN("Administrator");
 
-    private String description;
+    private final String description;
     UserType(String userDescription) {
         this.description = userDescription;
     }

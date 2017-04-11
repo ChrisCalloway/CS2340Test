@@ -22,13 +22,13 @@ import com.project.sustain.model.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
     private EditText enteredEmail, enteredPassword;
-    private Button btnCancelRegistration;
+    // --Commented out by Inspection (4/10/2017 21:06 PM):private Button btnCancelRegistration;
     private ProgressBar progressBar;
     private Spinner selectedUserType;
     private User mUserProfile;
     private UserManager mUserManager;
-    public static final int PROFILE_CHANGE_REQ = 1000;
-    public static final String TAG = "RegistrationActivity";
+    private static final int PROFILE_CHANGE_REQ = 1000;
+    private static final String TAG = "RegistrationActivity";
 
 
     @Override

@@ -7,7 +7,7 @@ package com.project.sustain.controllers;
 public interface DatabaseWrapper {
      void connect();
 
-     void disconnect();
+     // --Commented out by Inspection (4/10/2017 20:55 PM):void disconnect();
 
      String getCurrentUserId();
 
@@ -39,7 +39,7 @@ public interface DatabaseWrapper {
 
      void setQueryListResultListener(QueryListResultListener listener);
 
-     void removeQueryListResultListener();
+     // --Commented out by Inspection (4/10/2017 20:59 PM):void removeQueryListResultListener();
 
      void setQuerySingleResultListener(QuerySingleResultListener listener);
 
@@ -51,5 +51,5 @@ public interface DatabaseWrapper {
 
      void setQueryEntireListListener(QueryEntireListListener listener);
 
-     void removeQueryEntireListListener();
+     // --Commented out by Inspection (4/10/2017 20:55 PM):void removeQueryEntireListListener();
 }

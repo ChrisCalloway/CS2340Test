@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by Chris on 4/4/17.
  */
 
-public class HistoricalGraphData implements Serializable {
+class HistoricalGraphData implements Serializable {
     private Map<Month, Double> coordinatePointData;
 
     public HistoricalGraphData(Map<Month, Double> coordinatePointData) {

@@ -36,7 +36,7 @@ public enum WaterType implements Parcelable{
         out.writeInt(ordinal());
     }
 
-    private String typeDeclared;
+    private final String typeDeclared;
 
     WaterType (String typePassed) {
         typeDeclared = typePassed;

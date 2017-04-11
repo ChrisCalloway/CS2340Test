@@ -13,7 +13,7 @@ public enum WaterCondition implements Parcelable {
     TREATABLEMUDDY("Treatable-Muddy"),
     POTABLE("Potable");
 
-    private String conditionDeclared;
+    private final String conditionDeclared;
 
     WaterCondition (String conditionPassed) {
         conditionDeclared = conditionPassed;

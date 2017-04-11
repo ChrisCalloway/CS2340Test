@@ -56,7 +56,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
     private User mUser;
-    protected android.location.Location mLastLocation;
+    private android.location.Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
     private boolean mAddressRequested;
     private boolean mLocationPermissionGranted;
@@ -77,8 +77,8 @@ public class SetAddressActivity extends AppCompatActivity implements
 
     private LocationRequest mLocationRequest;
     private Report mReport;
-    private boolean puritySelected = false;
-    private Calendar currentCalendar = new GregorianCalendar();
+    // --Commented out by Inspection (4/10/2017 21:14 PM):private boolean puritySelected = false;
+    private final Calendar currentCalendar = new GregorianCalendar();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -326,7 +326,7 @@ public class SetAddressActivity extends AppCompatActivity implements
      * @param action FetchAddressIntentService constant indicating the type of data to retrieve
      *               (Address or LatLong).
      */
-    protected void startIntentService(String action) {
+    private void startIntentService(String action) {
         Log.d(TAG, "Starting address fetching service");
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.setAction(action);
