@@ -12,8 +12,6 @@ public class UserPermissions implements Serializable {
     private final boolean ableToCreatePurityReports;
     private final boolean ableToViewPurityReports;
     private final boolean ableToViewHistoricalReports;
-    private final boolean ableToDeleteReports;
-    private final boolean ableToAdministerUsers;
 
     public UserPermissions() {
         this(false, false, false, false, false);
@@ -27,8 +25,6 @@ public class UserPermissions implements Serializable {
         this.ableToCreatePurityReports = ableToCreatePurityReports;
         this.ableToViewPurityReports = ableToViewPurityReports;
         this.ableToViewHistoricalReports = ableToViewHistoricalReports;
-        this.ableToDeleteReports = ableToDeleteReports;
-        this.ableToAdministerUsers = ableToAdministerUsers;
     }
     
     public boolean isAbleToCreatePurityReports() {

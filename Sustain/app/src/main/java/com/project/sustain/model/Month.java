@@ -22,10 +22,7 @@ public enum Month implements Parcelable {
     NOV("Nov"),
     DEC("Dec");
 
-    private final String abbrName;
-
     Month(String abbr) {
-        this.abbrName = abbr;
     }
 
     public static final Parcelable.Creator<Month> CREATOR = new Parcelable.Creator<Month>() {

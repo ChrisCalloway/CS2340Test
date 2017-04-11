@@ -24,8 +24,8 @@ public abstract class Report implements Serializable {
 
     }
 
-    Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
-           String timeOfReport, String reportId) {
+    private Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
+                   String timeOfReport, String reportId) {
         this.address = address;
         this.reporterName = reporterName;
         this.reporterUserId = reporterUserId;

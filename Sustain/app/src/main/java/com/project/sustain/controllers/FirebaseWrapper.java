@@ -36,7 +36,6 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private DatabaseReference mDatabaseReference;
     private Object singleResult;
     private String userDisplayName = "";
-    private boolean isLoggedIn = false;
     private String userId = "";
     private String userEmail = "";
     private AuthResultListener mAuthResultListener = null;
@@ -65,6 +64,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     private void getCurrentUser() {
         mUser = mFirebaseAuth.getCurrentUser();
+        boolean isLoggedIn = false;
         if (mUser != null) {
             isLoggedIn = true;
             userDisplayName = mUser.getDisplayName() + "";
