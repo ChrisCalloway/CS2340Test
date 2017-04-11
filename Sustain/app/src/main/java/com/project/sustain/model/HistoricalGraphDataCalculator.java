@@ -1,14 +1,6 @@
 package com.project.sustain.model;
 
-import android.util.Log;
-
-import com.project.sustain.controllers.QueryEntireListListener;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -23,9 +15,9 @@ public class HistoricalGraphDataCalculator implements Serializable {
 
     /**
      * Constructor that initializes the object.
-     * @param location
-     * @param year
-     * @param dataType
+     * @param location Name of location selected
+     * @param year Year selected
+     * @param dataType Type of data selected, either virus or contaminant
      */
     private HistoricalGraphDataCalculator(String location, String year, String dataType) {
         this.location = location;

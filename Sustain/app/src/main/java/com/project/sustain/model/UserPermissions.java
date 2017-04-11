@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author Marcia
  */
 
+@SuppressWarnings("UnusedParameters")
 public class UserPermissions implements Serializable {
 
     private final boolean ableToCreatePurityReports;

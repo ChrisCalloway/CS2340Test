@@ -9,6 +9,7 @@ import java.util.EventListener;
  * @author Marcia
  */
 
+@SuppressWarnings("EmptyMethod")
 public interface UserResultListener extends EventListener {
     void onComplete(User user);
     void onError(Throwable error);

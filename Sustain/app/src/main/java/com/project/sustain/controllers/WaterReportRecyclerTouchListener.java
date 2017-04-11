@@ -48,6 +48,7 @@ class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListen
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
 
+    @SuppressWarnings({"EmptyMethod", "UnusedParameters"})
     public interface ClickListener {
         void onClick(View view, int position);
         void onLongClick(View view, int position);

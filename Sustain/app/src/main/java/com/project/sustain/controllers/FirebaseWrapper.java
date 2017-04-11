@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.project.sustain.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,6 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private RegistrationResultListener mRegistrationResultListener = null;
     private QueryEntireListListener mQueryEntireListListener = null;
     private Object mModelObject = null;
-    private User currentUser = null;
 
     private static final String TAG = "FirebaseWrapper";
 
