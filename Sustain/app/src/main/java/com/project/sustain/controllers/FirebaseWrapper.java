@@ -38,6 +38,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
     private String userDisplayName = "";
     private String userId = "";
     private String userEmail = "";
+    private boolean isLoggedIn;
     private AuthResultListener mAuthResultListener = null;
     private QueryListResultListener mQueryListResultListener = null;
     private QuerySingleResultListener mQuerySingleResultListener = null;
@@ -64,7 +65,7 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     private void getCurrentUser() {
         mUser = mFirebaseAuth.getCurrentUser();
-        boolean isLoggedIn = false;
+        isLoggedIn = false;
         if (mUser != null) {
             isLoggedIn = true;
             userDisplayName = mUser.getDisplayName() + "";
@@ -125,14 +126,12 @@ public class FirebaseWrapper implements DatabaseWrapper {
         return userEmail;
     }
 
-// --Commented out by Inspection START (4/10/2017 20:59 PM):
-//    public boolean isLoggedIn() {
-//        if (mUser == null) {
-//            getCurrentUser();
-//        }
-//        return isLoggedIn;
-//    }
-// --Commented out by Inspection STOP (4/10/2017 20:59 PM)
+    public boolean isLoggedIn() {
+        if (mUser == null) {
+            getCurrentUser();
+        }
+        return isLoggedIn;
+    }
 
     public void connect() {
         mFirebaseAuth.addAuthStateListener(mAuthListener);
