@@ -146,11 +146,9 @@ public class UserManager {
         this.mRegistrationResultListener = listener;
     }
 
-// --Commented out by Inspection START (4/10/2017 21:14 PM):
-//    public void removeRegistrationResultListener() {
-//        this.mRegistrationResultListener = null;
-//    }
-// --Commented out by Inspection STOP (4/10/2017 21:14 PM)
+    public void removeRegistrationResultListener() {
+        this.mRegistrationResultListener = null;
+    }
 
     public void removeAllListeners() {
         mUserResultListener = null;

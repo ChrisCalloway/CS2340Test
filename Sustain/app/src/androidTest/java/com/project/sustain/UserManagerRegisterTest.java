@@ -25,7 +25,7 @@ public class UserManagerRegisterTest {
     @Before
     public void setUp() throws Exception {
         mFirebaseWrapper = new FirebaseWrapper();
-//        mUserManager = new UserManager();
+        mUserManager = new UserManager();
         ready = false;
         AuthResultListener listener = new AuthResultListener() {
             @Override
@@ -49,18 +49,20 @@ public class UserManagerRegisterTest {
 
             }
         };
+        mUserManager.setRegistrationResultListener(registrationResultListener);
         mFirebaseWrapper.setAuthResultListener(listener);
-        mFirebaseWrapper.setRegistrationResultListener(registrationResultListener);
     }
 
     @After
     public void tearDown() throws Exception {
         ready = false;
-//        mUserManager = null;
-        mFirebaseWrapper.logOut();
-        mFirebaseWrapper.removeAuthResultListener();
-        mFirebaseWrapper.removeRegistrationResultListener();
-        mFirebaseWrapper = null;
+        mUserManager.removeRegistrationResultListener();
+        mUserManager = null;
+
+         mFirebaseWrapper.logOut();
+        // mFirebaseWrapper.removeRegistrationResultListener();
+         mFirebaseWrapper.removeAuthResultListener();
+         mFirebaseWrapper = null;
     }
 
     @Test
@@ -69,9 +71,10 @@ public class UserManagerRegisterTest {
 
 
         // Need to give proper inputs, email not yet used.
-        String email = "chris_register_test2@email.com";
+        String email = "chris_register_test@email.com";
         String password = "password";
-        mFirebaseWrapper.createAccountWithEmailPassword(email, password);
+//        mFirebaseWrapper.createAccountWithEmailPassword(email, password);
+        mUserManager.registerWithEmailPassword(email, password);
         while (!ready) {
             Thread.sleep(5000);
         }
@@ -81,7 +84,7 @@ public class UserManagerRegisterTest {
         //assert userId is correct value
         // assertEquals("M04uLja9QPSz7IVhYw5yyv3AgLb2", userId);
         //assert user email is correct value
-        assertEquals("chris_register_test2@email.com", mFirebaseWrapper.getCurrentUserEmail());
+        assertEquals("chris_register_test@email.com", mFirebaseWrapper.getCurrentUserEmail());
         //assert isLoggedIn == true
         assertEquals(true, mFirebaseWrapper.isLoggedIn());
 
@@ -90,7 +93,10 @@ public class UserManagerRegisterTest {
     @Test
     public void testRegisterWithEmailPasswordNotValid() throws Exception {
         ready = false;
-        mFirebaseWrapper.createAccountWithEmailPassword("chris_user@email.com", "notcorrectpassword");
+        String email = "chris_user@email.com";
+        String password = "notcorrectpassword";
+//        mFirebaseWrapper.createAccountWithEmailPassword(email, password);
+        mUserManager.registerWithEmailPassword(email, password);
         while (!ready) {
             Thread.sleep(5000);
         }
