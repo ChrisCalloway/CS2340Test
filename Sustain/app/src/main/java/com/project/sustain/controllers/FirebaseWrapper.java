@@ -181,7 +181,9 @@ public class FirebaseWrapper implements DatabaseWrapper {
     }
 
     public void logOut() {
+
         mFirebaseAuth.signOut();
+        mUser = null;
     }
 
     public <T> void queryDatabaseForEntireListAsync(String query, final T modelObject) {
