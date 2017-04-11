@@ -9,5 +9,6 @@ import java.util.EventListener;
 
 public interface AuthResultListener extends EventListener {
     void onComplete(boolean success);
+    @SuppressWarnings("unused")
     void onError(Throwable error);
 }

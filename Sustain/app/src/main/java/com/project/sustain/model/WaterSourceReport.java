@@ -17,6 +17,7 @@ public class WaterSourceReport extends Report implements Serializable {
     public WaterSourceReport() {
     }
 
+    @SuppressWarnings("unused")
     public WaterSourceReport(Address address) {
         this.setAddress(address);
     }

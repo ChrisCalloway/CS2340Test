@@ -12,6 +12,7 @@ import android.view.View;
  */
 
 
+@SuppressWarnings("deprecation")
 class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     private final GestureDetector gestureDetector;
     private final ClickListener clickListener;

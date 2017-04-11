@@ -17,6 +17,7 @@ public class Location implements Serializable {
     private double longitude;
 
 
+   @SuppressWarnings("unused")
    public Location() {
 
    }

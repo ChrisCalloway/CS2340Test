@@ -21,6 +21,7 @@ public class WaterPurityReport extends Report implements Serializable {
     public void setReportedOverallWaterCondition(OverallWaterCondition condition) {
         this.reportedOverallWaterCondition = condition;
     }
+    @SuppressWarnings("unused")
     public OverallWaterCondition getReportedOverallWaterCondition() {
         return this.reportedOverallWaterCondition;
     }

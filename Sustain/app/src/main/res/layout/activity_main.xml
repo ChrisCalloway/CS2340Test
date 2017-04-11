@@ -32,7 +32,8 @@
         app:srcCompat="@drawable/sustain_svg"
         android:id="@+id/sustainIcon"
         android:layout_marginTop="81dp"
-        android:layout_marginBottom="82dp" />
+        android:layout_marginBottom="82dp"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:text="@string/main_page"

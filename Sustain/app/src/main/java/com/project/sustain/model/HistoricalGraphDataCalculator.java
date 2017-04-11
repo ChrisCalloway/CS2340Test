@@ -19,6 +19,7 @@ public class HistoricalGraphDataCalculator implements Serializable {
      * @param year Year selected
      * @param dataType Type of data selected, either virus or contaminant
      */
+    @SuppressWarnings("SameParameterValue")
     private HistoricalGraphDataCalculator(String location, String year, String dataType) {
         this.location = location;
         this.year = year;

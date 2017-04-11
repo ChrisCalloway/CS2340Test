@@ -48,12 +48,6 @@ public class MapsMarkerActivity extends AppCompatActivity
     // location retrieved by the Fused Location Provider.
     private android.location.Location mLastKnownLocation;
 
-
-    // Keys for storing activity state.
-    private static final String KEY_CAMERA_POSITION = "camera_position";
-    private static final String KEY_LOCATION = "location";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

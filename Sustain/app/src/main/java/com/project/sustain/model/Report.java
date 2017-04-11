@@ -24,6 +24,7 @@ public abstract class Report implements Serializable {
 
     }
 
+    @SuppressWarnings("SameParameterValue")
     private Report(Address address, String reporterName, String reporterUserId, String dateOfReport,
                    String timeOfReport, String reportId) {
         this.address = address;
@@ -35,6 +36,7 @@ public abstract class Report implements Serializable {
 
     }
 
+    @SuppressWarnings("unused")
     public String getReporterUserId() {
         return reporterUserId;
     }
@@ -55,6 +57,7 @@ public abstract class Report implements Serializable {
         this.dateOfReport = dateOfReport;
     }
 
+    @SuppressWarnings("unused")
     public String getTimeOfReport() {
         return timeOfReport;
     }
@@ -63,6 +66,7 @@ public abstract class Report implements Serializable {
         this.timeOfReport = timeOfReport;
     }
 
+    @SuppressWarnings("unused")
     public String getReporterName() {
         return reporterName;
     }

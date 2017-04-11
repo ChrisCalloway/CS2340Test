@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -63,7 +64,8 @@
             android:id="@+id/editLatitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal|numberSigned"/>
+            android:inputType="numberDecimal|numberSigned"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="numberDecimal|numberSigned"/>
+            android:inputType="numberDecimal|numberSigned"
+            tools:ignore="LabelFor" />
         </LinearLayout>
 
     <LinearLayout
@@ -101,7 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,7 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -139,7 +144,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -158,7 +164,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -177,7 +184,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <LinearLayout
@@ -196,7 +204,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            tools:ignore="LabelFor" />
     </LinearLayout>
 
     <Button
@@ -216,7 +225,8 @@
             android:id="@+id/radReportType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <RadioButton
                 android:id="@+id/radBtnWaterReport"
@@ -242,13 +252,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/cont"/>
+            android:text="@string/cont"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 </LinearLayout>

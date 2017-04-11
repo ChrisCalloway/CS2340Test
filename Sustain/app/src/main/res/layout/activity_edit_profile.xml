@@ -20,7 +20,8 @@
             android:inputType="textPersonName"
             android:gravity="start"
             android:id="@+id/editText_userName"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -53,7 +54,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_street1"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -65,7 +67,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_street2"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -77,7 +80,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_city"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -89,7 +93,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_state"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -101,7 +106,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_country"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
@@ -113,7 +119,8 @@
         <EditText
             android:inputType="textPostalAddress"
             android:id="@+id/editText_zipCode"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
     </TableRow>
     <TableRow>
         <Button

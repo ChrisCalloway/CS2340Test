@@ -12,5 +12,5 @@ import java.util.EventListener;
 @SuppressWarnings("EmptyMethod")
 public interface UserResultListener extends EventListener {
     void onComplete(User user);
-    void onError(Throwable error);
+    void onError(@SuppressWarnings("UnusedParameters") Throwable error);
 }

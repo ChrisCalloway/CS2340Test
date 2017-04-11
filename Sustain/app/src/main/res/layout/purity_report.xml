@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_margin="16dp"
               android:orientation="vertical">
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        />
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/lblOverallCondition"
@@ -44,7 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/lblContaminantPpm"
@@ -58,7 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,14 +72,16 @@
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/save"/>
+            android:text="@string/save"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>
