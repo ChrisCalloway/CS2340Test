@@ -1,11 +1,11 @@
 package com.project.sustain.model;
 
 /**
- * Created by Marcia on 3/26/2017.
+ * Sets permissions for Admin user.
+ * @author Marcia
  */
 
-@SuppressWarnings("WeakerAccess")
-public class AdminPermissions extends UserPermissions {
+class AdminPermissions extends UserPermissions {
 
     public AdminPermissions() {
         super(true, true, true, true, true);

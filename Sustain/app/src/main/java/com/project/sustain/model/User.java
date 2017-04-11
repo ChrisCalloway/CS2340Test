@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Created by Marcia on 2/27/2017.
  */
 
+@SuppressWarnings("ALL")
 @IgnoreExtraProperties
 public class User implements Serializable {
     private UserType userType;

@@ -1,7 +1,8 @@
 package com.project.sustain.model;
 
 /**
- * Created by Marcia on 3/26/2017.
+ * Model class that sets permissions for worker.
+ * @author Marcia
  */
 
 class WorkerPermissions extends UserPermissions {

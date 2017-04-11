@@ -29,6 +29,7 @@ import static com.project.sustain.services.FetchAddressConstants.RECEIVER;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
+@SuppressWarnings("ALL")
 public class FetchAddressIntentService extends IntentService {
     private ResultReceiver mReceiver;
 

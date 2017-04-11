@@ -22,7 +22,8 @@ import java.util.List;
 
 
 /**
- * Created by Marcia on 3/14/2017.
+ * Instance of DatabaseWrapper for the Firebase database.
+ * @author Marcia
  */
 
 public class FirebaseWrapper implements DatabaseWrapper {

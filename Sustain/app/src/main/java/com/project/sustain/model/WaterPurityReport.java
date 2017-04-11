@@ -5,7 +5,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 /**
- * Created by Chris on 3/13/17.
+ * Model class for model purity reports.
+ * @author Chris
  */
 @IgnoreExtraProperties
 public class WaterPurityReport extends Report implements Serializable {

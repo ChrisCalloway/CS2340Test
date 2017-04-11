@@ -1,7 +1,8 @@
 package com.project.sustain.model;
 
 /**
- * Created by Marcia on 3/26/2017.
+ * Sets application permissions for Manager type user.
+ * @author Marcia
  */
 
 class ManagerPermissions extends UserPermissions {

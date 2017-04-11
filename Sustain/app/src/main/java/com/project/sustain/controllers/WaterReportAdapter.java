@@ -12,7 +12,8 @@ import com.project.sustain.model.Report;
 import java.util.List;
 
 /**
- * Created by Anish on 3/7/17.
+ * Adaptor for scrolling through all water reports.
+ * @author Anish
  */
 
 public class WaterReportAdapter extends RecyclerView.Adapter<WaterReportAdapter.WaterViewHolder>{

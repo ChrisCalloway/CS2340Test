@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private User mUser;
     private UserManager mUserManager;
     // --Commented out by Inspection (4/10/2017 21:05 PM):private UserResultListener mUserResultListener;
+
     private static final int PROFILE_CHANGE_REQ = 1000;
 
     // --Commented out by Inspection (4/10/2017 21:05 PM):private Button subWtrRep;
