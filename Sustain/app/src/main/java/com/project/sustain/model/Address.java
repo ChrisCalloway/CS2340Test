@@ -5,7 +5,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 /**
- * Created by Marcia on 2/27/2017.
+ * Model class for storing address information.
+ * @author Marcia
  */
 
 @IgnoreExtraProperties

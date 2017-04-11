@@ -3,7 +3,8 @@ package com.project.sustain.controllers;
 import java.util.EventListener;
 
 /**
- * Created by Marcia on 3/22/2017.
+ * Listener for when new user registers with the application.
+ * @author Marcia
  */
 
 public interface RegistrationResultListener extends EventListener {

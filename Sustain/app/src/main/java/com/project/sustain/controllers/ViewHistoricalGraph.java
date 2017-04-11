@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Julio de Sa on 4/1/2017.
+ * Activity that displays historical graph based on parameters selected.
+ * @author Julio de Sa
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
     private List<WaterPurityReport> mReportList;

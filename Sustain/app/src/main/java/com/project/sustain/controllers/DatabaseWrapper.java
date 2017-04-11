@@ -1,9 +1,11 @@
 package com.project.sustain.controllers;
 
 /**
- * Created by Marcia on 3/14/2017.
+ * Interface that provides method for generic database class.
+ * @author Marcia
  */
 
+@SuppressWarnings("SameParameterValue")
 public interface DatabaseWrapper {
      void connect();
 
