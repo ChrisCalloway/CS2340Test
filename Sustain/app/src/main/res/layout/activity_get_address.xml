@@ -56,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/latitude"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -73,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/longitude"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -91,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/street_address1"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -109,6 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/street_address2"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -127,6 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/city"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -145,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/state_or_province"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -163,6 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/country"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
@@ -181,6 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zip_code"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"/>
 
         <EditText
