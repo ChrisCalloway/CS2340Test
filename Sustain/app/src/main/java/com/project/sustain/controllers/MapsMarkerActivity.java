@@ -87,12 +87,15 @@ public class MapsMarkerActivity extends AppCompatActivity
                         String place = report.getAddress().getPlaceName();
                         Location loc = report.getAddress().getLocation();
                         //Log.d(TAG, report.toString());
-                        String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
+                        String reportInfo = report.getWaterType()
+                                + ", " + report.getWaterCondition();
                         if (!"".equals(place)) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                            mMap.addMarker(
+                                    new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title(place).snippet(reportInfo));
                         } else {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                            mMap.addMarker(
+                                    new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title("Water Source").snippet(reportInfo));
                         }
                     }

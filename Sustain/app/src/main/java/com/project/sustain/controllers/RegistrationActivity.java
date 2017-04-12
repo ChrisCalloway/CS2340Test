@@ -60,7 +60,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //fill drop-down boxes
-        selectedUserType.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,
+        selectedUserType.setAdapter(
+                new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,
                 UserType.values()));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -70,15 +71,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 String password = enteredPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Please enter email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter email address", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, please enter minimum 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Password too short, please enter minimum 6 characters",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -101,7 +106,8 @@ public class RegistrationActivity extends AppCompatActivity {
                             mUserManager.addUser(mUserProfile);
                             //open profile editor
                             //EditProfileActivity expects to be passed a User object
-                            Intent intent = new Intent(RegistrationActivity.this, EditProfileActivity.class);
+                            Intent intent = new Intent(RegistrationActivity.this,
+                                    EditProfileActivity.class);
                             intent.putExtra("user", mUserProfile);
                             startActivityForResult(intent, PROFILE_CHANGE_REQ);
                         } else {

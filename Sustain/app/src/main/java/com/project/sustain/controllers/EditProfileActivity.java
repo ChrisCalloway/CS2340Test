@@ -33,7 +33,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mZip;
     private UserManager mUserManager;
     private User mUserProfile;
-    // --Commented out by Inspection (4/10/2017 20:55 PM):private Context appContext = this.getApplication();
+    // --Commented out by Inspection (4/10/2017 20:55 PM):
+    // private Context appContext = this.getApplication();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

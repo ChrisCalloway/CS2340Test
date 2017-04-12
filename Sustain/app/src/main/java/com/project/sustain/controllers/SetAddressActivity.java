@@ -454,7 +454,8 @@ public class SetAddressActivity extends AppCompatActivity implements
                     // Display the address string
                     // or an error message sent from the intent service.
                     ArrayList<String> address = resultData.
-                            getStringArrayList(FetchAddressConstants.LOCATION_RESULT_ADDRESS_AS_LIST);
+                            getStringArrayList(
+                                    FetchAddressConstants.LOCATION_RESULT_ADDRESS_AS_LIST);
 
 
                     displayAddressOutput(address);

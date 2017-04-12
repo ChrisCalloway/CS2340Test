@@ -24,7 +24,8 @@ public enum OverallWaterCondition implements Parcelable {
         return this.overallWaterCondition;
     }
 
-    public static final Parcelable.Creator<OverallWaterCondition> CREATOR = new Parcelable.Creator<OverallWaterCondition>() {
+    public static final Parcelable.Creator<OverallWaterCondition> CREATOR =
+            new Parcelable.Creator<OverallWaterCondition>() {
         public OverallWaterCondition createFromParcel(Parcel in) {
             return OverallWaterCondition.values()[in.readInt()];
         }

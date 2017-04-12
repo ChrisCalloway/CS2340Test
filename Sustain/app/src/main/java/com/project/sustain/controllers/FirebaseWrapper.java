@@ -204,7 +204,8 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Log.d("FirebaseWrapper", "Got water report" + snapshot.getValue(mModelObject.getClass()));
+                        Log.d("FirebaseWrapper", "Got water report"
+                                + snapshot.getValue(mModelObject.getClass()));
                         resultList.add((T)snapshot.getValue(mModelObject.getClass()));
                     }
                     if (mQueryEntireListListener != null) {
