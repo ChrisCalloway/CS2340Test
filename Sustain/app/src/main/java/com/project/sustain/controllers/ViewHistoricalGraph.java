@@ -106,13 +106,13 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         });
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-        if(this.dataType.equals("virus")) {
+        if("virus".equals(this.dataType)) {
             Log.d("Display Graph", "Showing data for virus");
             graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
                     + " of " + "Virus PPM");
             graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Virus PPM");
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
-        } else if(this.dataType.equals("contaminant")) {
+        } else if("contaminant".equals(this.dataType)) {
             Log.d("Display Graph", "Showing data for contaminant");
             graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
                     + " of " + "Contaminant PPM");
@@ -162,9 +162,9 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                             month = "December";
                             break;
                     }
-                    if(dataType.equals("virus")) {
+                    if("virus".equals(dataType)) {
                         Toast.makeText(getApplicationContext(), "Average Virus PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
-                    } else if (dataType.equals("contaminant")) {
+                    } else if ("contaminant".equals(dataType)) {
                         Toast.makeText(getApplicationContext(), "Average Contaminant PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -208,7 +208,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         // and location.  Now, need to divide these into months.
         // Am instantiating a hashmap where the key is the month, the value is the
         // total PPM for the provided data type.
-        if(this.dataType.equals("virus")) {
+        if("virus".equals(this.dataType)) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 // Get the current report's key
                 Log.d("ViewHistoricalGraph", "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
@@ -267,7 +267,7 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                     graphAveragePPMValues.put(month, averagePPMForMonth);
                 }
             }
-        } else if(this.dataType.equals("contaminant")) {
+        } else if("contaminant".equals(this.dataType)) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 Log.d("ViewHistoricalGraph", "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
                         substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')).toUpperCase()));

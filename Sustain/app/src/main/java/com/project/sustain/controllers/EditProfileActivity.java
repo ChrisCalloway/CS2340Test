@@ -18,6 +18,9 @@ import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
 import com.project.sustain.model.UserType;
 
+/**
+ * Activity that allows users to edit their profile information
+ */
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
     private EditText mUserName;
@@ -92,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     private boolean userDisplayNameChanged() {
         String storedName = mUserManager.getCurrentUserDisplayName();
-        if (storedName == null || storedName.length() == 0) {
+        if ((storedName == null) || storedName.isEmpty()) {
             return mUserName.length() > 0;
         } else {
             return !(storedName.contentEquals(mUserName.getText()));
@@ -104,7 +107,7 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     private void updateUserDisplayName() {
         String currentDisplayName = mUserName.getText().toString();
-        if (currentDisplayName.length() > 0) {
+        if (!currentDisplayName.isEmpty()) {
             mUserManager.updateCurrentUserDisplayName(currentDisplayName);
         }
     }

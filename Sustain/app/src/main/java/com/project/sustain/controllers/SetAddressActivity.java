@@ -86,7 +86,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         currentCalendar.setTimeZone(TimeZone.getTimeZone("EST"));
         mUser = (User) getIntent().getSerializableExtra("user");
-        if (mUser == null || mUser.getUserId().equals("")) {
+        if ((mUser == null) || "".equals(mUser.getUserId())) {
             Toast.makeText(getApplicationContext(), "User profile not found.\n" +
             "Please complete your profile before reporting.", Toast.LENGTH_LONG).show();
             //go back to MainActivity
@@ -236,7 +236,7 @@ public class SetAddressActivity extends AppCompatActivity implements
         address.setStateOrProvince(editState.getText().toString());
         address.setCountry(editCountry.getText().toString());
         address.setZipCode(editZipCode.getText().toString());
-        if (editLatitude.getText().length() > 0 && editLongitude.getText().length() > 0) {
+        if ((editLatitude.getText().length() > 0) && (editLongitude.getText().length() > 0)) {
             com.project.sustain.model.Location location = new com.project.sustain.model.Location(
                     Double.parseDouble(editLatitude.getText().toString()),
                     Double.parseDouble(editLongitude.getText().toString()));
@@ -257,9 +257,9 @@ public class SetAddressActivity extends AppCompatActivity implements
         int hour = currentCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = currentCalendar.get(Calendar.MINUTE);
         int seconds = currentCalendar.get(Calendar.SECOND);
-        String hourFormatted = (hour < 10) ? "0" + hour : "" + hour;
-        String minuteFormatted = (minute < 10) ? "0" + minute : "" + minute;
-        String secondsFormatted = (seconds < 10) ? "0" + seconds : "" + seconds;
+        String hourFormatted = ((hour < 10 ? "0" : "") + hour);
+        String minuteFormatted = ((minute < 10 ? "0" : "") + minute);
+        String secondsFormatted = ((seconds < 10 ? "0" : "") + seconds);
         return hourFormatted + ":" + minuteFormatted + ":" + secondsFormatted;
     }
 
@@ -388,8 +388,8 @@ public class SetAddressActivity extends AppCompatActivity implements
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if ((grantResults.length > 0)
+                        && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     mLocationPermissionGranted = true;
                 }
             }
@@ -409,7 +409,7 @@ public class SetAddressActivity extends AppCompatActivity implements
      */
     private void displayAddressOutput(ArrayList<String> addressParts) {
         //try to guess where the parts go.
-        if (addressParts.size() > 0) {
+        if (!addressParts.isEmpty()) {
             this.editStreetAddress1.setText(addressParts.get(0));
         }
         if (addressParts.size() > 2) {

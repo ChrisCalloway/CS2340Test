@@ -27,7 +27,7 @@ class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListen
             @Override
             public void onLongPress(MotionEvent e) {
                 View child = wtrRepRecyclerView.findChildViewUnder(e.getX(), e.getY());
-                if (child != null && clickListener != null) {
+                if ((child != null) && (clickListener != null)) {
                     clickListener.onLongClick(child, wtrRepRecyclerView.getChildPosition(child));
                 }
             }
@@ -37,7 +37,7 @@ class WaterReportRecyclerTouchListener implements RecyclerView.OnItemTouchListen
     @Override
     public boolean onInterceptTouchEvent(RecyclerView wtrRepRecView, MotionEvent e) {
         View child = wtrRepRecView.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+        if ((child != null) && (clickListener != null) && gestureDetector.onTouchEvent(e)) {
             clickListener.onClick(child, wtrRepRecView.getChildPosition(child));
         }
         return false;

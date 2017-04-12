@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Activity that handles the selection of the historical data
+ */
 public class SelectHistoricalData extends AppCompatActivity {
 
     private Spinner spinLocationName;

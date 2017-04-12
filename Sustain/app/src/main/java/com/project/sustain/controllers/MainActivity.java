@@ -22,7 +22,10 @@ import com.project.sustain.R;
 import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
 
-
+/**
+ * Activity that handles the main screen of the app.
+ * Also handles the nav menu
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private User mUser;
     private UserManager mUserManager;

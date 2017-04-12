@@ -7,6 +7,7 @@ import java.util.EventListener;
  * @author Marcia
  */
 
+@SuppressWarnings("JavaDoc")
 public interface AuthResultListener extends EventListener {
     void onComplete(boolean success);
     @SuppressWarnings("unused")

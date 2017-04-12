@@ -20,8 +20,12 @@ import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
 import com.project.sustain.model.UserType;
 
+/**
+ * Activity that handles the registration of the user.
+ */
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText enteredEmail, enteredPassword;
+    private EditText enteredEmail;
+    private EditText enteredPassword;
     // --Commented out by Inspection (4/10/2017 21:06 PM):private Button btnCancelRegistration;
     private ProgressBar progressBar;
     private Spinner selectedUserType;

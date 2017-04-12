@@ -34,24 +34,48 @@ public class HistoricalGraphDataCalculator implements Serializable {
         this("","","");
     }
 
+    /**
+     * Method that will set the location
+     * @param location The location to be set
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     * Method that will get the location
+     * @return the location
+     */
     public String getLocation() {
         return this.location;
     }
 
+    /**
+     * Method that will set the year.
+     * @param year The year to be set
+     */
     public void setYear(String year) { this.year = year; }
 
+    /**
+     * Method that will get the year
+     * @return the year
+     */
     public String getYear() {
         return this.year;
     }
 
+    /**
+     * Method that will set the dataType
+     * @param dataType The dataTypes: virus or contaminant
+     */
     public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 
+    /**
+     * Method that will get the dataType
+     * @return the dataType (virus or contaminant)
+     */
     public String getDataType() {
         return this.dataType;
     }

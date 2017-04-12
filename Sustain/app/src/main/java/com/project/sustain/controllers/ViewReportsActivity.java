@@ -80,9 +80,9 @@ public class ViewReportsActivity extends AppCompatActivity {
         };
         mReportManager.setQueryListResultListener(qrListener);
 
-        if (reportTypeToShow.equals("source")) {
+        if ("source".equals(reportTypeToShow)) {
             mReportManager.getWaterSourceReports();
-        } else if (reportTypeToShow.equals("purity")) {
+        } else if ("purity".equals(reportTypeToShow)) {
             mReportManager.getWaterPurityReports();
         }
 
@@ -121,7 +121,7 @@ public class ViewReportsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (mReportManager != null && qrListener != null) {
+        if ((mReportManager != null) && (qrListener != null)) {
             mReportManager.setQueryListResultListener(qrListener);
         }
         super.onResume();
