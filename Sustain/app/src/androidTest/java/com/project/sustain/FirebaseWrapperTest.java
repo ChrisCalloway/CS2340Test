@@ -17,6 +17,7 @@ public class FirebaseWrapperTest {
     AuthResultListener listener;
     boolean ready = false;
 
+
     @Before
     public void setUp() throws Exception {
         mFirebaseWrapper = new FirebaseWrapper();
@@ -44,6 +45,10 @@ public class FirebaseWrapperTest {
         mFirebaseWrapper = null;
     }
 
+    /**
+     * Tests getCurrentUser private method in FirebaseWrapper class.
+     * @throws Exception
+     */
     @Test
     public void testGetCurrentUserValid() throws Exception {
         mFirebaseWrapper.loginWithEmail("testmanager@user.com", "Sustain");
