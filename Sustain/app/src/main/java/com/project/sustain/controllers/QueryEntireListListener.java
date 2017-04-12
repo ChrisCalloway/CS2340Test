@@ -7,6 +7,7 @@ import java.util.List;
  * @author Chris
  */
 
+@SuppressWarnings("JavaDoc")
 public interface QueryEntireListListener extends EventListener {
     <T> void onComplete(List<T> result);
     void onError(Throwable error);

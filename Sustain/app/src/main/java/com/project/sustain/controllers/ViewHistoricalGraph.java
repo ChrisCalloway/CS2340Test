@@ -29,7 +29,8 @@ import java.util.Map;
  */
 public class ViewHistoricalGraph extends AppCompatActivity {
     private List<WaterPurityReport> mReportList;
-    // --Commented out by Inspection (4/10/2017 21:15 PM):private Map<Month, Double> coordinatePointData;
+    // --Commented out by Inspection (4/10/2017 21:15 PM):
+    // private Map<Month, Double> coordinatePointData;
     private String year;
     private String dataType;
     private String location;
@@ -39,7 +40,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_graph);
 
-        HistoricalGraphDataCalculator graphData = (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
+        HistoricalGraphDataCalculator graphData =
+                (HistoricalGraphDataCalculator) getIntent().getSerializableExtra("graphData");
         year = graphData.getYear();
         dataType = graphData.getDataType();
         location = graphData.getLocation();
@@ -49,7 +51,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
             @Override
             public <T> void onComplete(List<T> list) {
                 mReportList = ((ArrayList<WaterPurityReport>) list);
-                Log.d("GraphData-OnComplete", "Got reportList about to call processWaterPurityReports");
+                Log.d("GraphData-OnComplete",
+                        "Got reportList about to call processWaterPurityReports");
                 // Process the list of water purity reports
                 // It seems that we need to listen for when coordinatePointData is assigned a value.
                 processWaterPurityReports();
@@ -71,7 +74,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         DataPoint[] dataPoints = new DataPoint[Month.values().length];
         for (int i = 0; i < Month.values().length; i++) {
-            Log.d("DataPointGenerator", "Y value is: " + coordinatePointData.get(Month.values()[i]));
+            Log.d("DataPointGenerator", "Y value is: "
+                    + coordinatePointData.get(Month.values()[i]));
             dataPoints[i] = new DataPoint(i, coordinatePointData.get(Month.values()[i]));
         }
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints);
@@ -106,13 +110,13 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         });
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-        if(this.dataType.equals("virus")) {
+        if("virus".equals(this.dataType)) {
             Log.d("Display Graph", "Showing data for virus");
             graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
                     + " of " + "Virus PPM");
             graph.getGridLabelRenderer().setVerticalAxisTitle("Avg Virus PPM");
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
-        } else if(this.dataType.equals("contaminant")) {
+        } else if("contaminant".equals(this.dataType)) {
             Log.d("Display Graph", "Showing data for contaminant");
             graph.setTitle("Historical Reports for " + this.location + "\nfor " + this.year
                     + " of " + "Contaminant PPM");
@@ -162,10 +166,14 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                             month = "December";
                             break;
                     }
-                    if(dataType.equals("virus")) {
-                        Toast.makeText(getApplicationContext(), "Average Virus PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
-                    } else if (dataType.equals("contaminant")) {
-                        Toast.makeText(getApplicationContext(), "Average Contaminant PPM for " + month + ": " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                    if("virus".equals(dataType)) {
+                        Toast.makeText(getApplicationContext(),
+                                "Average Virus PPM for " + month + ": " + dataPoint.getY(),
+                                Toast.LENGTH_SHORT).show();
+                    } else if ("contaminant".equals(dataType)) {
+                        Toast.makeText(getApplicationContext(),
+                                "Average Contaminant PPM for " + month + ": " + dataPoint.getY(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -208,14 +216,17 @@ public class ViewHistoricalGraph extends AppCompatActivity {
         // and location.  Now, need to divide these into months.
         // Am instantiating a hashmap where the key is the month, the value is the
         // total PPM for the provided data type.
-        if(this.dataType.equals("virus")) {
+        if("virus".equals(this.dataType)) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
                 // Get the current report's key
-                Log.d("ViewHistoricalGraph", "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
-                        substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')).toUpperCase()));
+                Log.d("ViewHistoricalGraph",
+                        "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
+                        substring(0, currentWaterPurityReport.getDateOfReport().
+                                indexOf(' ')).toUpperCase()));
 //                Log.d("ViewHistoricalGraph", "Month found: " + Month.valueOf("MAR"));
                         month = Month.valueOf(currentWaterPurityReport.getDateOfReport().
-                        substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')).toUpperCase());
+                        substring(0, currentWaterPurityReport.getDateOfReport().
+                                indexOf(' ')).toUpperCase());
 
                 // Get the current report's value
                 ppmValue = currentWaterPurityReport.getReportedVirusPPM();
@@ -267,13 +278,16 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                     graphAveragePPMValues.put(month, averagePPMForMonth);
                 }
             }
-        } else if(this.dataType.equals("contaminant")) {
+        } else if("contaminant".equals(this.dataType)) {
             for (WaterPurityReport currentWaterPurityReport : matchedWaterPurityReports) {
-                Log.d("ViewHistoricalGraph", "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
-                        substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')).toUpperCase()));
+                Log.d("ViewHistoricalGraph",
+                        "Month found: " + Month.valueOf(currentWaterPurityReport.getDateOfReport().
+                        substring(0, currentWaterPurityReport.getDateOfReport().
+                                indexOf(' ')).toUpperCase()));
                 // Get the current report's key
                 month = Month.valueOf(currentWaterPurityReport.getDateOfReport().
-                        substring(0, currentWaterPurityReport.getDateOfReport().indexOf(' ')).toUpperCase());
+                        substring(0, currentWaterPurityReport.getDateOfReport().
+                                indexOf(' ')).toUpperCase());
 
                 // Get the current report's value
                 ppmValue = currentWaterPurityReport.getReportedContaminantPPM();
@@ -319,7 +333,8 @@ public class ViewHistoricalGraph extends AppCompatActivity {
                     averagePPMForMonth = graphAggregateValues.get(month);
                     graphAveragePPMValues.put(month, averagePPMForMonth);
                 } else {
-                    averagePPMForMonth = graphAggregateValues.get(month) / graphCountValues.get(month);
+                    averagePPMForMonth =
+                            graphAggregateValues.get(month) / graphCountValues.get(month);
 //                    Log.d("Calculated Average", graphAggregateValues.get(month).toString());
                     Log.d("Calculating Average", "numerator is " + graphAggregateValues.get(month));
                     Log.d("Calculated Average", "denominator is " + graphCountValues.get(month));

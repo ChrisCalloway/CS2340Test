@@ -48,7 +48,7 @@ public class UserManager {
 
     public void getCurrentUser() throws UserNotAuthenticatedException {
         String userId = DBWrapper.getCurrentUserId();
-        if (userId.length() > 0) {
+        if (!userId.isEmpty()) {
             DBWrapper.setQuerySingleResultListener(new QuerySingleResultListener() {
                 @Override
                 public <T> void onComplete(T result) {

@@ -16,20 +16,36 @@ public class Location implements Serializable {
     private double latitude;
     private double longitude;
 
-
+    /**
+     * Constructor for the location class
+     */
    @SuppressWarnings("unused")
    public Location() {
 
    }
 
+    /**
+     * Constructor for the location class
+     * @param latitude The latitude of the location
+     * @param longitude The longitude of the location
+     */
     public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
+    /**
+     * Method that will get the location's latitude
+     * @return the latitude of the location
+     */
     public double getLatitude() {
         return this.latitude;
     }
+
+    /**
+     * Method that will get the location's longitude
+     * @return the longitude of the location
+     */
     public double getLongitude() {
         return this.longitude;
     }

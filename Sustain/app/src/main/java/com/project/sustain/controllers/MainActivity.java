@@ -22,11 +22,16 @@ import com.project.sustain.R;
 import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Activity that handles the main screen of the app.
+ * Also handles the nav menu
+ */
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     private User mUser;
     private UserManager mUserManager;
-    // --Commented out by Inspection (4/10/2017 21:05 PM):private UserResultListener mUserResultListener;
+    // --Commented out by Inspection (4/10/2017 21:05 PM):
+    // private UserResultListener mUserResultListener;
 
     private static final int PROFILE_CHANGE_REQ = 1000;
 
@@ -61,11 +66,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, SetAddressActivity.class);
                 intent.putExtra("user", mUser);
                 startActivity(intent);
-/*
+                /*
                 String toPassIn = getToolbarTitle();
-                Intent forWtrRptSubmit = new Intent(MainActivity.this, WaterRptSubmitActivity.class);
+                Intent forWtrRptSubmit = new Intent(MainActivity.this,
+                        WaterRptSubmitActivity.class);
                 forWtrRptSubmit.putExtra("nameRetrieval", toPassIn);
-                startActivity(forWtrRptSubmit); */
+                startActivity(forWtrRptSubmit);
+                */
             }
         });
 

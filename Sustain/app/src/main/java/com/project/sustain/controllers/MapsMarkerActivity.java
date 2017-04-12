@@ -23,7 +23,9 @@ import com.project.sustain.model.Location;
 import com.project.sustain.model.WaterReportManager;
 import com.project.sustain.model.WaterSourceReport;
 
-
+/**
+ * Activity that handles the map screen.
+ */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback,
             GoogleApiClient.ConnectionCallbacks,
@@ -85,12 +87,15 @@ public class MapsMarkerActivity extends AppCompatActivity
                         String place = report.getAddress().getPlaceName();
                         Location loc = report.getAddress().getLocation();
                         //Log.d(TAG, report.toString());
-                        String reportInfo = report.getWaterType() + ", " + report.getWaterCondition();
-                        if (!place.equals("")) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                        String reportInfo = report.getWaterType()
+                                + ", " + report.getWaterCondition();
+                        if (!"".equals(place)) {
+                            mMap.addMarker(
+                                    new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title(place).snippet(reportInfo));
                         } else {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                            mMap.addMarker(
+                                    new MarkerOptions().position(new LatLng(loc.getLatitude(),
                                     loc.getLongitude())).title("Water Source").snippet(reportInfo));
                         }
                     }
@@ -190,8 +195,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if ((grantResults.length > 0)
+                        && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     mLocationPermissionGranted = true;
                 }
             }

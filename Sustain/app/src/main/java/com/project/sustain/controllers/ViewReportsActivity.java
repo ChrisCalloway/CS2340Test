@@ -51,7 +51,8 @@ public class ViewReportsActivity extends AppCompatActivity {
             support.setDisplayHomeAsUpEnabled(true);
             support.setDisplayShowHomeEnabled(true);
         }
-        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
+        FloatingActionButton mFab =
+                (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,22 +81,25 @@ public class ViewReportsActivity extends AppCompatActivity {
         };
         mReportManager.setQueryListResultListener(qrListener);
 
-        if (reportTypeToShow.equals("source")) {
+        if ("source".equals(reportTypeToShow)) {
             mReportManager.getWaterSourceReports();
-        } else if (reportTypeToShow.equals("purity")) {
+        } else if ("purity".equals(reportTypeToShow)) {
             mReportManager.getWaterPurityReports();
         }
 
-        RecyclerView wtrRepRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        RecyclerView wtrRepRecyclerView =
+                (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
 
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager =
+                new LinearLayoutManager(getApplicationContext());
         wtrRepRecyclerView.setLayoutManager(mLayoutManager);
         wtrRepRecyclerView.setItemAnimator(new DefaultItemAnimator());
         wtrRepRecyclerView.setAdapter(wRAdapter);
 
 
-        wtrRepRecyclerView.addOnItemTouchListener(new WaterReportRecyclerTouchListener(getApplicationContext(),
+        wtrRepRecyclerView.addOnItemTouchListener(
+                new WaterReportRecyclerTouchListener(getApplicationContext(),
                 wtrRepRecyclerView, new WaterReportRecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -121,7 +125,7 @@ public class ViewReportsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (mReportManager != null && qrListener != null) {
+        if ((mReportManager != null) && (qrListener != null)) {
             mReportManager.setQueryListResultListener(qrListener);
         }
         super.onResume();

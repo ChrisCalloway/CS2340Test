@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Activity that handles the selection of the historical data
+ */
 public class SelectHistoricalData extends AppCompatActivity {
 
     private Spinner spinLocationName;
@@ -82,7 +85,8 @@ public class SelectHistoricalData extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HistoricalGraphDataCalculator calculatedGraphData = new HistoricalGraphDataCalculator();
+                HistoricalGraphDataCalculator calculatedGraphData =
+                        new HistoricalGraphDataCalculator();
                 // Check to ensure all fields have data inputted.
                 // If so, use data to do a search on the Firebase database
                 // and use returned results to build out history graph

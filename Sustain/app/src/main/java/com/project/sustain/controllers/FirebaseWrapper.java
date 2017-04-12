@@ -47,6 +47,9 @@ public class FirebaseWrapper implements DatabaseWrapper {
 
     private static final String TAG = "FirebaseWrapper";
 
+    /**
+     * Wrapper class for firebase
+     */
     public FirebaseWrapper() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -124,6 +127,10 @@ public class FirebaseWrapper implements DatabaseWrapper {
         return userEmail;
     }
 
+    /**
+     * Method that will check if the user is logged in
+     * @return whether the user is logged in or not
+     */
     public boolean isLoggedIn() {
         if (mUser == null) {
             getCurrentUser();
@@ -197,7 +204,8 @@ public class FirebaseWrapper implements DatabaseWrapper {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Log.d("FirebaseWrapper", "Got water report" + snapshot.getValue(mModelObject.getClass()));
+                        Log.d("FirebaseWrapper", "Got water report"
+                                + snapshot.getValue(mModelObject.getClass()));
                         resultList.add((T)snapshot.getValue(mModelObject.getClass()));
                     }
                     if (mQueryEntireListListener != null) {

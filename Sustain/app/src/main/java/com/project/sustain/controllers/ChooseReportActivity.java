@@ -11,6 +11,9 @@ import android.widget.RadioGroup;
 import com.project.sustain.R;
 import com.project.sustain.model.User;
 
+/**
+ * Chooses which view to show the user based on the user's permissions
+ */
 public class ChooseReportActivity extends AppCompatActivity {
     private String reportType = "source";
     private User mUser;

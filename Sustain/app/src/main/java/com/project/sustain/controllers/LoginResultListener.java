@@ -7,6 +7,7 @@ import java.util.EventListener;
  * @author Marcia
  */
 
+@SuppressWarnings("JavaDoc")
 public interface LoginResultListener extends EventListener {
     void onComplete(boolean success);
     void onError(Throwable error);

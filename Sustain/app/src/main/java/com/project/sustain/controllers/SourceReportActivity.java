@@ -15,6 +15,9 @@ import com.project.sustain.model.WaterReportManager;
 import com.project.sustain.model.WaterSourceReport;
 import com.project.sustain.model.WaterType;
 
+/**
+ * Activity that handles viewing of the water source reports
+ */
 public class SourceReportActivity extends AppCompatActivity {
     private WaterReportManager mReportManager;
     @Override

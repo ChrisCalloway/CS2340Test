@@ -50,7 +50,8 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
             support.setDisplayHomeAsUpEnabled(true);
             support.setDisplayShowHomeEnabled(true);
         }
-        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
+        FloatingActionButton mFab =
+                (FloatingActionButton) findViewById(R.id.activity_water_source_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,8 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
         mReportManager.setQueryListResultListener(qrListener);
         mReportManager.getWaterSourceReports();
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
+        RecyclerView mRecyclerView =
+                (RecyclerView) findViewById(R.id.activity_water_source_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -93,7 +95,8 @@ public class WaterSourceReportsActivity extends AppCompatActivity{
             public void onClick(View view, int position) {
                 Report reportClicked = mReportList.get(position);
                 //intent to be created.
-                Intent intent = new Intent(WaterSourceReportsActivity.this, ViewReportActivity.class);
+                Intent intent = new Intent(WaterSourceReportsActivity.this,
+                        ViewReportActivity.class);
                 intent.putExtra("report", reportClicked);
                 startActivity(intent);
             }

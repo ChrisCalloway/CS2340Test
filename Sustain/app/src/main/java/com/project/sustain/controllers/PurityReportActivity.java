@@ -14,6 +14,9 @@ import com.project.sustain.model.OverallWaterCondition;
 import com.project.sustain.model.WaterPurityReport;
 import com.project.sustain.model.WaterReportManager;
 
+/**
+ * Activity that displays the purity report
+ */
 public class PurityReportActivity extends AppCompatActivity {
     private WaterReportManager mReportManager;
     @Override
