@@ -1,31 +1,17 @@
 package com.project.sustain;
 
-import android.content.Intent;
-import android.security.keystore.UserNotAuthenticatedException;
-
 import com.project.sustain.controllers.AuthResultListener;
 import com.project.sustain.controllers.FirebaseWrapper;
-import com.project.sustain.controllers.LoginActivity;
 import com.project.sustain.controllers.LoginResultListener;
-import com.project.sustain.controllers.MainActivity;
-import com.project.sustain.controllers.QuerySingleResultListener;
-import com.project.sustain.controllers.RegistrationResultListener;
-import com.project.sustain.controllers.UserResultListener;
-import com.project.sustain.model.Address;
-import com.project.sustain.model.User;
 import com.project.sustain.model.UserManager;
-import com.project.sustain.model.UserType;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.KeyStore;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 
 /**
  * Does JUnit for getCurrentUser
@@ -33,7 +19,6 @@ import static junit.framework.Assert.assertTrue;
  */
 
 public class UserManagerGetCurrentUserTest {
-    private User mUser;
     private UserManager mUserManager;
     private FirebaseWrapper mFirebaseWrapper;
     private boolean ready = false;
