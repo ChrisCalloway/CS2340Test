@@ -73,16 +73,10 @@ public class UserManagerRegisterTest {
         // Need to give proper inputs, email not yet used.
         String email = "chris_register_test@email.com";
         String password = "password";
-//        mFirebaseWrapper.createAccountWithEmailPassword(email, password);
         mUserManager.registerWithEmailPassword(email, password);
         while (!ready) {
             Thread.sleep(5000);
         }
-
-
-        // String userId = mFirebaseWrapper.getCurrentUserId();
-        //assert userId is correct value
-        // assertEquals("M04uLja9QPSz7IVhYw5yyv3AgLb2", userId);
         //assert user email is correct value
         assertEquals("chris_register_test@email.com", mFirebaseWrapper.getCurrentUserEmail());
         //assert isLoggedIn == true
@@ -95,7 +89,6 @@ public class UserManagerRegisterTest {
         ready = false;
         String email = "chris_user@email.com";
         String password = "notcorrectpassword";
-//        mFirebaseWrapper.createAccountWithEmailPassword(email, password);
         mUserManager.registerWithEmailPassword(email, password);
         while (!ready) {
             Thread.sleep(5000);
@@ -109,5 +102,4 @@ public class UserManagerRegisterTest {
         //assert isLoggedIn == false
         assertEquals(false, mFirebaseWrapper.isLoggedIn());
     }
-
 }
